@@ -24,29 +24,23 @@ jobs:
       - name: 下载并校验补丁
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 -o /tmp/zh.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-zh.patch"
-          echo "c5ba25ca2b38820150adc64a6f1fa5759a2a234b2bb9e39b80cea030b73c5d38  /tmp/zh.patch" | sha256sum -c -
+          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix2.patch"
+          echo "621f07abca66de66f8cd9dc9d88ac068fa22aa30b2b23bfd8156192a08216ce3  /tmp/fix.patch" | sha256sum -c -
 
-      - name: git apply --check
-        run: git apply --check --verbose /tmp/zh.patch
-
-      - name: git apply
-        run: git apply --stat /tmp/zh.patch && git apply /tmp/zh.patch
-
-      - name: git 身份
+      - name: 应用补丁并提交（已应用则跳过）
         run: |
-          git config user.name "minshop-bot"
-          git config user.email "actions@users.noreply.github.com"
-
-      - name: git add
-        run: git add -A && git status --short | head -20
-
-      - name: git commit
-        run: |
-          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置" -m "补丁 sha256: c5ba25ca2b38820150adc64a6f1fa5759a2a234b2bb9e39b80cea030b73c5d38"
-
-      - name: git push
-        run: git push 2>&1
+          set -euo pipefail
+          if git apply --check /tmp/fix.patch 2>/dev/null; then
+            git apply --stat /tmp/fix.patch
+            git apply /tmp/fix.patch
+            git config user.name "minshop-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "fix: 测试断言与错误消息中文化（第二轮）" -m "补丁 sha256: 621f07abca66de66f8cd9dc9d88ac068fa22aa30b2b23bfd8156192a08216ce3"
+            git push
+          else
+            echo "补丁已应用或不再适用，跳过提交"
+          fi
 
       - name: 失败时记录日志
         if: failure()
@@ -57,7 +51,7 @@ jobs:
             echo "- HEAD: $(git rev-parse HEAD)"
             echo
             echo '```'
-            git apply --check --verbose /tmp/zh.patch 2>&1 || true
+            git apply --check --verbose /tmp/fix.patch 2>&1 || true
             echo '```'
           } > APPLY_ERROR.md || true
           git config user.name "minshop-bot"
