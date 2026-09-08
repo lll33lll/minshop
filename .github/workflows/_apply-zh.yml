@@ -42,7 +42,8 @@ jobs:
         run: git add -A && git status --short | head -20
 
       - name: git commit
-        run: git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365"
+        run: |
+          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365"
 
       - name: git push
         run: git push 2>&1
