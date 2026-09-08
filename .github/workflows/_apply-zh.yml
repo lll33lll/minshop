@@ -27,19 +27,43 @@ jobs:
           curl -fsSL --retry 3 -o /tmp/zh.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-zh.patch"
           echo "e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365  /tmp/zh.patch" | sha256sum -c -
 
-      - name: 应用补丁并提交
+      - name: git apply --check
+        run: git apply --check --verbose /tmp/zh.patch
+
+      - name: git apply
+        run: git apply --stat /tmp/zh.patch && git apply /tmp/zh.patch
+
+      - name: git 身份
         run: |
-          set -euo pipefail
-          git apply --check /tmp/zh.patch
-          git apply /tmp/zh.patch
           git config user.name "minshop-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -A
-          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365"
-          git push
 
-      - name: 记录基线
-        run: echo "APPLIED_AT=$(date -u +%FT%TZ)" >> "$GITHUB_STEP_SUMMARY"
+      - name: git add
+        run: git add -A && git status --short | head -20
+
+      - name: git commit
+        run: git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365"
+
+      - name: git push
+        run: git push 2>&1
+
+      - name: 失败时记录日志
+        if: failure()
+        run: |
+          {
+            echo "# apply 失败诊断"
+            echo "- 运行时间: $(date -u +%FT%TZ)"
+            echo "- HEAD: $(git rev-parse HEAD)"
+            echo
+            echo '```'
+            git apply --check --verbose /tmp/zh.patch 2>&1 || true
+            echo '```'
+          } > APPLY_ERROR.md || true
+          git config user.name "minshop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add APPLY_ERROR.md || true
+          git commit -m "chore: apply 失败诊断日志" || echo "nothing to commit"
+          git push || echo "push failed too"
 
   verify:
     needs: apply
