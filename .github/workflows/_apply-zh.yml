@@ -1,0 +1,84 @@
+name: 应用中文化补丁
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/_apply-zh.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-zh
+  cancel-in-progress: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 下载并校验补丁
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o /tmp/zh.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-zh.patch"
+          echo "b84cc030ae80074845a2223fdb187ae1bfb79a17da97a16f7f8d9e9bdc5674f0  /tmp/zh.patch" | sha256sum -c -
+
+      - name: 应用补丁并提交
+        run: |
+          set -euo pipefail
+          git apply --3way /tmp/zh.patch
+          git config user.name "minshop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: b84cc030ae80074845a2223fdb187ae1bfb79a17da97a16f7f8d9e9bdc5674f0"
+          git push
+
+      - name: 上传基线 run id
+        run: echo "APPLIED_AT=$(date -u +%FT%TZ)" >> "$GITHUB_STEP_SUMMARY"
+
+  verify:
+    needs: apply
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 跑全套 verify
+        run: |
+          set -o pipefail
+          {
+            echo "# verify 运行报告"
+            echo
+            echo "- 运行时间: $(date -u +%FT%TZ)"
+            echo "- 提交: $(git rev-parse --short HEAD)"
+            echo
+            echo '```'
+          } > VERIFY_REPORT.md
+          if npm run verify 2>&1 | tee -a VERIFY_REPORT.md; then
+            echo '```' >> VERIFY_REPORT.md
+            echo "- 结果: ✅ 全部通过" >> VERIFY_REPORT.md
+          else
+            echo '```' >> VERIFY_REPORT.md
+            echo "- 结果: ❌ 有失败项（见上方日志）" >> VERIFY_REPORT.md
+          fi
+
+      - name: 提交报告
+        run: |
+          git config user.name "minshop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add VERIFY_REPORT.md
+          git commit -m "chore: verify 运行报告" || echo "no changes"
+          git push
