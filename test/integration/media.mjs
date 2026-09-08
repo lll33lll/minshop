@@ -291,7 +291,7 @@ try {
     assert.equal(await deleteMediaRecord(db, m.id), 'media/vanishing.png');
     const result = await attachMediaToProduct(db, 903, m.id);
     assert.equal(result.ok, false);
-    assert.match(result.error, /no longer in the media library/);
+    assert.match(result.error, /该图片已不在媒体库中/);
     const rows = await db
       .prepare('SELECT COUNT(*) c FROM product_images WHERE product_id = 903')
       .first();
@@ -304,7 +304,7 @@ try {
     assert.equal((await attachMediaToProduct(db, 904, m.id)).ok, true);
     const second = await attachMediaToProduct(db, 904, m.id);
     assert.equal(second.ok, false);
-    assert.match(second.error, /already in this product/);
+    assert.match(second.error, /该图片已在此商品相册中/);
   });
 
   await check('attaching appends at the next gallery position', async () => {
@@ -355,7 +355,7 @@ try {
     assert.equal(await setLogoFromMedia(db, 'media/never-existed.png'), false);
     const after = await db.prepare("SELECT value FROM settings WHERE key='logo_image_key'").first();
     assert.equal(after.value, m.image_key, 'a missing key overwrote a good logo');
-    await db.prepare("DELETE FROM settings WHERE key='logo_image_key'").run();
+    await db.prepare("DELETE FROM settings WHERE key = 'logo_image_key'").run();
   });
 
   await check('product image replacement is guarded on the media row', async () => {
