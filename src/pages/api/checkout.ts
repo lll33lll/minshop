@@ -373,7 +373,7 @@ export const POST: APIRoute = async ({ request, cookies, url, redirect }) => {
   if (!reserved) {
     await deleteGuestAccessIfUnsettled(env.DB, publicId);
     return redirect(
-      `${errorPath}?error=${encodeURIComponent('Some inventory just sold out — please review your cart.')}`,
+      `${errorPath}?error=${encodeURIComponent('部分商品刚售罄，请检查购物车。')}`,
       303,
     );
   }
@@ -457,11 +457,11 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
   try {
     body = JSON.parse(raw);
   } catch {
-    return cjson({ error: 'Invalid JSON body.' }, 400);
+    return cjson({ error: '请求体 JSON 无效。' }, 400);
   }
   const rawItems = (body as { items?: unknown })?.items;
   if (!Array.isArray(rawItems) || rawItems.length === 0) {
-    return cjson({ error: 'Body must be { "items": [{ "product_id": "prod_…", "quantity": number }] }.' }, 400);
+    return cjson({ error: '请求体格式应为 { "items": [{ "product_id": "prod_…", "quantity": number }] }。' }, 400);
   }
   if (rawItems.length > MAX_CHECKOUT_LINES) {
     return cjson({ error: `A checkout can contain at most ${MAX_CHECKOUT_LINES} lines.` }, 400);
@@ -507,7 +507,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
     // The legacy numeric `extras` array is rejected outright, not silently read.
     if (r.extras !== undefined) {
       return cjson(
-        { error: 'The numeric "extras" array is no longer accepted; pass "extra_ids": ["xtra_…"].' },
+        { error: '不再接受数字型 "extras" 数组，请传 "extra_ids": ["xtra_…"]。' },
         400,
       );
     }
@@ -520,7 +520,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
       const pid = parsePublicId(r.product_id, 'product');
       if (!pid) {
         return cjson(
-          { error: 'Each "product_id" must be a prefixed public ID ("prod_…") — numeric IDs are not accepted.' },
+          { error: '每个 "product_id" 必须是带前缀的公开 ID（"prod_…"），不接受数字 ID。' },
           400,
         );
       }
@@ -528,7 +528,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
       product = await getProductByPublicId(env.DB, pid);
     } else {
       const slug = typeof r.slug === 'string' ? r.slug.trim() : '';
-      if (!slug) return cjson({ error: 'Each item needs a "product_id" (or "slug").' }, 400);
+      if (!slug) return cjson({ error: '每个条目需要 "product_id"（或 "slug"）。' }, 400);
       selector = slug;
       product = await getProductBySlug(env.DB, slug);
     }
@@ -572,7 +572,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
         const xid = parsePublicId(x, 'extra');
         if (!xid) {
           return cjson(
-            { error: 'Every "extra_ids" entry must be a prefixed public ID ("xtra_…") — numeric IDs are not accepted.' },
+            { error: '每个 "extra_ids" 条目必须是带前缀的公开 ID（"xtra_…"），不接受数字 ID。' },
             400,
           );
         }
@@ -641,7 +641,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
       );
       return cjson(
         {
-          error: 'Shipping cannot be calculated: some items have no shipping weight recorded.',
+          error: '无法计算运费：部分商品没有录入配送重量。',
           reason: 'missing_weight',
           items: quote.missingWeight.map((m) => ({
             product_id: productByRowId.get(m.productId)?.public_id ?? null,
@@ -778,7 +778,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
     );
     if (!lnReserved) {
       await deleteGuestAccessIfUnsettled(env.DB, lnPublicId);
-      return cjson({ error: 'Some inventory just sold out. Refresh the catalog and retry.' }, 409);
+      return cjson({ error: '部分商品刚售罄，请刷新商品列表后重试。' }, 409);
     }
     try {
       const minted = await mintLightningOrder(env.DB, await getLightningBackend(), {
@@ -870,7 +870,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
   );
   if (!reserved) {
     await deleteGuestAccessIfUnsettled(env.DB, publicId);
-    return cjson({ error: 'Some inventory just sold out. Refresh the catalog and retry.' }, 409);
+    return cjson({ error: '部分商品刚售罄，请刷新商品列表后重试。' }, 409);
   }
 
   let result;

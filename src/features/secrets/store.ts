@@ -71,7 +71,7 @@ export async function setSecret(
   plaintext: string | null | undefined,
 ): Promise<void> {
   const k = kek();
-  if (!k) throw new Error('Cannot store keys: set the SECRETS_KEK Worker secret first.');
+  if (!k) throw new Error('无法存储密钥：请先设置 SECRETS_KEK Worker secret。');
   if (!plaintext) {
     await setSetting(db, encKey(name), null);
     return;

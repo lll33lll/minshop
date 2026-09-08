@@ -335,7 +335,7 @@ export function parseRuntimeShippingConfig(
   try {
     value = JSON.parse(raw);
   } catch {
-    return { status: 'invalid', raw, error: 'The stored shipping configuration is not valid JSON.' };
+    return { status: 'invalid', raw, error: '存储的配送配置不是有效 JSON。' };
   }
   if (typeof value !== 'object' || value === null || Array.isArray(value)) {
     return { status: 'invalid', raw, error: '存储的配送配置不是有效对象。' };
@@ -361,7 +361,7 @@ export function parseRuntimeShippingConfig(
   const isLegacy = doc.schema < 2;
   if (!isLegacy) {
     if (typeof doc.enabled !== 'boolean') {
-      return { status: 'invalid', raw, error: 'The shipping configuration has no valid on/off value.' };
+      return { status: 'invalid', raw, error: '配送配置的启用状态无效。' };
     }
     if (!Number.isSafeInteger(doc.packageWeightGrams)) {
       return { status: 'invalid', raw, error: '配送配置的包装重量无效。' };
@@ -386,7 +386,7 @@ export function parseRuntimeShippingConfig(
       }
     }
   } else if (typeof doc.enabled !== 'boolean') {
-    return { status: 'invalid', raw, error: 'The shipping configuration has no valid on/off value.' };
+    return { status: 'invalid', raw, error: '配送配置的启用状态无效。' };
   }
 
   const normalized: RuntimeShippingConfig = {

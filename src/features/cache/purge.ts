@@ -46,7 +46,7 @@ export async function purgeCacheTags(
     purgeFailure('everything', error instanceof Error ? error.message : String(error));
   }
 
-  throw new Error('The data was saved, but the Workers cache could not be invalidated.');
+  throw new Error('数据已保存，但 Workers 缓存未能失效。');
 }
 
 export function purgeProductCache(
@@ -67,7 +67,7 @@ export async function purgeEntireCache(
   } catch (error) {
     purgeFailure('everything', error instanceof Error ? error.message : String(error));
   }
-  throw new Error('The Workers cache could not be purged.');
+  throw new Error('Workers 缓存清除失败。');
 }
 
 /**

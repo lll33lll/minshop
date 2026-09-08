@@ -31,7 +31,7 @@ describe('usageLinks', () => {
   it('links the logo to settings, where it is chosen', () => {
     // The logo is a setting rather than a row, so there is no per-item URL.
     expect(usageLinks(usage({ logo: true }))).toEqual([
-      { href: '/admin/settings', label: 'Store logo', kind: 'logo', title: 'Change the logo in Settings' },
+      { href: '/admin/settings', label: '店铺 Logo', kind: 'logo', title: '到设置里更换 Logo' },
     ]);
   });
 

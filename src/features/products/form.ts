@@ -31,12 +31,12 @@ export function parseProductForm(
 
   const price = Number(String(form.get('price') ?? '').trim());
   if (!Number.isFinite(price) || price < 0) {
-    return { error: 'Price must be a non-negative number.' };
+    return { error: '价格必须是非负数字。' };
   }
 
   const stock = Number(String(form.get('stock') ?? '0').trim());
   if (!Number.isInteger(stock) || stock < 0) {
-    return { error: 'Stock must be a non-negative whole number.' };
+    return { error: '库存必须是非负整数。' };
   }
 
   const currency = String(form.get('currency') ?? 'usd').trim().toLowerCase() || 'usd';
@@ -56,8 +56,7 @@ export function parseProductForm(
   } else if (requireWeight && requires_shipping === 1 && active === 1) {
     return {
       error:
-        'This product needs a shipping weight: every shipping zone prices by weight, ' +
-        'so without one it cannot be purchased.',
+        '此商品需要配送重量：所有配送区域都按重量计价，没有重量就无法购买。',
     };
   }
 

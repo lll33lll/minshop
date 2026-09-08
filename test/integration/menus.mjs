@@ -298,7 +298,7 @@ await check('unavailable targets vanish from the storefront but stay listed for 
   assert.equal(visibleItems(menus.footer).length, 0, 'storefront renders none of them');
   assert.deepEqual(
     menus.footer.map((i) => unavailableReason(i)),
-    ['Draft — hidden on the storefront', 'Inactive — hidden on the storefront', 'Target no longer exists'],
+    ['草稿——门面不显示', '已下架——门面不显示', '目标已不存在'],
   );
 });
 
@@ -421,7 +421,7 @@ await check('a draft target keeps its draft reason (not confused with deletion)'
   await db.prepare('UPDATE pages SET published = 0 WHERE id = 1').run();
   const item = (await getMenus(db, null)).footer[0];
   assert.equal(item.targetExists, true, 'the row is still there');
-  assert.equal(unavailableReason(item), 'Draft — hidden on the storefront');
+  assert.equal(unavailableReason(item), '草稿——门面不显示');
 });
 
 await check('a stale home-page setting does not raise a false catalog warning', async () => {

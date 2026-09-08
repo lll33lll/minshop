@@ -21,10 +21,10 @@ const ALLOWED = new Map([
 /** Returns a user-facing error string if the upload is invalid, else null. */
 export function validateUpload(file: File): string | null {
   if (!ALLOWED.has(file.type)) {
-    return 'Image must be JPEG, PNG, WebP, or GIF.';
+    return '图片必须是 JPEG、PNG、WebP 或 GIF 格式。';
   }
   if (file.size > MAX_BYTES) {
-    return 'Image must be 5 MB or smaller.';
+    return '图片不能超过 5 MB。';
   }
   return null;
 }

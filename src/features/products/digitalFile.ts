@@ -11,11 +11,11 @@ const ALLOWED = new Map<string, Set<string>>([
 ]);
 
 export function validateDigitalFile(file: File): string | null {
-  if (file.size < 1) return 'Choose a non-empty deliverable file.';
-  if (file.size > MAX_FILE_BYTES) return 'Deliverable files must be 25 MB or smaller.';
+  if (file.size < 1) return '请选择非空的交付文件。';
+  if (file.size > MAX_FILE_BYTES) return '交付文件不能超过 25 MB。';
   const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
   if (!ALLOWED.get(file.type)?.has(ext)) {
-    return 'Use a PDF, ZIP, EPUB, MP3, M4A, or plain-text file.';
+    return '请使用 PDF、ZIP、EPUB、MP3、M4A 或纯文本文件。';
   }
   return null;
 }

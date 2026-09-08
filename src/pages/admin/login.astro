@@ -48,7 +48,7 @@ if (Astro.request.method === 'POST') {
   if (!tsOk) {
     error = 'Verification failed — please try again.';
   } else if (!pwOk) {
-    error = 'Incorrect password.';
+    error = '密码不正确。';
   } else {
     const token = await signSession(signingKey, cred.tagSource, SESSION_TTL, now);
     Astro.cookies.set('admin_session', token, {

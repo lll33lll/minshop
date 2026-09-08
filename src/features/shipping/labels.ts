@@ -87,7 +87,7 @@ export function parseParcelForm(
   const width = parseDimension(fields.width);
   const height = parseDimension(fields.height);
   if (length == null || width == null || height == null) {
-    return { error: 'Enter the parcel’s length, width, and height as positive numbers.' };
+    return { error: '包裹的长、宽、高请填写正数。' };
   }
   const weight: WeightParseResult = toGrams(fields.weight, unit);
   if (weight.status !== 'ok' || weight.grams <= 0) {
@@ -287,7 +287,7 @@ export async function getShipmentRates(
   const result = await shippo(token, `/shipments/${encodeURIComponent(shipmentId)}`);
   if (!result.ok) return result;
   const rates = parseRates(result.value as ShippoShipment);
-  if (rates.length === 0) return { ok: false, error: 'That rate list has expired. Fetch rates again.' };
+  if (rates.length === 0) return { ok: false, error: '报价列表已过期，请重新获取。' };
   return { ok: true, value: rates };
 }
 

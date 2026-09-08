@@ -37,7 +37,7 @@ const doc = (over: Partial<RuntimeShippingConfig> = {}): RuntimeShippingConfig =
   packageWeightGrams: 0,
   zones: [
     {
-      name: 'United States',
+      name: '美国',
       countries: ['US'],
       rates: [{ label: 'Standard', pricing: { type: 'flat', amountCents: 600 } }],
       freeOverCents: null,
@@ -94,7 +94,7 @@ describe('parseRuntimeShippingConfig', () => {
       enabled: true,
       zones: [
         {
-          name: 'United States',
+          name: '美国',
           countries: ['US'],
           rates: [{ label: 'Standard', amountCents: 500 }],
           freeOverCents: null,
@@ -128,7 +128,7 @@ describe('effectiveShippingConfig', () => {
     // The document owns `enabled`; the legacy override must not leak back in.
     expect(effective.config.enabled).toBe(true);
     expect(effective.config.packageWeightGrams).toBe(40);
-    expect(effective.config.zones[0]!.name).toBe('United States');
+    expect(effective.config.zones[0]!.name).toBe('美国');
   });
   it('fails closed on an invalid document instead of restoring build-time rates', () => {
     const effective = effectiveShippingConfig(
@@ -184,7 +184,7 @@ describe('effectiveShippingConfig', () => {
       enabled: true,
       zones: [{ countries: ['US'], rates: [], freeOverCents: null }],
     };
-    expect(validateBuildTimeShipping(empty)).toMatch(/at least one shipping rate/i);
+    expect(validateBuildTimeShipping(empty)).toMatch(/请至少添加一个运费项/);
   });
   it('accepts an ordinary build-time configuration', () => {
     expect(validateBuildTimeShipping(buildTime)).toBeNull();
@@ -203,7 +203,7 @@ describe('validateShippingDocument', () => {
   });
   it('requires a zone and rate before enabling', () => {
     expect(messages(doc({ zones: [] }))).toContain(
-      'Add at least one zone with one rate before turning shipping on.',
+      '开启配送前，请至少添加一个包含运费项的区域。',
     );
   });
   it('rejects a country appearing in two zones', () => {
@@ -222,7 +222,7 @@ describe('validateShippingDocument', () => {
         { ...doc().zones[0]!, name: 'HOME', countries: ['CA'] },
       ],
     });
-    expect(messages(two)).toContain('Another zone already uses this name.');
+    expect(messages(two)).toContain('已有其他区域使用该名称。');
   });
   it('rejects an unknown country code', () => {
     expect(messages(doc({ zones: [{ ...doc().zones[0]!, countries: ['ZZ'] }] }))).toContain(
@@ -231,7 +231,7 @@ describe('validateShippingDocument', () => {
   });
   it('keeps the catch-all alone and last', () => {
     const mixed = doc({ zones: [{ ...doc().zones[0]!, countries: ['*', 'US'] }] });
-    expect(messages(mixed)).toContain('Rest of world cannot be combined with specific countries.');
+    expect(messages(mixed)).toContain('「世界其他地区」不能与具体国家同时使用。');
     const notLast = doc({
       zones: [
         { ...doc().zones[0]!, name: 'World', countries: ['*'] },
@@ -252,7 +252,7 @@ describe('validateShippingDocument', () => {
         },
       ],
     });
-    expect(messages(dupe)).toContain('Another rate in this zone uses this label.');
+    expect(messages(dupe)).toContain('该区域内已有同名运费项。');
   });
   it('reserves the free-shipping label while a threshold is set', () => {
     const collide = doc({
@@ -295,7 +295,7 @@ describe('validateShippingDocument', () => {
         },
       ],
     });
-    expect(messages(bands)).toContain('Each band must be heavier than the one above it.');
+    expect(messages(bands)).toContain('每个区间的重量必须大于上一个。');
   });
   it('allows no maximum only on the final band', () => {
     const bands = doc({
@@ -317,7 +317,7 @@ describe('validateShippingDocument', () => {
         },
       ],
     });
-    expect(messages(bands)).toContain('Only the last band can have no maximum.');
+    expect(messages(bands)).toContain('只有最后一个区间可以不设上限。');
   });
   it('accepts a pickup rate and validates its fee like a flat price', () => {
     const pickup = doc({
@@ -348,20 +348,20 @@ describe('validateShippingDocument', () => {
         },
       ],
     });
-    expect(messages(empty)).toContain('Add at least one weight band.');
+    expect(messages(empty)).toContain('请至少添加一个重量区间。');
   });
 });
 
 describe('legacy migration', () => {
   it('names zones deterministically', () => {
-    expect(legacyZoneName(['US'], 0)).toBe('United States');
+    expect(legacyZoneName(['US'], 0)).toBe('美国');
     expect(legacyZoneName(['*'], 1)).toBe('Rest of world');
     expect(legacyZoneName(['US', 'CA'], 2)).toBe('Zone 3');
   });
   it('builds an editable candidate from raw build-time values', () => {
     const model = migrationCandidate(buildTime, null, 'usd');
     expect(model.revision).toBe(0);
-    expect(model.zones[0]!.name).toBe('United States');
+    expect(model.zones[0]!.name).toBe('美国');
     expect(model.zones[0]!.rates.map((r) => r.amountValue)).toEqual(['5', '15']);
     expect(model.zones[0]!.freeOverValue).toBe('50');
   });
@@ -383,7 +383,7 @@ describe('documentToForm', () => {
         packageWeightGrams: 40,
         zones: [
           {
-            name: 'United States',
+            name: '美国',
             countries: ['US'],
             rates: [
               {
@@ -434,7 +434,7 @@ describe('parseShippingForm', () => {
       .set('revision', '3')
       .set('package_weight', '40')
       .set('zone_order', 'z_a,z_b')
-      .set('zone[z_a][name]', 'United States')
+      .set('zone[z_a][name]', '美国')
       .set('zone[z_a][countries][]', 'us')
       .set('zone[z_a][rate_order]', 'r_1,r_2')
       .set('zone[z_a][rate][r_1][label]', 'Standard')
@@ -478,7 +478,7 @@ describe('parseShippingForm', () => {
   it('preserves order and ignores unreferenced rows', () => {
     const form = submitted().set('zone[z_ghost][name]', 'Nowhere');
     const { document } = parseShippingForm(form, { currency: 'usd', unit: 'g' });
-    expect(document.zones.map((z) => z.name)).toEqual(['United States', 'Rest of world']);
+    expect(document.zones.map((z) => z.name)).toEqual(['美国', 'Rest of world']);
   });
   it('parses a pickup rate from the editor', () => {
     const form = new TestForm()

@@ -70,9 +70,9 @@ describe('parseParcelForm', () => {
     expect(result.parcel).toEqual({ length: 12, width: 9, height: 3, weightGrams: 907 });
   });
   it('refuses missing or non-positive fields with a message', () => {
-    expect(parseParcelForm({ length: '', width: '9', height: '3', weight: '2' }, 'g').error).toMatch(/length/);
-    expect(parseParcelForm({ length: '12', width: '9', height: '3', weight: '0' }, 'g').error).toMatch(/weight/);
-    expect(parseParcelForm({ length: '12', width: '9', height: '3', weight: 'heavy' }, 'g').error).toMatch(/weight/);
+    expect(parseParcelForm({ length: '', width: '9', height: '3', weight: '2' }, 'g').error).toMatch(/长/);
+    expect(parseParcelForm({ length: '12', width: '9', height: '3', weight: '0' }, 'g').error).toMatch(/重量/);
+    expect(parseParcelForm({ length: '12', width: '9', height: '3', weight: 'heavy' }, 'g').error).toMatch(/重量/);
   });
   it('bounds a single dimension at ten metres', () => {
     expect(parseDimension('1000')).toBe(1000);

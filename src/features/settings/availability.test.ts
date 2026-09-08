@@ -38,7 +38,7 @@ describe('settings availability', () => {
     expect(stripeConfigured(configured, caps({ vault: true }))).toBe(true);
     expect(featureAvailability('discounts_enabled', configured, caps({ vault: false }))).toEqual({
       available: false,
-      reason: 'Unavailable until Stripe is configured',
+      reason: 'Stripe 配置完成后可用',
     });
   });
 
@@ -65,7 +65,7 @@ describe('settings availability', () => {
   it('reports binding-backed features as unavailable when bindings are absent', () => {
     expect(featureAvailability('image_optimize', settings(), caps())).toEqual({
       available: false,
-      reason: 'Unavailable until the IMAGES binding is added',
+      reason: '添加 IMAGES 绑定后可用',
     });
     expect(semanticSearchAvailable(caps({ ai: true, vectorize: false }))).toBe(false);
     expect(semanticSearchAvailable(caps({ ai: true, vectorize: true }))).toBe(true);
@@ -81,15 +81,15 @@ describe('settings availability', () => {
   });
 
   it('requires the selected Lightning backend URL and credential', () => {
-    expect(lightningConfigurationError('lnbits', '', true)).toBe('Add the LNbits URL.');
+    expect(lightningConfigurationError('lnbits', '', true)).toBe('请填写 LNbits 地址。');
     expect(lightningConfigurationError('lnbits', 'ftp://node.example', true)).toBe(
-      'Enter a valid HTTP(S) URL for LNbits.',
+      '请填写有效的 LNbits HTTP(S) 地址。',
     );
     expect(lightningConfigurationError('lnbits', 'https://node.example', false)).toBe(
-      'Add the LNbits invoice/read key.',
+      '请填写 LNbits invoice/read 密钥。',
     );
     expect(lightningConfigurationError('phoenixd', 'https://node.example', false)).toBe(
-      'Add the phoenixd password.',
+      '请填写 phoenixd 密码。',
     );
     expect(lightningConfigurationError('phoenixd', 'http://127.0.0.1:9740', true)).toBeNull();
   });

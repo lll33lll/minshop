@@ -31,8 +31,8 @@ const product = (n: number, overrides: Partial<Product> = {}): Product => ({
 });
 
 const model = (overrides: Partial<CatalogPageModel> = {}): CatalogPageModel => ({
-  eyebrow: 'Shop',
-  heading: 'All products',
+  eyebrow: '在线商店',
+  heading: '全部商品',
   categories: [{ text: 'Apparel', href: '/categories/apparel' }],
   // Mirrors the loader: only the first card is the page's likely LCP image.
   products: [product(1), product(2)].map((p, i) => buildProductCard(p, { currency: 'usd', priority: i === 0 })),
@@ -59,14 +59,14 @@ describe('buildSortModel', () => {
   it('flips direction on the field already sorting the list', () => {
     const active = buildSortModel('/products', 'price', 'asc').options.find((o) => o.current);
 
-    expect(active?.label).toBe('Price');
+    expect(active?.label).toBe('价格');
     expect(active?.direction).toBe('asc');
     expect(active?.href).toContain('dir=desc');
   });
 
   it('applies each inactive field its own natural direction', () => {
     const name = buildSortModel('/products', 'price', 'asc').options.find(
-      (o) => o.label === 'Name',
+      (o) => o.label === '名称',
     );
 
     expect(name?.current).toBe(false);

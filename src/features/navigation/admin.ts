@@ -94,9 +94,9 @@ export function unavailableReason(item: MenuItem): string | null {
   if (!item.targetExists) return '目标已不存在';
   switch (item.targetType) {
     case 'page':
-      return 'Draft — hidden on the storefront';
+      return '草稿——门面不显示';
     case 'product':
-      return 'Inactive — hidden on the storefront';
+      return '已下架——门面不显示';
     case 'category':
       return '目标已不存在';
     default:

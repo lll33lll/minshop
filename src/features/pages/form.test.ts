@@ -37,7 +37,7 @@ describe('parsePageForm', () => {
   });
 
   it('requires a title', () => {
-    expect(parsePageForm(form({ title: '   ' }))).toEqual({ error: 'Title is required.' });
+    expect(parsePageForm(form({ title: '   ' }))).toEqual({ error: '请填写标题。' });
   });
 
   it('rejects an over-long title', () => {

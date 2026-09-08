@@ -51,7 +51,7 @@ export function rateLimitedResponse(pathname: string): Response {
   const api = pathname.startsWith('/api/');
   return new Response(
     api
-      ? JSON.stringify({ error: 'Too many requests. Try again shortly.' })
+      ? JSON.stringify({ error: '请求过于频繁，请稍后再试。' })
       : 'Too many requests. Try again shortly.',
     {
       status: 429,

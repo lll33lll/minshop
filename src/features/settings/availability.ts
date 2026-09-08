@@ -45,18 +45,18 @@ export function featureAvailability(
   if (key === 'discounts_enabled' || key === 'tax_enabled') {
     return stripeConfigured(settings, caps)
       ? { available: true }
-      : { available: false, reason: 'Unavailable until Stripe is configured' };
+      : { available: false, reason: 'Stripe 配置完成后可用' };
   }
   if (key === 'accounts_enabled') {
     if (!caps.authSecret) {
-      return { available: false, reason: 'Unavailable until AUTH_SECRET is set' };
+      return { available: false, reason: '设置 AUTH_SECRET 后可用' };
     }
     if (!emailConfigured(settings, caps)) {
       return { available: false, reason: '启用并配置邮件后才可用' };
     }
   }
   if (key === 'image_optimize' && !caps.images) {
-    return { available: false, reason: 'Unavailable until the IMAGES binding is added' };
+    return { available: false, reason: '添加 IMAGES 绑定后可用' };
   }
   return { available: true };
 }
@@ -71,18 +71,18 @@ export function lightningConfigurationError(
   hasCredential: boolean,
 ): string | null {
   const label = backend === 'lnbits' ? 'LNbits' : 'phoenixd';
-  if (!url) return `Add the ${label} URL.`;
+  if (!url) return `请填写 ${label} 地址。`;
   try {
     const parsed = new URL(url);
     if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
-      return `Enter a valid HTTP(S) URL for ${label}.`;
+      return `请填写有效的 ${label} HTTP(S) 地址。`;
     }
   } catch {
-    return `Enter a valid HTTP(S) URL for ${label}.`;
+    return `请填写有效的 ${label} HTTP(S) 地址。`;
   }
   if (!hasCredential) {
     return backend === 'lnbits'
-      ? 'Add the LNbits invoice/read key.'
+      ? '请填写 LNbits invoice/read 密钥。'
       : '请填写 phoenixd 密码。';
   }
   return null;

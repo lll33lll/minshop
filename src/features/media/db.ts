@@ -190,7 +190,7 @@ export async function attachMediaToProduct(
   // Nothing inserted — say which of the two guards refused.
   const media = await getMedia(db, mediaId);
   return media
-    ? { ok: false, error: 'That image is already in this product’s gallery.' }
+    ? { ok: false, error: '该图片已在此商品相册中。' }
     : { ok: false, error: '该图片已不在媒体库中。' };
 }
 

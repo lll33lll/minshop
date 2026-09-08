@@ -46,8 +46,8 @@ describe('orderRefundedEmail', () => {
 
   it('shows the remaining paid amount for a partial refund', () => {
     const msg = orderRefundedEmail(order({ refunded_cents: 2500 }), 2500, 2500, 'S');
-    expect(msg.text).toContain('Still paid');
-    expect(msg.subject).not.toContain('has been refunded');
+    expect(msg.text).toContain('剩余已付');
+    expect(msg.subject).not.toContain('已退款');
   });
 
   it('omits the remaining amount once fully refunded', () => {
@@ -57,15 +57,15 @@ describe('orderRefundedEmail', () => {
       10000,
       'S',
     );
-    expect(msg.text).not.toContain('Still paid');
-    expect(msg.subject).toContain('has been refunded');
+    expect(msg.text).not.toContain('剩余已付');
+    expect(msg.subject).toContain('已退款');
   });
 
   it('reports a running total only when an earlier refund exists', () => {
     // Second partial: this refund is 2000, but 4500 has now gone back overall.
     const second = orderRefundedEmail(order({ refunded_cents: 4500 }), 2000, 4500, 'S');
-    expect(second.text).toContain('Total refunded so far');
+    expect(second.text).toContain('累计退款');
     const first = orderRefundedEmail(order({ refunded_cents: 2500 }), 2500, 2500, 'S');
-    expect(first.text).not.toContain('Total refunded so far');
+    expect(first.text).not.toContain('累计退款');
   });
 });
