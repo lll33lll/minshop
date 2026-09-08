@@ -1,7 +1,7 @@
 # verify 运行报告
 
-- 运行时间: 2026-09-08T02:43:42Z
-- 提交: 2d6e8da
+- 运行时间: 2026-09-08T02:58:01Z
+- 提交: c7652ca
 
 ```
 
@@ -16,7 +16,6 @@ themes: default, market, studio — active for this process: default (from theme
 
 [1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/minshop/minshop[39m
 
- [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 39[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2msends both kinds and marks them sent, keyed on the globally-unique public id
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -40,6 +39,7 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
+ [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 55[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mfalls back to the numeric id only for legacy orders without a public id
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -487,7 +487,6 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 142[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mfences a stale claim: attempt 1 completing late cannot overwrite attempt 2's live claim
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -507,6 +506,7 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
+ [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 272[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mdelivers a guest-link reissue whose generation matches the registry
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -599,46 +599,47 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 146[2mms[22m[39m
- [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 48[2mms[22m[39m
- [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 44[2mms[22m[39m
- [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 59[2mms[22m[39m
- [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 59[2mms[22m[39m
- [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 141[2mms[22m[39m
- [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 51[2mms[22m[39m
- [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 27[2mms[22m[39m
- [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 41[2mms[22m[39m
- [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 19[2mms[22m[39m
- [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 647[2mms[22m[39m
- [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 27[2mms[22m[39m
- [32m✓[39m src/features/catalog/serialize.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 494[2mms[22m[39m
- [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 22[2mms[22m[39m
- [32m✓[39m src/features/cart/key.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 37[2mms[22m[39m
- [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 45[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 48[2mms[22m[39m
- [32m✓[39m src/features/media/usage.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 29[2mms[22m[39m
- [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 166[2mms[22m[39m
+ [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 84[2mms[22m[39m
+ [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+ [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+ [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 372[2mms[22m[39m
+ [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+ [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 1036[2mms[22m[39m
+ [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+ [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/catalog/serialize.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 608[2mms[22m[39m
+ [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+ [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/cart/key.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+ [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+ [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m src/features/media/usage.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 59[2mms[22m[39m
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mfalls back to purge-everything after a rejected tag purge
 [22m[39m{"event":"workers_cache_purge_failed","mode":"tags","errors":[{"code":429,"message":"rate limited"}]}
 
@@ -654,54 +655,53 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mdoes not turn a rate-limited stock transition into purge-everything
 [22m[39m{"event":"workers_cache_purge_failed","mode":"stock-tags","errors":[{"code":429,"message":"rate limited"}]}
 
- [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 37[2mms[22m[39m
- [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 26[2mms[22m[39m
- [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 23[2mms[22m[39m
- [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 37[2mms[22m[39m
- [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 22[2mms[22m[39m
- [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
- [32m✓[39m src/features/cart/cart.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 19[2mms[22m[39m
- [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 154[2mms[22m[39m
- [32m✓[39m src/pages/sitemap.xml.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/auth/accessGate.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+ [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m src/features/cart/cart.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 264[2mms[22m[39m
+ [32m✓[39m src/pages/sitemap.xml.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/auth/accessGate.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
  [32m✓[39m src/features/products/search.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 32[2mms[22m[39m
- [32m✓[39m src/features/search/query.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/features/orders/reservations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
- [32m✓[39m src/features/products/slug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+ [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/search/query.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/orders/reservations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/products/slug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 18[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m81 passed[39m[22m[90m (81)[39m
 [2m      Tests [22m [1m[32m906 passed[39m[22m[90m (906)[39m
-[2m   Start at [22m 02:43:43
-[2m   Duration [22m 5.55s[2m (transform 2.47s, setup 0ms, import 4.95s, tests 3.00s, environment 7ms)[22m
+[2m   Start at [22m 02:58:02
+[2m   Duration [22m 8.80s[2m (transform 3.46s, setup 0ms, import 7.38s, tests 4.74s, environment 12ms)[22m
 
-[2m02:43:51[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
-[2m02:43:51[22m [34m[types][39m Generated [2m229ms[22m
-[2m02:43:51[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
+[2m02:58:15[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m02:58:15[22m [34m[types][39m Generated [2m363ms[22m
+[2m02:58:15[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
 [96mcreate-minshop/src/scaffold.js[0m:[93m1[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'readdirSync' is declared but its value is never read.
 
 [7m1[0m import { cpSync, existsSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -722,23 +722,23 @@ Result (366 files):
 > node scripts/check-themes.mjs
 
 storefront boundary: ok
-[2m02:44:05[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
-[2m02:44:05[22m [34m[types][39m Generated [2m48ms[22m
-[2m02:44:05[22m [34m[build][39m output: [34m"server"[39m
-[2m02:44:05[22m [34m[build][39m mode: [34m"server"[39m
-[2m02:44:05[22m [34m[build][39m directory: [34m/home/runner/work/minshop/minshop/dist/[39m
-[2m02:44:05[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
-[2m02:44:05[22m [34m[build][39m Collecting build info...
-[2m02:44:05[22m [34m[build][39m [32m✓ Completed in 96ms.[39m
-[2m02:44:05[22m [34m[build][39m Building server entrypoints...
-[2m02:44:05[22m [34m[vite][39m [32m✓ built in 150ms[39m
-[2m02:44:06[22m [34m[vite][39m [32m✓ built in 640ms[39m
-[2m02:44:06[22m [34m[vite][39m [32m✓ built in 28ms[39m
-[2m02:44:06[22m [34m[build][39m Rearranging server assets...
-[2m02:44:06[22m [34m[build][39m [32m✓ Completed in 1.18s.[39m
-[2m02:44:06[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
-[2m02:44:06[22m [34m[build][39m Server built in [1m1.28s[22m
-[2m02:44:06[22m [34m[build][39m [1mComplete![22m
+[2m02:58:35[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m02:58:35[22m [34m[types][39m Generated [2m83ms[22m
+[2m02:58:35[22m [34m[build][39m output: [34m"server"[39m
+[2m02:58:35[22m [34m[build][39m mode: [34m"server"[39m
+[2m02:58:35[22m [34m[build][39m directory: [34m/home/runner/work/minshop/minshop/dist/[39m
+[2m02:58:35[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
+[2m02:58:35[22m [34m[build][39m Collecting build info...
+[2m02:58:35[22m [34m[build][39m [32m✓ Completed in 155ms.[39m
+[2m02:58:35[22m [34m[build][39m Building server entrypoints...
+[2m02:58:35[22m [34m[vite][39m [32m✓ built in 201ms[39m
+[2m02:58:36[22m [34m[vite][39m [32m✓ built in 918ms[39m
+[2m02:58:36[22m [34m[vite][39m [32m✓ built in 32ms[39m
+[2m02:58:36[22m [34m[build][39m Rearranging server assets...
+[2m02:58:36[22m [34m[build][39m [32m✓ Completed in 1.22s.[39m
+[2m02:58:36[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
+[2m02:58:36[22m [34m[build][39m Server built in [1m1.38s[22m
+[2m02:58:36[22m [34m[build][39m [1mComplete![22m
 check-built-css: ok — active "default" present (11 sentinels), 2 inactive themes excluded, Admin isolated, across 2 stylesheets.
 
 > minshop@0.1.0 test:integration
@@ -820,16 +820,8 @@ guarded deletion
   ✓ media used as the logo cannot be deleted
 
 guarded association writes
-  ✗ a stale selection cannot attach media that was already deleted
-    The input did not match the regular expression /no longer in the media library/. Input:
-
-'该图片已不在媒体库中。'
-
-  ✗ the same media cannot be attached to one product twice
-    The input did not match the regular expression /already in this product/. Input:
-
-'该图片已在此商品相册中。'
-
+  ✓ a stale selection cannot attach media that was already deleted
+  ✓ the same media cannot be attached to one product twice
   ✓ attaching appends at the next gallery position
   ✓ page media sync replaces the previous set
   ✓ page media sync skips media deleted concurrently
@@ -860,6 +852,48 @@ bulk usage
   ✓ resolves a full 48-item page in a bounded number of statements
   ✓ listMedia paginates newest-first and deterministically
 
-2 media check(s) failed
+media lifecycle: all checks passed
+
+navigation menus
+  ✓ seed reproduces the existing footer links, in the footer order
+  ✓ seed adds the header Catalog item only when the home page is overridden
+  ✓ seed is lossless up to the footer cap and deterministic beyond it
+  ✓ CHECK rejects a singleton with a target, and an object without one
+  ✓ partial unique index allows duplicates only where it should
+  ✓ the query caps each location even when the table is overfilled
+  ✓ add refuses a draft page, an inactive product, and a missing target
+  ✓ add accepts available targets and assigns dense positions
+  ✓ add reports a full menu without writing
+  ✓ a duplicate singleton comes back as a reason, not an exception
+  ✓ concurrent adds get distinct positions
+  ✓ unavailable targets vanish from the storefront but stay listed for admin
+  ✓ catalog href follows the home page setting
+  ✓ label override wins, clearing it restores the target name
+  ✓ move swaps with the neighbour and is a no-op at the ends
+  ✓ a menu never crosses into the other when reordering
+  ✓ picker offers only available targets, bounded and searchable
+  ✓ picker reports how many matches it did not show
+  ✓ catalogIsOrphaned fires only when the shop is actually unreachable
+  ✗ a deleted target with a custom label is reported as deleted, not draft
+    Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
++   '目标已不存在',
++   '目标已不存在'
+-   'Target no longer exists',
+-   'Target no longer exists'
+  ]
+
+  ✓ a draft target keeps its draft reason (not confused with deletion)
+  ✓ a stale home-page setting does not raise a false catalog warning
+  ✓ menu references are reported per target for the delete warning
+  ✓ reorder sets the whole order from an id list
+  ✓ reorder rejects incomplete, padded, and duplicate id lists
+  ✓ reorder is scoped to one menu
+  ✓ reorder handles a list larger than one chunk
+
+menus: 1 failed
+
 ```
 - 结果: ❌ 有失败项（见上方日志）
