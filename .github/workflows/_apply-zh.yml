@@ -24,8 +24,8 @@ jobs:
       - name: 下载并校验补丁
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix2.patch"
-          echo "621f07abca66de66f8cd9dc9d88ac068fa22aa30b2b23bfd8156192a08216ce3  /tmp/fix.patch" | sha256sum -c -
+          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix3.patch"
+          echo "3ce3694e6b0f1b87337124c2999ef80d53280e46b5cd60c2403c9fc3c9ddfa4c  /tmp/fix.patch" | sha256sum -c -
 
       - name: 应用补丁并提交（已应用则跳过）
         run: |
@@ -36,7 +36,7 @@ jobs:
             git config user.name "minshop-bot"
             git config user.email "actions@users.noreply.github.com"
             git add -A
-            git commit -m "fix: 测试断言与错误消息中文化（第二轮）" -m "补丁 sha256: 621f07abca66de66f8cd9dc9d88ac068fa22aa30b2b23bfd8156192a08216ce3"
+            git commit -m "fix: 第三轮测试断言与邮件文案对齐" -m "补丁 sha256: 3ce3694e6b0f1b87337124c2999ef80d53280e46b5cd60c2403c9fc3c9ddfa4c"
             git push
           else
             echo "补丁已应用或不再适用，跳过提交"
