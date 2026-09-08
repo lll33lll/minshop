@@ -42,7 +42,7 @@ export async function settleDemoCheckout(
 ): Promise<DemoSettleResult> {
   // Fail closed after the demo window even if a POST slips past the page guard.
   if (pending.expires_at != null && Date.parse(pending.expires_at) <= Date.now()) {
-    return { declined: 'This demo checkout has expired.' };
+    return { declined: '此演示结算已过期。' };
   }
   const outcome = String(form.get('outcome') ?? 'approve');
   const email = resolveRequiredOrderEmail(String(form.get('email') ?? ''), pending.email);

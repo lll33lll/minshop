@@ -91,14 +91,14 @@ export function unavailableReason(item: MenuItem): string | null {
   // targetExists, not an empty label: a custom label outlives its target, so a
   // deleted page labelled "Company" still renders text and would otherwise be
   // reported as a draft — sending the merchant to un-draft a page that is gone.
-  if (!item.targetExists) return 'Target no longer exists';
+  if (!item.targetExists) return '目标已不存在';
   switch (item.targetType) {
     case 'page':
       return 'Draft — hidden on the storefront';
     case 'product':
       return 'Inactive — hidden on the storefront';
     case 'category':
-      return 'Target no longer exists';
+      return '目标已不存在';
     default:
       return 'Unavailable';
   }
@@ -145,9 +145,9 @@ export async function menuReferencesFor(
 }
 
 export const TARGET_TYPE_LABELS: Record<MenuTargetType, string> = {
-  home: 'Home',
-  catalog: 'Catalog',
-  page: 'Page',
-  product: 'Product',
-  category: 'Category',
+  home: '首页',
+  catalog: '商品列表',
+  page: '页面',
+  product: '商品',
+  category: '分类',
 };

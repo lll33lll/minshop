@@ -91,7 +91,7 @@ export function parseParcelForm(
   }
   const weight: WeightParseResult = toGrams(fields.weight, unit);
   if (weight.status !== 'ok' || weight.grams <= 0) {
-    return { error: 'Enter the packed parcel weight as a positive number.' };
+    return { error: '请以正数填写包裹打包后的重量。' };
   }
   return { parcel: { length, width, height, weightGrams: weight.grams } };
 }
@@ -231,7 +231,7 @@ async function shippo(
     });
   } catch {
     // The request may or may not have arrived — ambiguous by definition.
-    return { ok: false, error: 'Shippo is unreachable right now.', uncertain: true };
+    return { ok: false, error: 'Shippo 暂时无法访问。', uncertain: true };
   }
   if (res.status === 401) return { ok: false, error: 'Shippo rejected the API token.' };
   let json: unknown;
@@ -274,7 +274,7 @@ export async function fetchLabelRates(
   const rates = parseRates(shipment);
   if (!shipment.object_id || rates.length === 0) {
     const why = (shipment.messages ?? []).map((m) => m.text).filter(Boolean).join(' ');
-    return { ok: false, error: why || 'No carrier offered a rate for this parcel and address.' };
+    return { ok: false, error: why || '没有承运商为该包裹和地址提供报价。' };
   }
   return { ok: true, value: { shipmentId: shipment.object_id, rates } };
 }
@@ -324,7 +324,7 @@ export async function purchaseLabel(
     const definite = tx.status === 'ERROR';
     return {
       ok: false,
-      error: why || 'Shippo could not purchase that label.',
+      error: why || 'Shippo 无法购买该面单。',
       uncertain: !definite,
     };
   }

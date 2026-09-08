@@ -87,21 +87,21 @@ const hasPassword = !!(await getSetting(env.DB, 'admin_password_hash'));
 const catalogEmpty = await catalogIsEmpty(env.DB);
 ---
 
-<AdminLayout title="Setup" active="dashboard">
+<AdminLayout title="初始设置" active="dashboard">
   <div class="mx-auto max-w-2xl">
-    <h1 class="text-2xl font-bold">Set up your store</h1>
+    <h1 class="text-2xl font-bold">设置你的店铺</h1>
     <p class="mt-1 text-sm text-gray-500">
       A few first-run settings — you can change them any time in Settings. This just gets
       you running.
     </p>
 
     <form method="POST" class="mt-8 space-y-6">
-      {/* ── Store basics ─────────────────────────────────────────────────────── */}
+      {/* ── 店铺基础信息 ─────────────────────────────────────────────────────── */}
       <section class="rounded-lg border border-line bg-white p-5">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">Store basics</h2>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">店铺基础信息</h2>
         <div class="mt-4 flex flex-wrap items-end gap-3">
           <label class="flex flex-col gap-1 text-xs uppercase tracking-widest text-gray-400">
-            Store name
+            店铺名称
             <input
               type="text"
               name="store_name"
@@ -110,7 +110,7 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
             />
           </label>
           <label class="flex flex-col gap-1 text-xs uppercase tracking-widest text-gray-400">
-            Store time zone
+            店铺时区
             <input
               type="text"
               name="time_zone"
@@ -119,7 +119,7 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
               list="tz-list"
               data-time-zone
               data-auto-detect={settings.timeZone ? 'false' : 'true'}
-              placeholder="Search e.g. America/New_York"
+              placeholder="搜索，例如 Asia/Shanghai"
               class="w-64 rounded-md border border-gray-300 px-3 py-2 text-sm normal-case tracking-normal focus:border-brand focus:outline-none"
             />
             <datalist id="tz-list">
@@ -129,20 +129,20 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
         </div>
         {timeZoneError && <p class="mt-2 text-xs text-red-600">{timeZoneError}</p>}
         <p class="mt-3 text-xs text-gray-400">
-          Currency stays a build-time setting (it's wired through every price) — set
+          货币是构建期设置（牵动所有价格），请设置于
           <code class="rounded bg-gray-100 px-1">currency</code> in
           <code class="rounded bg-gray-100 px-1">src/config.ts</code>. Current:
           {' '}{cfg.currency.toUpperCase()}.
         </p>
       </section>
 
-      {/* ── Admin password ───────────────────────────────────────────────────── */}
+      {/* ── 管理员密码 ───────────────────────────────────────────────────── */}
       <section class="rounded-lg border border-line bg-white p-5">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">Admin password</h2>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">管理员密码</h2>
         <p class="mt-1 text-sm text-gray-500">
-          Password for <code class="rounded bg-gray-100 px-1">/admin/login</code> — stored hashed
+          密码（ <code class="rounded bg-gray-100 px-1">/admin/login</code> — stored hashed
           (PBKDF2), never plaintext.{' '}
-          {hasPassword ? 'A password is already set; leave blank to keep it.' : 'Required to finish.'}
+          {hasPassword ? 'A password is already set; leave blank to keep it.' : '必填项。'}
           {' '}Cloudflare Access is the recommended production auth; this is the simpler stopgap.
         </p>
         <label class="mt-4 flex flex-col gap-1 text-xs uppercase tracking-widest text-gray-400">
@@ -152,7 +152,7 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
             name="admin_password"
             autocomplete="new-password"
             minlength="8"
-            placeholder="at least 8 characters"
+            placeholder="至少 8 个字符"
             class="w-64 rounded-md border border-gray-300 px-3 py-2 text-sm normal-case tracking-normal focus:border-brand focus:outline-none"
           />
         </label>
@@ -161,11 +161,10 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
 
       {/* ── Payments (configured later in Settings — not needed to get running) ─ */}
       <section class="rounded-lg border border-line bg-white p-5">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">Payments</h2>
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-gray-500">支付</h2>
         <p class="mt-2 text-sm text-gray-500">
-          <strong>Demo</strong> checkout works right away. Set up real payment methods (card via
-          Stripe, Bitcoin Lightning, or OpenNode) whenever you're ready in
-          {' '}<strong>Settings → Payments</strong> — no need to do it now.
+          <strong>演示结算</strong>现在就能用。真实支付方式（Stripe 银行卡、比特币闪电网络、
+          或 OpenNode）随时可以在 <strong>设置 → 支付</strong>里配置——现在不必着急。
         </p>
       </section>
 
@@ -178,8 +177,8 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
             class="mt-0.5 rounded border-gray-300 text-brand focus:ring-brand"
           />
           <span>
-            Load the <strong>demo catalog</strong> — 30 sample products across 6 categories,
-            to explore the storefront. Leave unchecked to start empty and add your own.
+            载入<strong>演示商品目录</strong>——6 个分类共 30 件示例商品，
+            方便先逛逛门面。不勾选则从空店开始，自己上架。
           </span>
         </label>
       )}
@@ -187,7 +186,7 @@ const catalogEmpty = await catalogIsEmpty(env.DB);
         type="submit"
         class="w-fit rounded-md bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-hover"
       >
-        Finish setup
+        完成设置
       </button>
     </form>
   </div>

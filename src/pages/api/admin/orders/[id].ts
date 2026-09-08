@@ -87,9 +87,9 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
 
   if (action === 'resolve_inventory_exception') {
     const exceptionId = parsePublicId(form.get('exception_id'), 'inventoryException');
-    if (!exceptionId) return fail('Invalid inventory exception.');
+    if (!exceptionId) return fail('库存异常记录无效。');
     const resolved = await resolveInventoryException(env.DB, id, exceptionId);
-    return resolved ? notice('Inventory exception marked reconciled.') : fail('That inventory exception is already resolved or does not belong to this order.');
+    return resolved ? notice('库存异常已标记为已核对。') : fail('该库存异常已处理，或不属于此订单。');
   }
 
   // Rotate the guest access token and email the customer the replacement link.
@@ -103,12 +103,12 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
       );
     }
     if (!shouldSendCustomerOrderEmail(existing.payment_method)) {
-      return fail('Demo orders never email customers, so their link cannot be reissued.');
+      return fail('演示订单从不给客户发邮件，因此无法重发链接。');
     }
     if (!existing.public_id?.startsWith('ord_')) {
       // A legacy order's guest link IS its preserved public ID — there is no
       // registry token to rotate.
-      return fail('This order predates revocable guest links and cannot be reissued.');
+      return fail('此订单早于可吊销访客链接的版本，无法重发。');
     }
     // Rotation kills every old link the instant it lands, so refuse up front
     // when no email provider could deliver the replacement — otherwise the
@@ -123,7 +123,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
     // unsettled checkouts (and unknown registry rows).
     const reissued = await reissueGuestAccess(env.DB, existing.public_id);
     if (!reissued) {
-      return fail('Only settled orders with a guest link can be reissued.');
+      return fail('只有已成交且带访客链接的订单才能重发。');
     }
     try {
       await deliverOrderNotifications(env.DB, id, new URL(request.url).origin);
@@ -154,7 +154,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
         'This order already has a manually recorded refund. Issue the remaining amount in your payment provider’s dashboard — it will sync back here automatically.',
       );
     }
-    if (refundableCents(order) <= 0) return fail('This order is already fully refunded.');
+    if (refundableCents(order) <= 0) return fail('此订单已全额退款。');
 
     try {
       // NULL predates payment_method and was always Stripe. Falling through to
@@ -180,7 +180,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
       cumulativeRefundedCents: order.amount_total_cents,
       provider: order.payment_method ?? 'stripe',
       idempotencyKey: `admin:provider-refund:${id}:${order.amount_total_cents}`,
-      reason: reason ?? 'Full refund issued from minshop',
+      reason: reason ?? '从 minshop 发起的全额退款',
       createdBy: admin,
     });
     // Precisely because that webhook is a no-op, it will not mail the customer
@@ -195,9 +195,9 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
   // Record money already returned outside the provider. Moves no money.
   if (action === 'record_refund') {
     const order = await getOrder(env.DB, id);
-    if (!order) return fail('Order not found.');
+    if (!order) return fail('订单不存在。');
     const amount = cents();
-    if (!Number.isFinite(amount) || amount <= 0) return fail('Enter a refund amount above zero.');
+    if (!Number.isFinite(amount) || amount <= 0) return fail('请输入大于零的退款金额。');
 
     const result = await recordExternalRefund(env.DB, {
       orderId: id,
@@ -222,8 +222,8 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
           `That is more than the remaining refundable balance (${formatPrice(refundableCents(order))}).`,
         );
       }
-      if (result.reason === 'invalid_amount') return fail('Enter a refund amount above zero.');
-      return fail('This order cannot be refunded.');
+      if (result.reason === 'invalid_amount') return fail('请输入大于零的退款金额。');
+      return fail('此订单无法退款。');
     }
     // sendRefundNotice applies the demo rule itself, so demo orders stay silent.
     await sendRefundNotice(id, amount, new URL(request.url).origin);
@@ -234,11 +234,11 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
   // when the webhook never arrived. Absolute: this is the provider's total.
   if (action === 'sync_refund') {
     const order = await getOrder(env.DB, id);
-    if (!order) return fail('Order not found.');
+    if (!order) return fail('订单不存在。');
     const amount = cents();
-    if (!Number.isFinite(amount) || amount < 0) return fail('Enter the total refunded so far.');
+    if (!Number.isFinite(amount) || amount < 0) return fail('请填写累计退款总额。');
     if (amount > order.amount_total_cents) {
-      return fail('That is more than the order total.');
+      return fail('金额超过了订单总额。');
     }
 
     const result = await syncProviderRefund(env.DB, {
@@ -247,11 +247,11 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
       provider: order.payment_method ?? 'stripe',
       idempotencyKey: `admin:sync:${id}:${amount}`,
       providerRefundId: String(form.get('provider_refund_id') ?? '').trim() || null,
-      reason: reason ?? 'Synced by hand from the provider dashboard',
+      reason: reason ?? '从服务商控制台手工同步',
       createdBy: admin,
     });
 
-    if (!result.ok) return fail('This order cannot be reconciled.');
+    if (!result.ok) return fail('此订单无法对账。');
     if (!result.advanced) {
       return fail('That total is already recorded — nothing was changed.');
     }
@@ -285,8 +285,8 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
     if (!result.ok) {
       return fail(
         result.reason === 'duplicate'
-          ? 'That entry has already been voided.'
-          : 'Only manually recorded refunds can be voided.',
+          ? '该记录已被作废。'
+          : '只有手工记录的退款才能作废。',
       );
     }
     return back;
@@ -357,7 +357,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
       record.rate_id &&
       (record.status === 'uncertain' || (record.status === 'purchasing' && isPurchaseStale(record)));
     if (!record || !settleable) {
-      return fail('There is no unsettled label attempt to reconcile.');
+      return fail('没有待对账的面单记录。');
     }
 
     // Provider/service/amount come from the shipment's own rate list — the
@@ -433,7 +433,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
   if (action === 'label_rates' || action === 'buy_label') {
     const token = await getSecret(env.DB, 'shippo_api_key');
     if (!token) return fail('Add a Shippo API token in Settings first.');
-    if (!existing.ship_address) return fail('This order has no shipping address.');
+    if (!existing.ship_address) return fail('此订单没有收货地址。');
     let raw: ShippingAddress;
     try {
       raw = JSON.parse(existing.ship_address) as ShippingAddress;
@@ -488,7 +488,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
         },
         settings.weightUnit,
       );
-      if (!parsed.parcel) return fail(parsed.error ?? 'Check the parcel fields.');
+      if (!parsed.parcel) return fail(parsed.error ?? '请检查包裹字段。');
 
       // Remember for next time regardless of whether a label gets bought.
       await setSetting(env.DB, 'ship_from', JSON.stringify(from));
@@ -523,7 +523,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
     // buy_label — the claim flips this order's quote to 'purchasing'; exactly
     // one concurrent submit wins, and the shipment bought from is the row's.
     const rateId = String(form.get('rate') ?? '').trim();
-    if (!rateId) return fail('Pick a rate first.');
+    if (!rateId) return fail('请先选择一个报价。');
     const claim = await claimPurchase(env.DB, id, rateId);
     if (!claim) {
       return fail('No open quote to purchase — fetch rates first (or a purchase is already under way).');
@@ -535,7 +535,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
     }
     const rate = rates.value.find((r) => r.rateId === rateId);
     if (!rate) {
-      await markLabelFailed(env.DB, id, claim.claimToken, 'Selected rate no longer offered.');
+      await markLabelFailed(env.DB, id, claim.claimToken, '所选报价已不可用。');
       return fail('That rate is no longer offered. Fetch rates again.');
     }
 
@@ -587,7 +587,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
     return notice(
       `Label purchased (${rate.provider} ${rate.service}). Tracking ${bought.value.trackingNumber} recorded. ${
         willEmail
-          ? 'The tracking email to the customer has been queued.'
+          ? '给客户的物流通知邮件已进入队列。'
           : 'No customer email will be sent (demo order, no address, or email not configured).'
       }`,
     );

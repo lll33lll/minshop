@@ -138,9 +138,9 @@ export function usageLinks(usage: MediaUsage): UsageLink[] {
       ? [
           {
             href: '/admin/settings',
-            label: 'Store logo',
+            label: '店铺 Logo',
             kind: 'logo' as const,
-            title: 'Change the logo in Settings',
+            title: '到设置里更换 Logo',
           },
         ]
       : []),

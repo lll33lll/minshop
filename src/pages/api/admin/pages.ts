@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const form = await request.formData();
   const title = String(form.get('title') ?? '').trim();
   if (!title) {
-    return redirect(`/admin/pages/new?error=${encodeURIComponent('Title is required.')}`, 303);
+    return redirect(`/admin/pages/new?error=${encodeURIComponent('请填写标题。')}`, 303);
   }
 
   const slugBase = String(form.get('slug') ?? '').trim() || title;

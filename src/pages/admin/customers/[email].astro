@@ -33,7 +33,7 @@ const timeZone = Astro.locals.settings?.timeZone ?? getConfig().timeZone;
     href="/admin/customers"
     class="text-xs uppercase tracking-widest text-gray-400 hover:text-brand"
   >
-    &larr; Back to customers
+    &larr; 返回客户列表
   </a>
   <h1 class="mt-4 mb-2 font-serif text-3xl tracking-tight break-all">{email}</h1>
   <p class="mb-8 text-sm text-gray-500">
@@ -43,10 +43,10 @@ const timeZone = Astro.locals.settings?.timeZone ?? getConfig().timeZone;
   <table class="admin-table w-full text-left text-sm">
     <thead>
       <tr class="border-b border-line text-xs uppercase tracking-widest text-gray-400">
-        <th class="py-3 pr-4 font-normal">Order</th>
-        <th class="py-3 pr-4 font-normal">Total</th>
-        <th class="py-3 pr-4 font-normal">Status</th>
-        <th class="py-3 font-normal">When</th>
+        <th class="py-3 pr-4 font-normal">订单</th>
+        <th class="py-3 pr-4 font-normal">合计</th>
+        <th class="py-3 pr-4 font-normal">状态</th>
+        <th class="py-3 font-normal">时间</th>
       </tr>
     </thead>
     <tbody>
@@ -61,9 +61,9 @@ const timeZone = Astro.locals.settings?.timeZone ?? getConfig().timeZone;
                 #{orderReference(o.public_id, o.id, onCfg)}
               </a>
             </td>
-            <td data-label="Total" class="py-3 pr-4 tabular-nums">{formatPrice(o.amount_total_cents, o.currency)}</td>
-            <td data-label="Status" class="py-3 pr-4">{o.status}</td>
-            <td data-label="When" class="py-3 text-gray-500">{formatDate(o.created_at, undefined, timeZone)}</td>
+            <td data-label="合计" class="py-3 pr-4 tabular-nums">{formatPrice(o.amount_total_cents, o.currency)}</td>
+            <td data-label="状态" class="py-3 pr-4">{o.status}</td>
+            <td data-label="时间" class="py-3 text-gray-500">{formatDate(o.created_at, undefined, timeZone)}</td>
           </tr>
         ))
       }

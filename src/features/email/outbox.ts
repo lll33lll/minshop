@@ -104,7 +104,7 @@ export async function deliverOrderNotifications(
           // delivery, so a temporarily unconfigured provider is a retryable
           // failure (sweep picks it up), never a terminal skip. Reissue also
           // refuses up front when email is off, so this is the rare race.
-          await markFailed(db, orderId, kind, attempts, 'Email provider unavailable');
+          await markFailed(db, orderId, kind, attempts, '邮件服务商不可用');
           continue;
         }
         // Email is off for this store: not-applicable, not a failure.
@@ -115,7 +115,7 @@ export async function deliverOrderNotifications(
       if (!order) {
         // Row without an order should be impossible (same-batch insert);
         // treat as terminal rather than retrying forever.
-        await markFailed(db, orderId, kind, attempts, 'Order row not found', true);
+        await markFailed(db, orderId, kind, attempts, '找不到订单记录', true);
         continue;
       }
       const notifyTo = s.emailNotifyTo || getConfig().email.notifyTo;

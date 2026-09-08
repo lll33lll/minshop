@@ -52,7 +52,7 @@ export function featureAvailability(
       return { available: false, reason: 'Unavailable until AUTH_SECRET is set' };
     }
     if (!emailConfigured(settings, caps)) {
-      return { available: false, reason: 'Unavailable until email is enabled and configured' };
+      return { available: false, reason: '启用并配置邮件后才可用' };
     }
   }
   if (key === 'image_optimize' && !caps.images) {
@@ -83,7 +83,7 @@ export function lightningConfigurationError(
   if (!hasCredential) {
     return backend === 'lnbits'
       ? 'Add the LNbits invoice/read key.'
-      : 'Add the phoenixd password.';
+      : '请填写 phoenixd 密码。';
   }
   return null;
 }

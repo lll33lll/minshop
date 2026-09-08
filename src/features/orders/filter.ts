@@ -34,17 +34,17 @@ const STATUS: Record<OrderStatusFilter, string> = {
 };
 
 export const ORDER_STATUS_OPTIONS: { value: OrderStatusFilter; label: string }[] = [
-  { value: 'paid', label: 'Paid' },
-  { value: 'partially_refunded', label: 'Partially refunded' },
-  { value: 'refunded', label: 'Refunded' },
-  { value: 'pending', label: 'Unpaid' },
+  { value: 'paid', label: '已支付' },
+  { value: 'partially_refunded', label: '部分退款' },
+  { value: 'refunded', label: '已退款' },
+  { value: 'pending', label: '未支付' },
 ];
 
 export const ORDER_METHOD_OPTIONS: { value: string; label: string }[] = [
-  { value: 'stripe', label: 'Card (Stripe)' },
-  { value: 'lightning', label: 'Lightning' },
-  { value: 'opennode', label: 'Bitcoin (OpenNode)' },
-  { value: 'demo', label: 'Demo' },
+  { value: 'stripe', label: '银行卡（Stripe）' },
+  { value: 'lightning', label: '闪电网络' },
+  { value: 'opennode', label: '比特币（OpenNode）' },
+  { value: 'demo', label: '演示' },
 ];
 
 const isStatus = (v: string | null): v is OrderStatusFilter =>

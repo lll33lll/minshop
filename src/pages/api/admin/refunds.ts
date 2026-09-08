@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     const events = await listUnmatchedRefundEvents(env.DB);
     const stored = events.find((e) => e.provider_event_id === eventId);
-    if (!stored) return fail('That event is no longer waiting to be reconciled.');
+    if (!stored) return fail('该事件已不在待对账状态。');
 
     // Retry runs the same correlation the webhook did, including the provider
     // session lookup — so a merchant clicking Retry after a transient provider
@@ -99,7 +99,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return fail(
         stillQueued
           ? 'This refund has not been matched to an order yet, so it can’t be dismissed — that would hide money that really moved. Use Retry once the order’s payment ID exists.'
-          : 'That event is no longer waiting to be reconciled.',
+          : '该事件已不在待对账状态。',
       );
     }
     return back;

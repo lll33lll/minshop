@@ -59,7 +59,7 @@ export function createDemoProvider(db: D1Database): PaymentProvider {
 
     async verifyWebhook(): Promise<WebhookResult> {
       // Demo settles in-page (see /pay) — there is no external webhook.
-      throw new Error('Demo provider has no webhook.');
+      throw new Error('演示支付方式没有 webhook。');
     },
   };
 }

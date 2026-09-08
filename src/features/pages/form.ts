@@ -19,7 +19,7 @@ export interface PageFields {
  */
 export function parsePageForm(form: FormData): { data: PageFields } | { error: string } {
   const title = String(form.get('title') ?? '').trim();
-  if (!title) return { error: 'Title is required.' };
+  if (!title) return { error: '请填写标题。' };
   if (title.length > MAX_TITLE) {
     return { error: `Title must be ${MAX_TITLE} characters or fewer.` };
   }

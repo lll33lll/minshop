@@ -191,7 +191,7 @@ export async function attachMediaToProduct(
   const media = await getMedia(db, mediaId);
   return media
     ? { ok: false, error: 'That image is already in this product’s gallery.' }
-    : { ok: false, error: 'That image is no longer in the media library.' };
+    : { ok: false, error: '该图片已不在媒体库中。' };
 }
 
 /**

@@ -45,7 +45,7 @@ export function emailButton(href: string, label: string): string {
   </table>`;
 }
 
-/** A muted label above a block of content (e.g. "Ship to"). */
+/** A muted label above a block of content (e.g. "收货信息"). */
 export function emailLabel(text: string): string {
   return `<p style="margin:24px 0 6px;font-family:${SANS};font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:${PALETTE.muted};">${escapeHtml(text)}</p>`;
 }

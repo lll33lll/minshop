@@ -115,7 +115,7 @@ export const POST: APIRoute = async ({ request, redirect, locals }) => {
         })
       : redirect(`/admin/media?error=${encodeURIComponent(msg)}`, 303);
 
-  if (files.length === 0) return fail('Choose at least one image.');
+  if (files.length === 0) return fail('请至少选择一张图片。');
 
   // Validate everything before storing anything, so a bad file in a multi-select
   // doesn't leave half the batch uploaded.

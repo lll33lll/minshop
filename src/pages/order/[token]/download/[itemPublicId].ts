@@ -34,9 +34,9 @@ export const GET: APIRoute = async ({ params }) => {
   const access = await resolveAccessToken(env.DB, token);
   if (!access) return new Response('Not found', { status: 404, headers: PRIVATE_HEADERS });
   const order = access ? await getOrderByPublicId(env.DB, access.order_public_id) : null;
-  if (!order) return new Response('Payment is not settled.', { status: 403, headers: PRIVATE_HEADERS });
+  if (!order) return new Response('支付尚未完成。', { status: 403, headers: PRIVATE_HEADERS });
   if (order.refunded_cents >= order.amount_total_cents) {
-    return new Response('Downloads are unavailable for a fully refunded order.', { status: 403, headers: PRIVATE_HEADERS });
+    return new Response('全额退款的订单无法下载。', { status: 403, headers: PRIVATE_HEADERS });
   }
   const item = await env.DB
     .prepare(

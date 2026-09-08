@@ -8,9 +8,9 @@ const parentOptions = flattenTree(buildTree(await listCategories(env.DB)));
 const error = Astro.url.searchParams.get('error');
 ---
 
-<AdminLayout title="New category" active="categories">
-  <a href="/admin/categories" class="text-sm text-gray-500 hover:text-brand">&larr; Back to categories</a>
-  <h1 class="mt-4 mb-6 text-2xl font-bold">New category</h1>
+<AdminLayout title="新建分类" active="categories">
+  <a href="/admin/categories" class="text-sm text-gray-500 hover:text-brand">&larr; 返回分类列表</a>
+  <h1 class="mt-4 mb-6 text-2xl font-bold">新建分类</h1>
   <CategoryForm
     action="/api/admin/categories"
     submitLabel="Create category"

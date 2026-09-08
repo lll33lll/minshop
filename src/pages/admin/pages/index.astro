@@ -16,37 +16,37 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' });
 const formatDate = (iso: string) => dateFmt.format(new Date(`${iso.replace(' ', 'T')}Z`));
 ---
 
-<AdminLayout title="Pages" active="pages">
+<AdminLayout title="页面" active="pages">
   <div class="mb-8 flex items-center justify-between">
-    <h1 class="font-serif text-3xl tracking-tight">Pages</h1>
+    <h1 class="font-serif text-3xl tracking-tight">页面</h1>
     <a
       href="/admin/pages/new"
       class="rounded-md bg-brand px-4 py-2 text-xs font-medium uppercase tracking-wider text-white hover:bg-brand-hover"
     >
-      New page
+      新建页面
     </a>
   </div>
 
   {
     pages.length === 0 ? (
       <p class="py-12 text-center text-sm text-gray-500">
-        No pages yet. Create one for About, Shipping, Returns, or Privacy, then add it to your
-        {' '}
+        还没有页面。可以创建「关于我们」「配送说明」「退换政策」或「隐私政策」，
+        然后把它加进{' '}
         <a href="/admin/navigation" class="underline hover:text-brand">
-          navigation
+          导航菜单
         </a>{' '}
-        so shoppers can find it.
+        方便顾客找到。
       </p>
     ) : (
       <div class="sm:overflow-x-auto">
         <table class="admin-table w-full text-left text-sm sm:min-w-[40rem]">
           <thead>
             <tr class="border-b border-line text-xs uppercase tracking-widest text-gray-400">
-              <th class="py-3 pr-4 font-normal">Title</th>
+              <th class="py-3 pr-4 font-normal">标题</th>
               <th class="py-3 pr-4 font-normal">URL</th>
-              <th class="py-3 pr-4 font-normal">Status</th>
-              <th class="py-3 pr-4 font-normal">Updated</th>
-              <th class="py-3 text-right font-normal">Actions</th>
+              <th class="py-3 pr-4 font-normal">状态</th>
+              <th class="py-3 pr-4 font-normal">已更新</th>
+              <th class="py-3 text-right font-normal">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -58,14 +58,14 @@ const formatDate = (iso: string) => dateFmt.format(new Date(`${iso.replace(' ', 
                   </a>
                 </td>
                 <td data-label="URL" class="py-3 pr-4 text-gray-500">/pages/{page.slug}</td>
-                <td data-label="Status" class="py-3 pr-4">
+                <td data-label="状态" class="py-3 pr-4">
                   {page.published ? (
-                    <span class="text-gray-600">Published</span>
+                    <span class="text-gray-600">已发布</span>
                   ) : (
-                    <span class="text-gray-400">Draft</span>
+                    <span class="text-gray-400">草稿</span>
                   )}
                 </td>
-                <td data-label="Updated" class="py-3 pr-4 text-gray-500">
+                <td data-label="已更新" class="py-3 pr-4 text-gray-500">
                   {formatDate(page.updated_at)}
                 </td>
                 <td class="py-3 text-right">
@@ -77,22 +77,22 @@ const formatDate = (iso: string) => dateFmt.format(new Date(`${iso.replace(' ', 
                         rel="noopener"
                         class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand"
                       >
-                        View
+                        查看
                       </a>
                     )}
                     <a
                       href={`/admin/pages/${page.public_id}/edit`}
                       class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand"
                     >
-                      Edit
+                      编辑
                     </a>
                     <form
                       method="POST"
                       action={`/api/admin/pages/${page.public_id}`}
                       onsubmit={`return confirm('${
                         menuRefs.has(page.id)
-                          ? 'This page is linked from your navigation. Deleting it hides that link on the storefront. Continue?'
-                          : 'Delete this page?'
+                          ? '此页面已被导航菜单引用。删除后门面上对应链接也会消失。确定继续？'
+                          : '删除这个页面？'
                       }')`}
                     >
                       <input type="hidden" name="_action" value="delete" />
@@ -100,7 +100,7 @@ const formatDate = (iso: string) => dateFmt.format(new Date(`${iso.replace(' ', 
                         type="submit"
                         class="text-xs uppercase tracking-widest text-red-600 hover:text-red-700"
                       >
-                        Delete
+                        删除
                       </button>
                     </form>
                   </span>

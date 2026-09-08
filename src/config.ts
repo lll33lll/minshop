@@ -209,8 +209,8 @@ function defaultConfig(): SiteConfig {
         {
           countries: ['US'],
           rates: [
-            { label: 'Standard', amountCents: 500 },
-            { label: 'Express', amountCents: 1500 },
+            { label: '标准配送', amountCents: 500 },
+            { label: '加急配送', amountCents: 1500 },
           ],
           freeOverCents: 5000, // free shipping at $50+ (null to disable)
         },
@@ -225,7 +225,7 @@ function defaultConfig(): SiteConfig {
       enabled: false, // true ONLY after activating Stripe Tax in the Dashboard
     },
     turnstile: {
-      // Build-time default; Admin → Settings → Bot protection overlays this at
+      // Build-time default; Admin → Settings → 机器人防护 overlays this at
       // runtime (turnstile_enabled in D1, with the sitekey + secret).
       enabled: false,
     },
@@ -305,7 +305,7 @@ export function formatDate(
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return value;
   try {
-    return new Intl.DateTimeFormat('en-US', { timeZone, ...opts }).format(d);
+    return new Intl.DateTimeFormat('zh-CN', { timeZone, ...opts }).format(d);
   } catch {
     // A bad deployment override should never break an order/admin page.
     return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', ...opts }).format(d);

@@ -55,9 +55,9 @@ const tools = [
 ---
 
 <AdminLayout title={`Edit ${page.title}`} active="pages">
-  <a href="/admin/pages" class="text-sm text-gray-500 hover:text-brand">&larr; Back to pages</a>
+  <a href="/admin/pages" class="text-sm text-gray-500 hover:text-brand">&larr; 返回页面列表</a>
   <div class="mt-4 mb-6 flex flex-wrap items-center justify-between gap-4">
-    <h1 class="font-serif text-3xl tracking-tight">Edit page</h1>
+    <h1 class="font-serif text-3xl tracking-tight">编辑页面</h1>
     {
       page.published !== 0 && (
         <a
@@ -66,7 +66,7 @@ const tools = [
           rel="noopener"
           class="text-sm text-accent hover:underline"
         >
-          View on store ↗
+          在商店中查看 ↗
         </a>
       )
     }
@@ -88,16 +88,14 @@ const tools = [
   }
   {
     saved && !warning && (
-      <p class="mb-6 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
-        Saved.
-      </p>
+      <p class="mb-6 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">已保存。</p>
     )
   }
 
   <form method="POST" action={`/api/admin/pages/${page.public_id}`} data-page-form>
     <div class="flex flex-wrap gap-4">
       <label class="block flex-1 text-xs uppercase tracking-widest text-gray-400">
-        Title
+        标题
         <input
           type="text"
           name="title"
@@ -108,7 +106,7 @@ const tools = [
         />
       </label>
       <label class="block flex-1 text-xs uppercase tracking-widest text-gray-400">
-        Slug
+        URL 标识
         <input
           type="text"
           name="slug"
@@ -128,7 +126,7 @@ const tools = [
         data-modes
         hidden
         role="group"
-        aria-label="Editor view"
+        aria-label="编辑器视图"
         class="flex items-center gap-1 border-b border-line px-2 py-2"
       >
         <button
@@ -145,7 +143,7 @@ const tools = [
           class="rounded px-3 py-1.5 text-xs uppercase tracking-widest text-gray-500"
           aria-pressed="false"
         >
-          Split
+          拆分
         </button>
         <button
           type="button"
@@ -153,7 +151,7 @@ const tools = [
           class="rounded px-3 py-1.5 text-xs uppercase tracking-widest text-gray-500"
           aria-pressed="false"
         >
-          Preview
+          预览
         </button>
       </div>
 
@@ -187,7 +185,7 @@ const tools = [
                 preview in split view. */}
             <MediaPicker
               id="page-body"
-              label="Image"
+              label="图片"
               buttonClass="rounded px-2 py-1 text-xs text-gray-600 hover:bg-gray-100 hover:text-brand"
             />
           </div>
@@ -217,7 +215,7 @@ const tools = [
           <div
             class="flex h-11 items-center justify-between border-b border-line px-4 text-xs uppercase tracking-widest text-gray-400"
           >
-            <span>Preview <span class="normal-case tracking-normal">· click to find the source</span></span>
+            <span>预览 <span class="normal-case tracking-normal">· 点击定位来源</span></span>
             {/* Reserved space, so the row doesn't reflow each time it renders. */}
             <span data-preview-status class="text-gray-300"></span>
           </div>
@@ -232,7 +230,7 @@ const tools = [
     {/* Options are generated from features/pages/layouts.ts — adding a preset
         there adds it here with no change to this file. */}
     <label class="mt-6 block max-w-sm text-xs uppercase tracking-widest text-gray-400">
-      Layout
+      布局
       <select
         name="layout"
         data-layout-select
@@ -258,13 +256,13 @@ const tools = [
     <div class="mt-6 flex flex-wrap items-center gap-4">
       <label class="flex items-center gap-2 text-sm text-gray-700">
         <input type="checkbox" name="published" checked={page.published !== 0} class="rounded" />
-        Published
+        已发布
       </label>
       <button
         type="submit"
         class="rounded-md bg-brand px-4 py-2 text-xs font-medium uppercase tracking-wider text-white hover:bg-brand-hover"
       >
-        Save
+        保存
       </button>
       <span class="text-xs text-gray-400">
         Published pages appear in the footer and sitemap. Storefront caching means a change

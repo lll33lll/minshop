@@ -153,7 +153,7 @@ describe('an independently authored card', () => {
     const html = await render(AltProductCard, cardFor(product({ stock: 0 })));
 
     expect(html).toContain('<figure>');
-    expect(html).toContain('Sold out');
+    expect(html).toContain('已售罄');
     expect(html).toContain('href="/products/sample-tee"');
     // Structurally different from the default, which is the point.
     expect(html).not.toContain('reveal group');

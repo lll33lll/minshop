@@ -12,7 +12,7 @@ export function parseCategoryForm(
   form: FormData,
 ): { data: ParsedCategoryForm } | { error: string } {
   const name = String(form.get('name') ?? '').trim();
-  if (!name) return { error: 'Name is required.' };
+  if (!name) return { error: '请填写名称。' };
 
   const slugInput = String(form.get('slug') ?? '').trim();
 
@@ -21,7 +21,7 @@ export function parseCategoryForm(
   let parentPublicId: string | null = null;
   if (parentRaw) {
     parentPublicId = parsePublicId(parentRaw, 'category');
-    if (!parentPublicId) return { error: 'Invalid parent category.' };
+    if (!parentPublicId) return { error: '上级分类无效。' };
   }
 
   return { data: { name, slugInput, parentPublicId } };

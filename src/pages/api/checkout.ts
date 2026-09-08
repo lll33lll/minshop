@@ -324,7 +324,7 @@ export const POST: APIRoute = async ({ request, cookies, url, redirect }) => {
         missing
           ? "We can't calculate shipping for one of these items right now. Please contact us to complete this order."
           : quote.omitted.some((o) => o.reason === 'overweight')
-            ? 'This order is too heavy for the available shipping services.'
+            ? '此订单超出可用配送服务的重量上限。'
             : `Sorry, we don't ship to ${shipCountry} yet.`,
       )}`,
       303,
@@ -440,17 +440,17 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
   // actually read — a missing/lying content-length header can't slip past.
   const declaredLength = Number(request.headers.get('content-length') ?? 0);
   if (Number.isFinite(declaredLength) && declaredLength > MAX_JSON_BYTES) {
-    return cjson({ error: 'Checkout body is too large.' }, 413);
+    return cjson({ error: '结算请求体过大。' }, 413);
   }
 
   let raw: string;
   try {
     raw = await request.text();
   } catch {
-    return cjson({ error: 'Invalid request body.' }, 400);
+    return cjson({ error: '请求体无效。' }, 400);
   }
   if (new TextEncoder().encode(raw).length > MAX_JSON_BYTES) {
-    return cjson({ error: 'Checkout body is too large.' }, 413);
+    return cjson({ error: '结算请求体过大。' }, 413);
   }
 
   let body: unknown;
@@ -472,7 +472,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
   const jsonSettings = await getStoreSettings(env.DB);
   const available = enabledMethods(jsonSettings);
   if (available.length === 0) {
-    return cjson({ error: 'This store is not accepting payments right now.' }, 503);
+    return cjson({ error: '店铺当前未开启收款。' }, 503);
   }
   const requested =
     typeof (body as { method?: unknown }).method === 'string'
@@ -655,7 +655,7 @@ async function handleJsonCheckout(request: Request, url: URL): Promise<Response>
     if (quote.omitted.some((o) => o.reason === 'overweight')) {
       return cjson(
         {
-          error: 'This order is too heavy for the available shipping services.',
+          error: '此订单超出可用配送服务的重量上限。',
           reason: 'overweight',
           shipment_weight_grams: quote.shipmentWeightGrams,
         },

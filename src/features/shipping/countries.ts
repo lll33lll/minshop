@@ -36,7 +36,7 @@ export function countryName(code: string): string {
   const cc = code.toUpperCase();
   if (displayNames === undefined) {
     try {
-      displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
+      displayNames = new Intl.DisplayNames(['zh-CN'], { type: 'region' });
     } catch {
       displayNames = null;
     }

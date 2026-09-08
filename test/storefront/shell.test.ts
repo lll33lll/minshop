@@ -132,7 +132,7 @@ describe('the store-owned header', () => {
     expect(without).not.toContain('data-nav-disclosure');
     expect(withLinks).toContain('data-nav-disclosure');
     expect(withLinks).toContain('<details');
-    expect(withLinks).toContain('aria-label="Menu"');
+    expect(withLinks).toContain('aria-label="菜单"');
   });
 
   it('keeps navigation usable without JavaScript', async () => {
@@ -158,7 +158,7 @@ describe('the store-owned header', () => {
     expect(html).toContain('name="q"');
     expect(html).toContain('value="tee"');
     expect(html).toContain('role="search"');
-    expect(html).toContain('aria-label="Search products"');
+    expect(html).toContain('aria-label="搜索商品"');
   });
 
   it('renders the announcement link only when one is set', async () => {

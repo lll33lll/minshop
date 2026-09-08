@@ -27,7 +27,7 @@ export function parseProductForm(
   const { unit = 'g', requireWeight = false } = options;
 
   const name = String(form.get('name') ?? '').trim();
-  if (!name) return { error: 'Name is required.' };
+  if (!name) return { error: '请填写名称。' };
 
   const price = Number(String(form.get('price') ?? '').trim());
   if (!Number.isFinite(price) || price < 0) {
@@ -72,12 +72,12 @@ function weightFieldError(
 ): string {
   switch (reason) {
     case 'negative':
-      return 'Weight cannot be negative.';
+      return '重量不能为负数。';
     case 'precision':
       return `Weight has too many decimal places for ${unit}.`;
     case 'over_limit':
-      return 'Weight is too heavy for parcel shipping.';
+      return '重量超出包裹配送上限。';
     default:
-      return 'Weight must be a number.';
+      return '重量必须是数字。';
   }
 }

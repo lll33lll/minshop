@@ -136,7 +136,7 @@ export async function getPaymentProvider(method?: PaymentMethod): Promise<Paymen
     default: {
       const secretKey = await getSecret(env.DB, 'stripe_secret_key');
       const webhookSecret = await getSecret(env.DB, 'stripe_webhook_secret');
-      if (!secretKey || !webhookSecret) throw new Error('Stripe is not fully configured.');
+      if (!secretKey || !webhookSecret) throw new Error('Stripe 配置不完整。');
       return createStripeProvider(secretKey, webhookSecret);
     }
   }

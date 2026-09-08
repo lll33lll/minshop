@@ -22,7 +22,7 @@ const json = (body: object, status: number): Response =>
  */
 export const POST: APIRoute = async ({ request }) => {
   const secret = env.CACHE_PURGE_SECRET || env.AUTH_SECRET;
-  if (!secret) return json({ error: 'Deploy purge is not configured.' }, 503);
+  if (!secret) return json({ error: '部署清除未配置。' }, 503);
 
   const authorized = await verifyDeployPurgeAuthorization(
     request.headers.get('authorization'),
@@ -35,6 +35,6 @@ export const POST: APIRoute = async ({ request }) => {
     await purgeEntireCache();
     return json({ success: true }, 200);
   } catch {
-    return json({ error: 'Cache purge failed.' }, 503);
+    return json({ error: '缓存清除失败。' }, 503);
   }
 };

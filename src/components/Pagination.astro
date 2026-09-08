@@ -28,11 +28,9 @@ const linkCls = 'px-3 py-1.5 text-xs uppercase tracking-widest text-muted hover:
 
 {
   totalPages > 1 && (
-    <nav class="mt-14 flex items-center justify-center gap-1" aria-label="Pagination">
+    <nav class="mt-14 flex items-center justify-center gap-1" aria-label="分页">
       {page > 1 && (
-        <a href={hrefFor(page - 1)} class={linkCls} rel="prev">
-          Prev
-        </a>
+        <a href={hrefFor(page - 1)} class={linkCls} rel="prev">上一页</a>
       )}
       {items.map((it) =>
         it === '…' ? (
@@ -48,9 +46,7 @@ const linkCls = 'px-3 py-1.5 text-xs uppercase tracking-widest text-muted hover:
         ),
       )}
       {page < totalPages && (
-        <a href={hrefFor(page + 1)} class={linkCls} rel="next">
-          Next
-        </a>
+        <a href={hrefFor(page + 1)} class={linkCls} rel="next">下一页</a>
       )}
     </nav>
   )

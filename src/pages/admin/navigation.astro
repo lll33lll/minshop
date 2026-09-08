@@ -85,9 +85,9 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
 ];
 ---
 
-<AdminLayout title="Navigation" active="navigation">
+<AdminLayout title="导航" active="navigation">
   <div class="mb-8">
-    <h1 class="font-serif text-3xl tracking-tight">Navigation</h1>
+    <h1 class="font-serif text-3xl tracking-tight">导航</h1>
     <p class="mt-2 text-sm text-gray-500">
       Choose what appears in your header and footer. Changes appear on the storefront within a
       minute.
@@ -104,13 +104,13 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
   {
     saved && !error && (
       <p class="mb-6 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-        Navigation updated.
+        导航已更新。
       </p>
     )
   }
 
   <section class="mb-10 rounded-lg border border-line bg-white/60 p-5">
-    <h2 class="mb-4 font-serif text-xl tracking-tight">Add an item</h2>
+    <h2 class="mb-4 font-serif text-xl tracking-tight">添加条目</h2>
 
     {/* ONE form. Every type's picker is rendered up front and revealed by CSS as
         the type <select> changes, so choosing a type costs no round trip.
@@ -131,7 +131,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
           the search, which would otherwise nudge the second row up by 2px. */}
       <div class="flex min-h-[3.65rem] flex-wrap items-end gap-3">
       <label class="text-xs uppercase tracking-wider text-gray-500">
-        Type
+        类型
         <select
           name="target_type"
           class="mt-1 block rounded-md border border-line bg-white px-3 py-2 text-sm normal-case tracking-normal text-gray-900"
@@ -147,14 +147,14 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
       </label>
 
       <div data-target-search class="flex-col text-xs uppercase tracking-wider text-gray-500">
-        <label for="nav-target-search">Search</label>
+        <label for="nav-target-search">搜索</label>
         <div class="mt-1 flex gap-2">
           <input
             id="nav-target-search"
             type="search"
             name="q"
             value={pickerQuery}
-            placeholder="Filter by name"
+            placeholder="按名称筛选"
             class="block w-40 rounded-md border border-line px-3 py-2 text-sm normal-case tracking-normal"
           />
           <button
@@ -163,9 +163,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
             formaction="/admin/navigation"
             hidden={!searchAllNeeded}
             class="rounded-md border border-line px-3 py-2 text-xs uppercase tracking-wider hover:border-brand hover:text-brand"
-          >
-            Search all
-          </button>
+          >搜索全部</button>
         </div>
       </div>
 
@@ -201,14 +199,14 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
 
       <div class="flex flex-wrap items-end gap-3">
         <label class="text-xs uppercase tracking-wider text-gray-500">
-        Label (optional)
+        标签（可选）
         <input
           type="text"
           name="label"
           maxlength={MAX_MENU_LABEL}
           data-label-input
           placeholder={
-            initialDefaultLabel ? `Defaults to “${initialDefaultLabel}”` : 'Defaults to its name'
+            initialDefaultLabel ? `Defaults to “${initialDefaultLabel}”` : '默认使用名称'
           }
           class="mt-1 block rounded-md border border-line px-3 py-2 text-sm normal-case tracking-normal"
         />
@@ -220,8 +218,8 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
           name="location"
           class="mt-1 block rounded-md border border-line bg-white px-3 py-2 text-sm normal-case tracking-normal text-gray-900"
         >
-          <option value="header" selected={pickerLocation === 'header'}>Header</option>
-          <option value="footer" selected={pickerLocation === 'footer'}>Footer</option>
+          <option value="header" selected={pickerLocation === 'header'}>页头</option>
+          <option value="footer" selected={pickerLocation === 'footer'}>页脚</option>
         </select>
       </label>
 
@@ -234,7 +232,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
         title={nothingToAdd ? 'Nothing matches — clear or widen your search' : undefined}
         class="rounded-md bg-brand px-4 py-2 text-xs font-medium uppercase tracking-wider text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-brand"
       >
-        Add
+        添加
         </button>
       </div>
     </form>
@@ -245,7 +243,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
           {truncated
             .map((t) => `${TARGET_TYPE_LABELS[t].toLowerCase()}s: showing ${PICKER_LIMIT} of ${choices[t].options.length + choices[t].remaining}`)
             .join(' · ')}
-          . Type to filter; press Search all to look beyond that.
+          。输入即可筛选；点“搜索全部”可查找列表之外的条目。
         </p>
       )
     }
@@ -265,14 +263,14 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
 
           {bothRootLinks(loc.key) && (
             <p class="mb-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
-              Home and Catalog both point at <code>/</code> right now. They will differ once you
+              首页与商品列表同时指向 <code>/</code> right now. They will differ once you
               set a custom home page in Settings.
             </p>
           )}
 
           {menus[loc.key].length === 0 ? (
             <p class="rounded-md border border-dashed border-line py-8 text-center text-sm text-gray-500">
-              No items yet.
+              还没有条目。
             </p>
           ) : (
             <ul data-menu-list={loc.key} class="divide-y divide-line border-y border-line">
@@ -318,9 +316,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
                           50 unexplained inputs. <details> states the intent in its
                           own summary and needs no JavaScript. */}
                       <details class="admin-rename mt-1">
-                        <summary class="inline-flex cursor-pointer list-none text-xs text-gray-500 hover:text-brand">
-                          Edit link text
-                        </summary>
+                        <summary class="inline-flex cursor-pointer list-none text-xs text-gray-500 hover:text-brand">编辑链接文字</summary>
                         <form
                           method="POST"
                           action="/api/admin/navigation"
@@ -331,9 +327,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
                           <label
                             for={`label-${item.publicId}`}
                             class="block text-[10px] uppercase tracking-wider text-gray-500"
-                          >
-                            Link text
-                          </label>
+                          >链接文字</label>
                           <div class="mt-1 flex gap-2">
                             <input
                               id={`label-${item.publicId}`}
@@ -348,7 +342,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
                               type="submit"
                               class="rounded border border-line px-2 py-1 text-xs hover:border-brand hover:text-brand"
                             >
-                              Save
+                              保存
                             </button>
                           </div>
                           <p class="mt-1 text-[10px] text-gray-500">
@@ -368,7 +362,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
                         <input type="hidden" name="direction" value="up" />
                         <button
                           type="submit"
-                          aria-label="Move up"
+                          aria-label="上移"
                           disabled={index === 0}
                           class="px-1 text-gray-400 hover:text-brand disabled:invisible"
                         >
@@ -381,7 +375,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
                         <input type="hidden" name="direction" value="down" />
                         <button
                           type="submit"
-                          aria-label="Move down"
+                          aria-label="下移"
                           disabled={index === menus[loc.key].length - 1}
                           class="px-1 text-gray-400 hover:text-brand disabled:invisible"
                         >
@@ -476,7 +470,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
             ? ''
             : (picker.select.selectedOptions[0]?.textContent ?? ''))
         : (singletonLabels[typeSel.value] ?? '');
-      labelInput.placeholder = name ? `Defaults to \u201C${name}\u201D` : 'Defaults to its name';
+      labelInput.placeholder = name ? `Defaults to \u201C${name}\u201D` : '默认使用名称';
     };
 
     const setAddEnabled = (enabled: boolean) => {
@@ -497,7 +491,7 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
       }
       const q = search.value.trim().toLowerCase();
       const matches = q ? picker.all.filter((o) => o.text.toLowerCase().includes(q)) : picker.all;
-      const empty = picker.truncated ? 'No matches here — try Search all' : 'No matches';
+      const empty = picker.truncated ? '此处无匹配——试试搜索全部' : '无匹配';
       picker.select.replaceChildren(
         ...(matches.length === 0
           ? [new Option(empty, '')]
@@ -537,8 +531,8 @@ const locations: { key: MenuLocation; title: string; note: string }[] = [
   const refreshEnds = (list: HTMLElement) => {
     const rows = [...list.children];
     rows.forEach((row, i) => {
-      const up = row.querySelector('button[aria-label="Move up"]') as HTMLButtonElement | null;
-      const down = row.querySelector('button[aria-label="Move down"]') as HTMLButtonElement | null;
+      const up = row.querySelector('button[aria-label="上移"]') as HTMLButtonElement | null;
+      const down = row.querySelector('button[aria-label="下移"]') as HTMLButtonElement | null;
       if (up) up.disabled = i === 0;
       if (down) down.disabled = i === rows.length - 1;
     });

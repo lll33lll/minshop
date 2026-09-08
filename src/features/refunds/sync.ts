@@ -167,7 +167,7 @@ export async function applyRefundEvent(
     // The event id is the idempotency boundary; the charge is already recorded
     // on the refund_sync_events row.
     providerEventId: input.eventId,
-    reason: 'Synchronised from a provider refund event',
+    reason: '从服务商退款事件同步',
   });
 
   if (!result.ok) {

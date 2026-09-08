@@ -36,7 +36,7 @@ export async function getEmailProvider(
     return createResendEmail(apiKey, from);
   }
 
-  // 'cloudflare' — the send_email binding (Workers Paid plan).
+  // 'cloudflare' — the send_email binding (Workers 付费版).
   const binding = env.EMAIL;
   if (!binding) return null;
   return createCloudflareEmail(binding, from);

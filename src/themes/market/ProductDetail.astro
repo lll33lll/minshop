@@ -27,7 +27,7 @@ const { model, purchase } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="py-3 font-serif text-[11px] text-[color:var(--market-muted)]">
-  <a href={model.backHref} class="hover:text-brand">Shop</a>
+  <a href={model.backHref} class="hover:text-brand">商店</a>
   {model.categories.map((category) => (
     <>
       <span aria-hidden="true"> / </span>
@@ -63,7 +63,7 @@ const { model, purchase } = Astro.props;
 
   <aside class="border border-line p-4 lg:order-3 lg:sticky lg:top-16">
     <h1 class="text-[19px] font-extrabold leading-snug tracking-tight">{model.name}</h1>
-    {model.digitalDelivery && <p class="mt-2 text-xs font-bold uppercase tracking-wide text-brand">Digital download</p>}
+    {model.digitalDelivery && <p class="mt-2 text-xs font-bold uppercase tracking-wide text-brand">数字下载</p>}
     <p class="mt-1 font-serif text-[11px] uppercase text-[color:var(--market-muted)]">
       {model.id}
     </p>
@@ -74,7 +74,7 @@ const { model, purchase } = Astro.props;
       data-base={model.priceCents}
       data-currency={model.currency}
     >
-      {model.priceVaries && <span class="text-sm font-normal">from </span>}
+      {model.priceVaries && <span class="text-sm font-normal">低至 </span>}
       {model.formattedPrice}
     </p>
 
@@ -84,9 +84,7 @@ const { model, purchase } = Astro.props;
           data-low-stock
           class="mt-2 inline-block px-2 py-1 text-[11px] font-bold uppercase tracking-wide"
           style="background:#fdf1e0;color:var(--market-stock-low)"
-        >
-          Low stock
-        </p>
+        >库存偏低</p>
       )
     }
     {
@@ -94,9 +92,7 @@ const { model, purchase } = Astro.props;
         <p
           class="mt-2 inline-block px-2 py-1 text-[11px] font-bold uppercase tracking-wide"
           style="background:#e6f4ea;color:var(--market-stock-in)"
-        >
-          In stock
-        </p>
+        >有货</p>
       )
     }
 
@@ -112,16 +108,14 @@ const { model, purchase } = Astro.props;
         <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
         <line x1="8.6" y1="13.5" x2="15.4" y2="17.5" /><line x1="15.4" y1="6.5" x2="8.6" y2="10.5" />
       </svg>
-      <span data-share-label>Share</span>
+      <span data-share-label>分享</span>
     </button>
   </aside>
 
   {
     model.descriptionHtml && (
       <section class="lg:order-2">
-        <h2 class="mb-2 text-xs font-bold uppercase tracking-wider text-[color:var(--market-muted)]">
-          Details
-        </h2>
+        <h2 class="mb-2 text-xs font-bold uppercase tracking-wider text-[color:var(--market-muted)]">详情</h2>
         <div class="markdown-content text-sm leading-relaxed" set:html={model.descriptionHtml} />
       </section>
     )
@@ -133,9 +127,7 @@ const { model, purchase } = Astro.props;
 {
   model.related.length > 0 && (
     <section class="mt-8 border-t border-line pt-6">
-      <h2 class="mb-3 text-xs font-bold uppercase tracking-wider text-[color:var(--market-muted)]">
-        Related
-      </h2>
+      <h2 class="mb-3 text-xs font-bold uppercase tracking-wider text-[color:var(--market-muted)]">相关推荐</h2>
       <ul class="-mx-4 grid grid-cols-2 gap-px border-y border-line bg-line sm:grid-cols-4">
         {model.related.map((card, i) => (
           <ProductCard card={card} index={i} headingLevel="h3" />

@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
   if (action === 'attach') {
     const mediaPublicId = parsePublicId(form.get('media_id'), 'media');
     const media = mediaPublicId ? await getMediaByPublicId(env.DB, mediaPublicId) : null;
-    if (!media) return back('Choose an image.');
+    if (!media) return back('请选择一张图片。');
     const attached = await attachMediaToProduct(env.DB, id, media.id);
     if (!attached.ok) return back(attached.error);
     await syncPrimaryImage(env.DB, id);
@@ -102,7 +102,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
 
   const imagePublicId = parsePublicId(form.get('image_id'), 'productImage');
   const img = imagePublicId ? byPublicId.get(imagePublicId) : undefined;
-  if (!img) return back('Image not found.');
+  if (!img) return back('图片不存在。');
   const imageId = img.id;
 
   if (action === 'alt') {

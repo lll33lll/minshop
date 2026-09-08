@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request, params, redirect }) => {
   let parentId: number | null = null;
   if (parsed.data.parentPublicId) {
     const parent = await getCategoryByPublicId(env.DB, parsed.data.parentPublicId);
-    if (!parent) return fail('That parent category no longer exists.');
+    if (!parent) return fail('该上级分类已不存在。');
     parentId = parent.id;
   }
 

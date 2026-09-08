@@ -37,12 +37,12 @@ const thumbCell = (
 /** Shipping / discount / tax / total, in the order they appear on a receipt. */
 function totalRows(order: Order, money: (cents: number) => string): TotalRow[] {
   return [
-    ...(order.shipping_cents > 0 ? [{ label: 'Shipping', amount: money(order.shipping_cents) }] : []),
+    ...(order.shipping_cents > 0 ? [{ label: '运费', amount: money(order.shipping_cents) }] : []),
     ...(order.discount_cents > 0
-      ? [{ label: 'Discount', amount: `&minus;${money(order.discount_cents)}` }]
+      ? [{ label: '优惠', amount: `&minus;${money(order.discount_cents)}` }]
       : []),
-    ...(order.tax_cents > 0 ? [{ label: 'Tax', amount: money(order.tax_cents) }] : []),
-    { label: 'Total', amount: money(order.amount_total_cents), strong: true },
+    ...(order.tax_cents > 0 ? [{ label: '税费', amount: money(order.tax_cents) }] : []),
+    { label: '合计', amount: money(order.amount_total_cents), strong: true },
   ];
 }
 
@@ -85,23 +85,23 @@ export function orderConfirmationEmail(
   );
 
   const text = [
-    `Thanks for your order!`,
+    `感谢下单！`,
     ``,
-    `Order #${num}, ${storeName}`,
+    `订单 ${num} · ${storeName}`,
     ``,
     ...rows,
-    ...(order.shipping_cents > 0 ? [`Shipping: ${money(order.shipping_cents)}`] : []),
-    ...(order.discount_cents > 0 ? [`Discount: -${money(order.discount_cents)}`] : []),
-    ...(order.tax_cents > 0 ? [`Tax: ${money(order.tax_cents)}`] : []),
-    `Total: ${money(order.amount_total_cents)}`,
-    ...(hasDigital && orderUrl ? [``, `Your download is ready.`] : []),
-    ...(orderUrl ? [``, `View your order: ${orderUrl}`] : []),
+    ...(order.shipping_cents > 0 ? [`运费：${money(order.shipping_cents)}`] : []),
+    ...(order.discount_cents > 0 ? [`优惠：-${money(order.discount_cents)}`] : []),
+    ...(order.tax_cents > 0 ? [`税费：${money(order.tax_cents)}`] : []),
+    `合计：${money(order.amount_total_cents)}`,
+    ...(hasDigital && orderUrl ? [``, `你的下载已就绪。`] : []),
+    ...(orderUrl ? [``, `查看订单：${orderUrl}`] : []),
   ].join('\n');
 
   const html = emailShell({
     storeName,
-    heading: 'Thanks for your order',
-    subheading: `Order #${num} is confirmed. We'll email you again when it ships.`,
+    heading: '感谢下单',
+    subheading: `订单 ${num} 已确认。发货后我们会再邮件通知你。`,
     body:
       emailItemsTable(
         items.map((it) => ({
@@ -113,15 +113,15 @@ export function orderConfirmationEmail(
         totalRows(order, money),
       ) +
       (hasDigital && orderUrl
-        ? `<p style="margin:20px 0 0;font-size:14px;">Your download is ready.</p>`
+        ? `<p style="margin:20px 0 0;font-size:14px;">你的下载已就绪。</p>`
         : '') +
-      (orderUrl ? emailButton(orderUrl, 'View your order') : ''),
-    footer: `Questions about this order? Just reply to this email.`,
+      (orderUrl ? emailButton(orderUrl, '查看订单') : ''),
+    footer: `对订单有疑问？直接回复这封邮件即可。`,
   });
 
   return {
     to: order.email!,
-    subject: `Your ${storeName} order #${num}`,
+    subject: `你的 ${storeName} 订单 ${num}`,
     html,
     text,
   };
@@ -153,31 +153,31 @@ export function orderNotificationEmail(
   );
 
   const text = [
-    `New order #${order.id}`,
-    `Public ID: ${publicId}`,
+    `新订单 ${order.id}`,
+    `公开 ID: ${publicId}`,
     ``,
     `Customer: ${order.email ?? '-'}`,
     ``,
-    `Ship to:`,
+    `收货信息：`,
     shipText,
     ``,
     ...rows,
-    ...(order.shipping_cents > 0 ? [`Shipping: ${money(order.shipping_cents)}`] : []),
-    ...(order.discount_cents > 0 ? [`Discount: -${money(order.discount_cents)}`] : []),
-    ...(order.tax_cents > 0 ? [`Tax: ${money(order.tax_cents)}`] : []),
-    `Total: ${money(order.amount_total_cents)}`,
+    ...(order.shipping_cents > 0 ? [`运费：${money(order.shipping_cents)}`] : []),
+    ...(order.discount_cents > 0 ? [`优惠：-${money(order.discount_cents)}`] : []),
+    ...(order.tax_cents > 0 ? [`税费：${money(order.tax_cents)}`] : []),
+    `合计：${money(order.amount_total_cents)}`,
     ``,
-    `View in admin: ${adminUrl}`,
+    `后台查看：${adminUrl}`,
   ].join('\n');
 
   const html = emailShell({
     storeName,
-    heading: `New order #${order.id}`,
-    subheading: `${money(order.amount_total_cents)} from ${escapeHtml(order.email ?? 'an unknown address')}`,
+    heading: `新订单 ${order.id}`,
+    subheading: `${money(order.amount_total_cents)} · ${escapeHtml(order.email ?? '未知地址')}`,
     body:
-      emailLabel('Order identifiers') +
-      `<p style="margin:0;font-size:14px;line-height:1.6;">Order #${order.id}<br><span style="font-family:monospace;">${escapeHtml(publicId)}</span></p>` +
-      emailLabel('Ship to') +
+      emailLabel('订单标识') +
+      `<p style="margin:0;font-size:14px;line-height:1.6;">订单号${order.id}<br><span style="font-family:monospace;">${escapeHtml(publicId)}</span></p>` +
+      emailLabel('收货信息') +
       `<p style="margin:0;font-size:14px;line-height:1.6;">${escapeHtml(shipText).replace(/\n/g, '<br>')}</p>` +
       emailItemsTable(
         items.map((it) => ({
@@ -188,12 +188,12 @@ export function orderNotificationEmail(
         })),
         totalRows(order, money),
       ) +
-      emailButton(adminUrl, 'View in admin'),
+      emailButton(adminUrl, '在后台查看'),
   });
 
   return {
     to,
-    subject: `New ${storeName} order #${order.id}${subjectPublicId}`,
+    subject: `【${storeName}】新订单 ${order.id}${subjectPublicId}`,
     html,
     text,
   };
@@ -212,20 +212,20 @@ export function orderShippedEmail(
   const orderUrl = guestOrderUrl ?? null;
 
   const text = [
-    `Your order #${num} has shipped!`,
+    `你的订单 ${num} 已发货！`,
     ...(order.tracking_number
       ? [
           ``,
-          `Carrier: ${carrierName(order.tracking_carrier)}`,
-          `Tracking: ${order.tracking_number}`,
-          ...(url ? [`Track it: ${url}`] : []),
+          `承运商：${carrierName(order.tracking_carrier)}`,
+          `运单号：${order.tracking_number}`,
+          ...(url ? [`追踪：${url}`] : []),
         ]
       : []),
-    ...(orderUrl ? [``, `View your order: ${orderUrl}`] : []),
+    ...(orderUrl ? [``, `查看订单：${orderUrl}`] : []),
   ].join('\n');
 
   const trackingHtml = order.tracking_number
-    ? emailLabel('Tracking') +
+    ? emailLabel('物流信息') +
       `<p style="margin:0;font-size:14px;line-height:1.6;">
         ${escapeHtml(carrierName(order.tracking_carrier))}<br>
         ${
@@ -238,21 +238,21 @@ export function orderShippedEmail(
 
   const html = emailShell({
     storeName,
-    heading: 'Your order is on its way',
-    subheading: `Order #${num} shipped.`,
+    heading: '你的订单已发出',
+    subheading: `订单 ${num} 已发货。`,
     body:
       trackingHtml +
       (url
-        ? emailButton(url, 'Track your package')
+        ? emailButton(url, '追踪包裹')
         : orderUrl
-          ? emailButton(orderUrl, 'View your order')
+          ? emailButton(orderUrl, '查看订单')
           : ''),
-    footer: orderUrl && url ? `Order details: <a href="${orderUrl}" style="color:${PALETTE.muted};">${orderUrl}</a>` : undefined,
+    footer: orderUrl && url ? `订单详情：<a href="${orderUrl}" style="color:${PALETTE.muted};">${orderUrl}</a>` : undefined,
   });
 
   return {
     to: order.email!,
-    subject: `Your ${storeName} order #${num} has shipped`,
+    subject: `你的 ${storeName} 订单 ${num} 已发货`,
     html,
     text,
   };
@@ -285,39 +285,39 @@ export function orderRefundedEmail(
   // "it depends on your bank" for cards. Saying nothing invites a support email.
   const timing =
     method === 'stripe' || method === null
-      ? 'Card refunds usually appear within 5-10 business days, depending on your bank.'
-      : 'The refund was sent back over the same payment method you used.';
+      ? '银行卡退款一般 5-10 个工作日到账，具体取决于你的银行。'
+      : '退款已按原支付方式退回。';
 
   // Prices in the ORDER's currency, not the store's current one — an order
   // placed before a currency change must still read back in what was charged.
   const money = (cents: number) => formatPrice(cents, order.currency);
 
   const priorLine =
-    refundedCents > refundCents ? `Total refunded so far: ${money(refundedCents)}` : null;
+    refundedCents > refundCents ? `累计退款：${money(refundedCents)}` : null;
 
   const text = [
-    full ? `Your order #${num} has been refunded.` : `A refund was issued for order #${num}.`,
+    full ? `你的订单 ${num} 已全额退款。` : `订单 ${num} 有一笔退款。`,
     ``,
-    `Refunded: ${money(refundCents)}`,
+    `本次退款：${money(refundCents)}`,
     ...(priorLine ? [priorLine] : []),
-    ...(full ? [] : [`Still paid: ${money(remaining)}`]),
+    ...(full ? [] : [`剩余已付：${money(remaining)}`]),
     ``,
     timing,
-    ...(orderUrl ? [``, `View your order: ${orderUrl}`] : []),
+    ...(orderUrl ? [``, `查看订单：${orderUrl}`] : []),
   ].join('\n');
 
   const rows: TotalRow[] = [
-    { label: 'Refunded', amount: money(refundCents), strong: true },
-    ...(priorLine ? [{ label: 'Total refunded', amount: money(refundedCents) }] : []),
-    ...(full ? [] : [{ label: 'Still paid', amount: money(remaining) }]),
+    { label: '本次退款', amount: money(refundCents), strong: true },
+    ...(priorLine ? [{ label: '累计退款', amount: money(refundedCents) }] : []),
+    ...(full ? [] : [{ label: '剩余已付', amount: money(remaining) }]),
   ];
 
   const html = emailShell({
     storeName,
-    heading: full ? 'Your order has been refunded' : 'A refund is on its way',
-    subheading: `Order #${num}`,
+    heading: full ? '订单已全额退款' : '退款正在路上',
+    subheading: `订单 ${num}`,
     body:
-      emailLabel('Refund') +
+      emailLabel('退款') +
       `<table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;">${rows
         .map(
           (r) =>
@@ -326,14 +326,14 @@ export function orderRefundedEmail(
         )
         .join('')}</table>` +
       `<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:${PALETTE.muted};">${escapeHtml(timing)}</p>` +
-      (orderUrl ? emailButton(orderUrl, 'View your order') : ''),
+      (orderUrl ? emailButton(orderUrl, '查看订单') : ''),
   });
 
   return {
     to: order.email!,
     subject: full
-      ? `Your ${storeName} order #${num} has been refunded`
-      : `A refund for your ${storeName} order #${num}`,
+      ? `你的 ${storeName} 订单 ${num} 已退款`
+      : `你的 ${storeName} 订单 ${num} 退款通知`,
     html,
     text,
   };

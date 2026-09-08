@@ -28,7 +28,7 @@ const FAILURE_MESSAGES = {
   full: (location: string) =>
     `The ${location} menu is full (${MENU_CAPS[location as 'header' | 'footer']} items). Remove one first.`,
   duplicate: (location: string, what: string) => `${what} is already in the ${location} menu.`,
-  unavailable: () => 'That page, product, or category is no longer available.',
+  unavailable: () => '该页面、商品或分类已不可用。',
 };
 
 /**
@@ -120,7 +120,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const location = form.get('location');
     const targetType = form.get('target_type');
     if (!isMenuLocation(location)) return new Response('Invalid location', { status: 400 });
-    if (!isMenuTargetType(targetType)) return new Response('Invalid target type', { status: 400 });
+    if (!isMenuTargetType(targetType)) return new Response('目标类型无效', { status: 400 });
 
     // Singletons carry no target; the rest submit a public ID that must resolve.
     let targetId: number | null = null;
@@ -131,7 +131,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       // direct API caller does not have to know that detail.
       const raw = form.get(`target_id_${targetType}`) ?? form.get('target_id');
       targetId = await resolveTargetId(targetType, raw);
-      if (targetId === null) return back('Choose a target first.');
+      if (targetId === null) return back('请先选择目标。');
     }
 
     const result = await addMenuItem(env.DB, {

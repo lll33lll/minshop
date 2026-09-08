@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       : redirect(`/admin/settings?msg=${encodeURIComponent(message)}#email`, 303);
 
   if (!to || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) {
-    return done(false, 'Enter a valid recipient address for the test email.');
+    return done(false, '请输入有效的测试邮件收件地址。');
   }
   const provider = await getEmailProvider();
   if (!provider) {
@@ -33,7 +33,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     await provider.send({
       to,
       subject: `Test email from ${storeName}`,
-      html: `<p>This is a test email from your ${storeName} admin. Email delivery is working ✅</p>`,
+      html: `<p>这是来自 ${storeName} 管理后台的测试邮件。邮件功能正常 ✅</p>`,
       text: `This is a test email from your ${storeName} admin. Email delivery is working.`,
     });
     return done(true, `Test email sent to ${to}.`);

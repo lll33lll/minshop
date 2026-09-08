@@ -32,7 +32,7 @@ const hrefFor = (p: number) =>
   queryHref('/search', { q, page: p > 1 ? p : undefined });
 const autoCorrected = suggestion !== null;
 
-// Semantic search (with its relevance cutoff) can return only a handful of exact
+// 语义搜索 (with its relevance cutoff) can return only a handful of exact
 // matches — top the grid up to TARGET with products from the same categories so
 // it doesn't look sparse. Only when there's at least one match (an off-topic
 // query that matched nothing stays empty, not padded with random items).
@@ -65,9 +65,9 @@ const fillerCards = fillers.map((product) => buildProductCard(product, cardOptio
 
 <Layout title={q ? `Search: ${q}` : 'Search'}>
   <div class="mb-8">
-    <p class="text-xs uppercase tracking-[0.25em] text-muted">Search</p>
+    <p class="text-xs uppercase tracking-[0.25em] text-muted">搜索</p>
     <h1 class="mt-2 font-serif text-4xl tracking-tight sm:text-5xl">
-      {q ? q : 'Find something'}
+      {q ? q : '搜点什么…'}
     </h1>
   </div>
 
@@ -76,8 +76,8 @@ const fillerCards = fillers.map((product) => buildProductCard(product, cardOptio
       type="search"
       name="q"
       value={q}
-      placeholder="Search products…"
-      aria-label="Search products"
+      placeholder="搜索商品…"
+      aria-label="搜索商品"
       autofocus={!q}
       class="w-full border-0 border-b border-line bg-transparent px-1 py-2 text-base transition-colors focus:border-brand focus:outline-none"
     />
@@ -111,7 +111,7 @@ const fillerCards = fillers.map((product) => buildProductCard(product, cardOptio
     fillers.length > 0 && (
       <>
         <p class="mb-8 mt-16 text-xs uppercase tracking-widest text-muted">
-          More from these categories
+          同分类商品推荐
         </p>
         <ul class="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-3">
           {fillerCards.map((card, i) => (
@@ -124,7 +124,7 @@ const fillerCards = fillers.map((product) => buildProductCard(product, cardOptio
 
   {
     q && products.length === 0 && (
-      <p class="text-muted">No products match “{q}”. Try a different word.</p>
+      <p class="text-muted">没有找到与“{q}”匹配的商品，换个词试试。</p>
     )
   }
 

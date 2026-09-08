@@ -59,7 +59,7 @@ export const GET: APIRoute = async ({ params, request }) => {
   }
 
   if (access.hidden_at) {
-    return new Response(JSON.stringify({ error: 'Checkout status is no longer visible.' }), {
+    return new Response(JSON.stringify({ error: '结算状态已不可见。' }), {
       status: 410,
       headers,
     });
@@ -70,7 +70,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify({ error: 'Not found' }), { status: 404, headers });
   }
   if (reservation.status === 'released') {
-    return new Response(JSON.stringify({ error: 'Checkout is no longer payable.' }), {
+    return new Response(JSON.stringify({ error: '此结算已无法支付。' }), {
       status: 410,
       headers,
     });

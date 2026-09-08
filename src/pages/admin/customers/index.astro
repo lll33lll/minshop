@@ -29,24 +29,24 @@ const sortHref = (col: string) =>
 const arrow = (col: string) => (sort === col ? (dir === 'asc' ? ' ↑' : ' ↓') : '');
 ---
 
-<AdminLayout title="Customers" active="customers">
-  <h1 class="mb-8 font-serif text-3xl tracking-tight">Customers</h1>
+<AdminLayout title="客户" active="customers">
+  <h1 class="mb-8 font-serif text-3xl tracking-tight">客户</h1>
 
   <div class="sm:overflow-x-auto">
     <table class="admin-table w-full text-left text-sm sm:min-w-[40rem]">
     <thead>
       <tr class="border-b border-line text-xs uppercase tracking-widest text-gray-400">
         <th class="py-3 pr-4 font-normal">
-          <a href={sortHref('email')} class="hover:text-brand">Email{arrow('email')}</a>
+          <a href={sortHref('email')} class="hover:text-brand">邮箱{arrow('email')}</a>
         </th>
         <th class="py-3 pr-4 font-normal">
-          <a href={sortHref('orders')} class="hover:text-brand">Orders{arrow('orders')}</a>
+          <a href={sortHref('orders')} class="hover:text-brand">订单{arrow('orders')}</a>
         </th>
         <th class="py-3 pr-4 font-normal">
-          <a href={sortHref('lifetime')} class="hover:text-brand">Lifetime value{arrow('lifetime')}</a>
+          <a href={sortHref('lifetime')} class="hover:text-brand">累计消费{arrow('lifetime')}</a>
         </th>
         <th class="py-3 font-normal">
-          <a href={sortHref('last')} class="hover:text-brand">Last order{arrow('last')}</a>
+          <a href={sortHref('last')} class="hover:text-brand">最近订单{arrow('last')}</a>
         </th>
       </tr>
     </thead>
@@ -62,9 +62,9 @@ const arrow = (col: string) => (sort === col ? (dir === 'asc' ? ' ↑' : ' ↓')
                 {c.email}
               </a>
             </td>
-            <td data-label="Orders" class="py-3 pr-4 tabular-nums">{c.orders}</td>
-            <td data-label="Lifetime value" class="py-3 pr-4 tabular-nums">{formatPrice(c.lifetime_cents)}</td>
-            <td data-label="Last order" class="py-3 text-gray-500">{formatDate(c.last_order, { dateStyle: 'medium' }, timeZone)}</td>
+            <td data-label="订单" class="py-3 pr-4 tabular-nums">{c.orders}</td>
+            <td data-label="累计消费" class="py-3 pr-4 tabular-nums">{formatPrice(c.lifetime_cents)}</td>
+            <td data-label="最近订单" class="py-3 text-gray-500">{formatDate(c.last_order, { dateStyle: 'medium' }, timeZone)}</td>
           </tr>
         ))
       }
@@ -72,7 +72,7 @@ const arrow = (col: string) => (sort === col ? (dir === 'asc' ? ' ↑' : ' ↓')
         customers.length === 0 && (
           <tr>
             <td colspan="4" class="py-8 text-center text-gray-400">
-              No customers yet.
+              还没有客户。
             </td>
           </tr>
         )

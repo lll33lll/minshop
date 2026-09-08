@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, params }) => {
   const method = params.provider as PaymentMethod;
   const settings = await getStoreSettings(env.DB);
   if (!METHODS.includes(method) || !isMethodAvailable(method, settings)) {
-    return new Response('Unknown or unconfigured payment method', { status: 404 });
+    return new Response('未知或未配置的支付方式', { status: 404 });
   }
 
   const payload = await request.text();

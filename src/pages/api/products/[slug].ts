@@ -18,7 +18,7 @@ export const OPTIONS: APIRoute = () => catalogPreflight();
 export const GET: APIRoute = async ({ params, url }) => {
   const product = params.slug ? await getProductBySlug(env.DB, params.slug) : null;
   if (!product || product.active !== 1) {
-    return catalogJson({ error: 'Product not found' }, 404);
+    return catalogJson({ error: '商品不存在' }, 404);
   }
   const [cats, variants, extras] = await Promise.all([
     categoriesForProduct(env.DB, product.id),

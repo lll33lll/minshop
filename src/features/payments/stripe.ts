@@ -301,7 +301,7 @@ export function createStripeProvider(
           ? session.payment_intent
           : (session.payment_intent?.id ?? null);
       if (!pi) {
-        throw new Error('No payment intent found for this session');
+        throw new Error('此会话没有对应的支付意图');
       }
       await stripe.refunds.create({ payment_intent: pi });
     },

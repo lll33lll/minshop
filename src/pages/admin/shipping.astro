@@ -159,7 +159,7 @@ if (Astro.request.method === 'POST') {
               `${missing} product${missing === 1 ? '' : 's'} (${names.join(', ')}${
                 missing > names.length ? ', …' : ''
               }) have no shipping weight and could not be purchased. ` +
-              'Set weights or keep a flat rate in every zone.',
+              '填写重量，或在每个区域保留统一运费。',
           },
         ];
       }
@@ -223,24 +223,24 @@ const isFirstSave = parsed.status !== 'valid';
 const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500 ${path}`;
 ---
 
-<AdminLayout title="Shipping" active="shipping">
+<AdminLayout title="配送" active="shipping">
   <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
     <div>
-      <h1 class="font-serif text-3xl tracking-tight">Shipping</h1>
+      <h1 class="font-serif text-3xl tracking-tight">配送</h1>
       <p class="mt-2 text-sm text-gray-500">
         Zones, rates, and free-shipping thresholds. Amounts are in {currency.toUpperCase()};
         weights are entered in <strong>{unit}</strong> and stored in grams — change the unit in{' '}
-        <a href="/admin/settings" class="underline hover:text-brand">Settings</a>.
+        <a href="/admin/settings" class="underline hover:text-brand">设置</a>.
       </p>
     </div>
     <a href="/cart" class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand">
-      View cart checkout &rarr;
+      查看购物车并结算 &rarr;
     </a>
   </div>
 
   {saved && (
     <p class="mb-6 rounded-md border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800">
-      Shipping saved.
+      配送设置已保存。
     </p>
   )}
   {notice && (
@@ -250,24 +250,24 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
   )}
   {parsed.status === 'invalid' && (
     <div class="mb-6 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800">
-      <strong class="font-semibold">The saved shipping configuration could not be read:</strong>{' '}
+      <strong class="font-semibold">无法读取已保存的配送配置：</strong>{' '}
       {parsed.error}
       <p class="mt-2">
-        Checkout is blocked for physical orders until this is replaced. Review the values below
-        and use <strong>Replace invalid configuration</strong> to overwrite it.
+        替换之前，实体商品的结算会被阻断。请核对下方数值，
+        使用<strong>替换无效配置</strong>将其覆盖。
       </p>
     </div>
   )}
   {prepopulated && (
     <div class="mb-6 rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-      This store still uses the shipping configuration from <code class="text-xs">store.config.ts</code>,
+      本店仍在使用来自 <code class="text-xs">store.config.ts</code>,
       which allows things the editor does not. The problems are marked below — fix them, then save
       to take ownership in Admin.
     </div>
   )}
   {isFirstSave && !prepopulated && (
     <p class="mb-6 rounded-md border border-line bg-white/60 px-4 py-3 text-sm text-gray-600">
-      Shipping currently comes from <code class="text-xs">store.config.ts</code>. Saving here moves
+      当前配送配置来自 <code class="text-xs">store.config.ts</code>. Saving here moves
       ownership to Admin — from then on this page is the source of truth.
     </p>
   )}
@@ -280,11 +280,11 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
     <section class="rounded-md border border-line bg-white/60 p-4">
       <label class="flex items-center gap-3 text-sm">
         <input type="checkbox" name="enabled" value="1" checked={model.enabled} class="size-4" />
-        <span><strong class="font-semibold">Offer shipping</strong> — collect an address and charge for delivery.</span>
+        <span><strong class="font-semibold">提供配送</strong> — 收集收货地址并收取运费。</span>
       </label>
       <div class="mt-4 flex flex-wrap items-end gap-3">
         <label class="block">
-          <span class={label('')}>Packaging weight ({unit})</span>
+          <span class={label('')}>包装重量（{unit}）</span>
           <input
             type="text"
             name="package_weight"
@@ -294,7 +294,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
           />
         </label>
         <p class="text-xs text-gray-500">
-          Box, mailer, padding and label. Added once per order, on top of item weights.
+          包装箱、气泡袋、填充物与面单的重量。每单只计一次，叠加在商品重量之上。
         </p>
       </div>
       {documentErrors.map((e) => (
@@ -307,7 +307,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
         <input type="hidden" name={`zone[${zone.token}][rate_order]`} value={zone.rates.map((r) => r.token).join(',')} />
         <div class="flex flex-wrap items-end justify-between gap-3">
           <label class="block flex-1">
-            <span class={label('')}>Zone name</span>
+            <span class={label('')}>区域名称</span>
             <input
               type="text"
               name={`zone[${zone.token}][name]`}
@@ -317,9 +317,9 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
             />
           </label>
           <div class="flex gap-2 text-xs uppercase tracking-widest">
-            <button name="_action" value={`move_zone:${zone.token}:up`} class="text-gray-500 hover:text-brand" disabled={zoneIndex === 0}>Up</button>
-            <button name="_action" value={`move_zone:${zone.token}:down`} class="text-gray-500 hover:text-brand" disabled={zoneIndex === model.zones.length - 1}>Down</button>
-            <button name="_action" value={`remove_zone:${zone.token}`} class="text-red-600 hover:text-red-800">Remove zone</button>
+            <button name="_action" value={`move_zone:${zone.token}:up`} class="text-gray-500 hover:text-brand" disabled={zoneIndex === 0}>上移</button>
+            <button name="_action" value={`move_zone:${zone.token}:down`} class="text-gray-500 hover:text-brand" disabled={zoneIndex === model.zones.length - 1}>下移</button>
+            <button name="_action" value={`remove_zone:${zone.token}`} class="text-red-600 hover:text-red-800">删除区域</button>
           </div>
         </div>
         {errorsFor(errors, zoneIndex).map((e) => (
@@ -328,14 +328,14 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
 
         <div class="mt-4 grid gap-4 sm:grid-cols-2">
           <label class="block">
-            <span class={label('')}>Destinations</span>
+            <span class={label('')}>配送目的地</span>
             <select
               name={`zone[${zone.token}][countries][]`}
               multiple
               size="6"
               class="mt-1 w-full rounded border border-line px-2 py-1 text-sm"
             >
-              <option value="*" selected={zone.countries.includes('*')}>Rest of world</option>
+              <option value="*" selected={zone.countries.includes('*')}>世界其他地区</option>
               {countries.map((c) => (
                 <option value={c.code} selected={zone.countries.includes(c.code)}>{c.name}</option>
               ))}
@@ -350,7 +350,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
             ))}
           </label>
           <label class="block">
-            <span class={label('')}>Free shipping over ({currency.toUpperCase()})</span>
+            <span class={label('')}>满额包邮（{currency.toUpperCase()}）</span>
             <input
               type="text"
               name={`zone[${zone.token}][free_over]`}
@@ -358,7 +358,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
               inputmode="decimal"
               class="mt-1 w-full rounded border border-line px-2 py-1 text-sm"
             />
-            <span class="mt-1 block text-xs text-gray-500">Blank disables it.</span>
+            <span class="mt-1 block text-xs text-gray-500">留空则停用。</span>
           </label>
         </div>
 
@@ -367,7 +367,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
             <div class="rounded border border-line bg-paper p-3">
               <div class="flex flex-wrap items-end gap-3">
                 <label class="block">
-                  <span class={label('')}>Rate label</span>
+                  <span class={label('')}>运费名称</span>
                   <input
                     type="text"
                     name={`zone[${zone.token}][rate][${rate.token}][label]`}
@@ -377,14 +377,14 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                   />
                 </label>
                 <label class="block">
-                  <span class={label('')}>Pricing</span>
+                  <span class={label('')}>定价</span>
                   <select
                     name={`zone[${zone.token}][rate][${rate.token}][mode]`}
                     class="mt-1 rounded border border-line px-2 py-1 text-sm"
                   >
-                    <option value="flat" selected={rate.mode === 'flat'}>Flat price</option>
-                    <option value="weight" selected={rate.mode === 'weight'}>By order weight</option>
-                    <option value="pickup" selected={rate.mode === 'pickup'}>Local pickup</option>
+                    <option value="flat" selected={rate.mode === 'flat'}>统一价格</option>
+                    <option value="weight" selected={rate.mode === 'weight'}>按订单重量</option>
+                    <option value="pickup" selected={rate.mode === 'pickup'}>到店自提</option>
                   </select>
                 </label>
                 {rate.mode !== 'weight' && (
@@ -404,7 +404,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                   value={`remove_rate:${zone.token}:${rate.token}`}
                   class="ml-auto text-xs uppercase tracking-widest text-red-600 hover:text-red-800"
                 >
-                  Remove rate
+                  删除运费项
                 </button>
               </div>
               {errorsFor(errors, zoneIndex, rateIndex).map((e) => (
@@ -418,7 +418,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                     name={`zone[${zone.token}][rate][${rate.token}][band_order]`}
                     value={rate.bands.map((b) => b.token).join(',')}
                   />
-                  <p class={label('mb-2 block')}>Weight bands</p>
+                  <p class={label('mb-2 block')}>重量区间</p>
                   {rate.bands.map((band, bandIndex) => (
                     <div class="mb-2 flex flex-wrap items-end gap-3">
                       <label class="block">
@@ -441,11 +441,11 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                             checked={band.noMax}
                             class="size-4"
                           />
-                          No maximum
+                          不设上限
                         </label>
                       )}
                       <label class="block">
-                        <span class="text-xs text-gray-500">Price</span>
+                        <span class="text-xs text-gray-500">价格</span>
                         <input
                           type="text"
                           name={`zone[${zone.token}][rate][${rate.token}][band][${band.token}][amount]`}
@@ -459,7 +459,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                         value={`remove_band:${zone.token}:${rate.token}:${band.token}`}
                         class="pb-1 text-xs uppercase tracking-widest text-red-600 hover:text-red-800"
                       >
-                        Remove
+                        移除
                       </button>
                       {errorsFor(errors, zoneIndex, rateIndex, bandIndex).map((e) => (
                         <p class="w-full text-sm text-red-700">{e.message}</p>
@@ -471,7 +471,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
                     value={`add_band:${zone.token}:${rate.token}`}
                     class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand"
                   >
-                    + Add band
+                    + 添加区间
                   </button>
                 </div>
               )}
@@ -482,7 +482,7 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
             value={`add_rate:${zone.token}`}
             class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand"
           >
-            + Add rate
+            + 添加运费项
           </button>
         </div>
       </section>
@@ -494,14 +494,14 @@ const label = (path: string) => `text-xs uppercase tracking-widest text-gray-500
         value={parsed.status === 'invalid' ? 'replace' : 'save'}
         class="rounded bg-brand px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"
       >
-        {parsed.status === 'invalid' ? 'Replace invalid configuration' : 'Save shipping'}
+        {parsed.status === 'invalid' ? '替换无效配置' : '保存配送设置'}
       </button>
       <button
         name="_action"
         value="add_zone"
         class="text-xs uppercase tracking-widest text-gray-500 hover:text-brand"
       >
-        + Add zone
+        + 添加区域
       </button>
       <p class="text-xs text-gray-500">
         Stripe shows the rates for the country chosen in the cart; the final address is confirmed

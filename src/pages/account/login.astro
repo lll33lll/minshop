@@ -22,7 +22,7 @@ let error = Astro.url.searchParams.get('error') === 'expired' ? 'That link expir
 if (Astro.request.method === 'POST') {
   const form = await Astro.request.formData();
   const email = String(form.get('email') ?? '');
-  // Bot challenge (if enabled in Settings → Bot protection): verify with the vault secret.
+  // Bot challenge (if enabled in Settings → 机器人防护): verify with the vault secret.
   const turnstileEnabled = Astro.locals.settings?.turnstileEnabled === true;
   const tsSecret = turnstileEnabled
     ? await getSecret(env.DB, 'turnstile_secret_key')
@@ -36,7 +36,7 @@ if (Astro.request.method === 'POST') {
   if (!tsOk) {
     error = 'Verification failed — please try again.';
   } else if (!isValidEmail(email)) {
-    error = 'Enter a valid email address.';
+    error = '请输入有效的邮箱地址。';
   } else {
     await requestLogin(email, Astro.url.origin);
     sent = true;
@@ -44,14 +44,14 @@ if (Astro.request.method === 'POST') {
 }
 ---
 
-<Layout title="Sign in">
+<Layout title="登录">
   <div class="mx-auto max-w-sm py-10">
-    <h1 class="mb-2 font-serif text-3xl tracking-tight sm:text-4xl">Sign in</h1>
+    <h1 class="mb-2 font-serif text-3xl tracking-tight sm:text-4xl">登录</h1>
 
     {
       sent ? (
         <p class="rounded-md border border-line bg-surface px-4 py-3 text-sm text-muted">
-          Check your email — we sent a one-time sign-in link. It expires in 15 minutes.
+          请查收邮件——我们已发送一次性登录链接，15 分钟内有效。
         </p>
       ) : (
         <Fragment>
@@ -81,7 +81,7 @@ if (Astro.request.method === 'POST') {
               type="submit"
               class="w-full rounded-md bg-brand px-4 py-2.5 font-medium text-on-brand hover:bg-brand-hover"
             >
-              Send sign-in link
+              发送登录链接
             </button>
           </form>
         </Fragment>
