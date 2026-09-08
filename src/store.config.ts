@@ -15,4 +15,5 @@ import type { DeepPartial, SiteConfig } from './config';
  *
  * Operational switches and integrations belong in Admin → Settings.
  */
+// zh-CN 部署触发标记（2026-09-08）——运行时设置请在 /admin 后台调整。
 export const storeOverrides: DeepPartial<SiteConfig> = {};
