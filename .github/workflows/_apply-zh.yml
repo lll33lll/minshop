@@ -25,7 +25,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsSL --retry 3 -o /tmp/zh.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-zh.patch"
-          echo "e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365  /tmp/zh.patch" | sha256sum -c -
+          echo "c5ba25ca2b38820150adc64a6f1fa5759a2a234b2bb9e39b80cea030b73c5d38  /tmp/zh.patch" | sha256sum -c -
 
       - name: git apply --check
         run: git apply --check --verbose /tmp/zh.patch
@@ -43,7 +43,7 @@ jobs:
 
       - name: git commit
         run: |
-          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置 + 部署工作流" -m "补丁 sha256: e16dacc22b929ee68e9f7482805fe96e7eef4219d049b844ffeb126ed1f88365"
+          git commit -m "i18n: 全站中文化 + 实例 wrangler 配置" -m "补丁 sha256: c5ba25ca2b38820150adc64a6f1fa5759a2a234b2bb9e39b80cea030b73c5d38"
 
       - name: git push
         run: git push 2>&1
