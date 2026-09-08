@@ -409,7 +409,7 @@ await check('a deleted target with a custom label is reported as deleted, not dr
   assert.equal(menus.footer[0].targetExists, false);
   assert.deepEqual(
     menus.footer.map((i) => unavailableReason(i)),
-    ['Target no longer exists', 'Target no longer exists'],
+    ['目标已不存在', '目标已不存在'],
   );
   assert.equal(visibleItems(menus.footer).length, 0, 'still hidden on the storefront');
 });
