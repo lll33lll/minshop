@@ -7,6 +7,7 @@ import { createLightningProvider } from './lightning-provider';
 import { getLightningBackend } from './lightning';
 import { createOpenNodeProvider } from './opennode';
 import { createDemoProvider } from './demo';
+import { createQrProvider } from './qrcode';
 import { getSecret, vaultReady } from '../secrets/store';
 
 export type { PaymentProvider } from './provider';
@@ -16,17 +17,24 @@ export {
   RESERVATION_EXPIRY_GRACE_SECONDS,
 } from './provider';
 export { DEMO_CHECKOUT_TTL_SECONDS } from './demo';
+export { QR_CHECKOUT_TTL_SECONDS } from './qrcode';
 
 // 'demo' is a first-class method — a simulated checkout that's ALWAYS offered
 // (records a real, demo-tagged order). The real rails work only when configured.
-export type PaymentMethod = 'stripe' | 'lightning' | 'opennode' | 'demo';
-const ALL_METHODS: PaymentMethod[] = ['stripe', 'lightning', 'opennode'];
+export type PaymentMethod = 'stripe' | 'lightning' | 'opennode' | 'qrcode' | 'demo';
+const ALL_METHODS: PaymentMethod[] = ['stripe', 'lightning', 'opennode', 'qrcode'];
 // The buttons always presented at checkout. Each real rail works if configured,
 // else its button leads to setup instructions; demo always works.
-const OFFERED: PaymentMethod[] = ['stripe', 'lightning', 'demo'];
+const OFFERED: PaymentMethod[] = ['qrcode', 'stripe', 'lightning', 'demo'];
 
 export function isPaymentMethod(value: string): value is PaymentMethod {
-  return value === 'stripe' || value === 'lightning' || value === 'opennode' || value === 'demo';
+  return (
+    value === 'stripe' ||
+    value === 'lightning' ||
+    value === 'opennode' ||
+    value === 'qrcode' ||
+    value === 'demo'
+  );
 }
 
 /**
@@ -51,6 +59,9 @@ export function isMethodAvailable(
       return settings.lightningBackend === 'lnbits'
         ? !!settings.lnbitsUrl && has('lnbits_api_key')
         : !!settings.phoenixdUrl && has('phoenixd_password');
+    case 'qrcode':
+      // 收款码：上传了微信或支付宝收款码即可用（无需密钥库）。
+      return !!settings.qrWechatImageKey || !!settings.qrAlipayImageKey;
     case 'demo':
       return true; // demo is always usable
   }
@@ -123,6 +134,7 @@ export async function getPaymentProvider(method?: PaymentMethod): Promise<Paymen
   const settings = await getStoreSettings(env.DB);
   const m = method ?? settings.paymentProvider;
   if (m === 'demo') return createDemoProvider(env.DB);
+  if (m === 'qrcode') return createQrProvider(env.DB);
   switch (m) {
     case 'lightning':
       // Self-hosted Lightning (phoenixd / LNbits) behind a self-rendered pay page.

@@ -134,6 +134,7 @@ const destination = stripeDestination(
 
 const heading = isBuyNow ? '立即购买' : '去结算';
 const METHOD: Record<string, { label: string; hint: string }> = {
+  qrcode: { label: '扫码支付', hint: '微信 / 支付宝扫码，商家确认后自动发货' },
   stripe: { label: '银行卡支付', hint: 'Visa, Mastercard, Apple Pay & more' },
   lightning: { label: 'Pay with Lightning ⚡', hint: 'Instant — from any Lightning wallet' },
   opennode: { label: 'Pay with Bitcoin', hint: 'On-chain or Lightning (OpenNode)' },

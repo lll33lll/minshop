@@ -28,6 +28,7 @@ const METHOD: Record<string, { label: string; hint: string; setupHint: string }>
   lightning: { label: '闪电网络支付 ⚡', hint: '即时到账——任意闪电钱包可付', setupHint: '配置闪电网络' },
   opennode: { label: '比特币支付', hint: '链上或闪电网络（OpenNode）', setupHint: '配置 OpenNode' },
   demo: { label: '演示结算', hint: '模拟支付——生成真实测试订单，不扣款', setupHint: '' },
+  qrcode: { label: '扫码支付', hint: '微信 / 支付宝扫码，商家确认后自动发货', setupHint: '上传收款码' },
 };
 
 const cart = readCart(Astro.cookies);

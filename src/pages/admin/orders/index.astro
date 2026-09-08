@@ -104,6 +104,36 @@ const conflictOrders = new Map(
   ),
 );
 const listError = Astro.url.searchParams.get('error');
+const qrError = Astro.url.searchParams.get('qr_error');
+
+// 待确认收款：扫码支付的 pending 行（未结算、未过期）。
+// status 过滤放 SQL，过期判断放 JS（expires_at 是 ISO 串，与 SQLite 时间不可直接比）。
+interface QrPendingRow {
+  public_id: string;
+  amount_total_cents: number;
+  currency: string;
+  email: string | null;
+  created_at: string;
+  items: string | null;
+}
+const qrRowsRaw = (
+  (await env.DB.prepare(
+    `SELECT public_id, amount_total_cents, currency, email, created_at, items
+      FROM pending_payments WHERE backend = 'qrcode' AND status = 'pending'
+      ORDER BY created_at DESC LIMIT 50`,
+  ).all()) ?? { results: [] as unknown[] }
+).results as QrPendingRow[];
+const qrPending = qrRowsRaw
+  .filter((r) => !r.created_at || Date.now() - Date.parse(r.created_at.replace(' ', 'T') + 'Z') < 48 * 3600 * 1000)
+  .map((r) => {
+    let count = 0;
+    try {
+      count = (JSON.parse(r.items ?? '[]') as { q: number }[]).reduce((s, it) => s + it.q, 0);
+    } catch {
+      count = 0;
+    }
+    return { ...r, count, ref: r.public_id.slice(-8).toUpperCase() };
+  });
 ---
 
 <AdminLayout title="订单" active="orders">
@@ -122,6 +152,52 @@ const listError = Astro.url.searchParams.get('error');
             </li>
           ))}
         </ul>
+      </section>
+    )
+  }
+  {
+    qrError && (
+      <p class="mb-6 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+        {qrError}
+      </p>
+    )
+  }
+  {
+    qrPending.length > 0 && (
+      <section class="mb-8 rounded-lg border border-amber-300 bg-amber-50 px-5 py-4">
+        <h2 class="text-sm font-medium text-amber-900">待确认收款（扫码支付）× {qrPending.length}</h2>
+        <p class="mt-1 text-xs text-amber-800">
+          买家已下单并扫码付款（备注订单号后 8 位）。请在微信/支付宝核对到账金额后点「确认已收款」——订单、库存、凭证邮件与商品下载会自动完成。
+        </p>
+        <div class="mt-3 space-y-2">
+          {qrPending.map((r) => (
+            <div class="flex flex-wrap items-center gap-3 rounded-md border border-amber-200 bg-white px-3 py-2 text-sm">
+              <span class="rounded bg-amber-100 px-2 py-0.5 font-mono font-bold tracking-widest text-amber-900">{r.ref}</span>
+              <span class="font-medium tabular-nums">{formatPrice(r.amount_total_cents, r.currency)}</span>
+              <span class="text-xs text-gray-500">{r.count} 件</span>
+              <span class="text-xs text-gray-500">{r.email ?? '未留邮箱'}</span>
+              <span class="text-xs text-gray-400">{r.created_at}</span>
+              <form method="POST" action={`/api/admin/qr/${r.public_id}`} class="ml-auto flex gap-2">
+                <input type="hidden" name="_action" value="qr_confirm" />
+                <button
+                  type="submit"
+                  class="rounded-md bg-brand px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white hover:bg-brand-hover"
+                >
+                  确认已收款
+                </button>
+              </form>
+              <form method="POST" action={`/api/admin/qr/${r.public_id}`} class="flex gap-2">
+                <input type="hidden" name="_action" value="qr_discard" />
+                <button
+                  type="submit"
+                  class="rounded-md border border-line px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 hover:border-red-300 hover:text-red-600"
+                >
+                  放弃
+                </button>
+              </form>
+            </div>
+          ))}
+        </div>
       </section>
     )
   }

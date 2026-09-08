@@ -1,4 +1,5 @@
 import { env } from 'cloudflare:workers';
+import type { D1Database } from '@cloudflare/workers-types';
 import {
   markPendingSettled,
   pendingToPaidOrder,
@@ -33,6 +34,52 @@ const DECLINE: Record<string, string> = {
  * stock, revenue, confirmation — and signals settled so the caller can redirect
  * to its guest order URL. Any other outcome returns a simulated decline message.
  */
+export interface QrSettleResult {
+  settled: boolean;
+  error?: string;
+}
+
+/**
+ * 收款码人工结算：商家在后台核对到账后调用。订单记录、库存扣减、
+ * 凭证邮件与 pending 行结算全部复用既有结算管线（与 Lightning 结算
+ * 同构，只是「已支付」的判定来自人工确认而非节点轮询）。
+ */
+export async function settleQrCheckout(
+  pending: PendingPayment,
+  origin: string,
+  settings?: StoreSettings,
+  waitUntil?: (promise: Promise<unknown>) => void,
+): Promise<QrSettleResult> {
+  if (pending.status !== 'pending') {
+    return { settled: false, error: '此收款单已处理过。' };
+  }
+  if (pending.expires_at != null && Date.parse(pending.expires_at) <= Date.now()) {
+    return { settled: false, error: '此收款单已超过 48 小时确认窗口。' };
+  }
+  const order = pendingToPaidOrder(pending);
+  let orderId = await recordPaidOrder(env.DB, order, purgeStockProductCache);
+  if (!orderId) {
+    const existing = await getOrderByProviderSessionId(env.DB, order.providerSessionId);
+    if (!existing) {
+      return { settled: false, error: '订单无法记录：库存预留已失效，请放弃此收款单。' };
+    }
+    orderId = existing.id;
+    await markPendingSettled(env.DB, pending.payment_hash);
+  }
+  const deliver = () => deliverOrderNotifications(env.DB, orderId!, origin, settings);
+  if (waitUntil) waitUntil(deliver().catch((err) => console.error('Notification delivery failed:', err)));
+  else await deliver();
+  return { settled: true };
+}
+
+/** 放弃一笔收款码收款：pending 行标记结算（不产生订单），库存预留到期自动释放。 */
+export async function discardQrCheckout(
+  db: D1Database,
+  pending: PendingPayment,
+): Promise<void> {
+  await markPendingSettled(db, pending.payment_hash);
+}
+
 export async function settleDemoCheckout(
   pending: PendingPayment,
   form: FormData,

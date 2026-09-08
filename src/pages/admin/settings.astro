@@ -150,6 +150,24 @@ if (Astro.request.method === 'POST') {
       // would persist a key that renders a broken logo on every page.
       validationError = '该图片已不在媒体库中。';
     }
+  } else if (action === 'save_qr') {
+    // 收款码：key 必须存在于媒体库（空 = 删除该设置）。
+    const targets: [string, string][] = [
+      ['qr_wechat_image_key', String(form.get('qr_wechat_image_key') ?? '').trim()],
+      ['qr_alipay_image_key', String(form.get('qr_alipay_image_key') ?? '').trim()],
+    ];
+    for (const [key, value] of targets) {
+      if (!value) {
+        await setSetting(env.DB, key as never, '');
+        continue;
+      }
+      const row = await env.DB.prepare('SELECT 1 FROM media WHERE image_key = ?').bind(value).first();
+      if (!row) {
+        validationError = '该图片已不在媒体库中。';
+      } else {
+        await setSetting(env.DB, key as never, value);
+      }
+    }
   } else if (action === 'save_home') {
     // The selector submits public IDs (page:page_… / product:prod_…); resolve
     // them to the stored integer form here at the boundary. The stored setting
@@ -339,6 +357,12 @@ const disabledSet = new Set(settings.disabledPaymentMethods);
 // 店铺名称 is a runtime overlay (this field / the setup wizard) over STORE_NAME.
 const storeName = settings.storeName ?? cfg.storeName;
 const logoUrl = settings.logoImageKey ? mediaUrl(settings.logoImageKey, cfg.images.baseUrl) : null;
+const qrWechatUrl = settings.qrWechatImageKey
+  ? mediaUrl(settings.qrWechatImageKey, cfg.images.baseUrl)
+  : null;
+const qrAlipayUrl = settings.qrAlipayImageKey
+  ? mediaUrl(settings.qrAlipayImageKey, cfg.images.baseUrl)
+  : null;
 // Options for the home-page selector. Only published pages and active products
 // are offered, matching what the storefront will actually resolve. The product
 // list is bounded — a selector is not a place to render a whole catalog.
@@ -984,6 +1008,70 @@ const sections = [
     </form>
 
     <div class="space-y-4">
+      {/* 扫码支付（收款码，人工确认） */}
+      <div class="rounded-lg border border-gray-200 bg-white p-4">
+        <div class="mb-3 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-medium">扫码支付（收款码）</p>
+            <p class="text-xs text-gray-500">
+              买家用微信/支付宝扫码付款（备注订单号后 8 位），你在「订单 → 待确认收款」核对到账后确认，订单自动完成。
+            </p>
+          </div>
+        </div>
+        <form method="POST" class="space-y-3 border-t border-gray-100 pt-3">
+          <input type="hidden" name="_action" value="save_qr" />
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="flex flex-col gap-2">
+              <p class="text-xs uppercase tracking-widest text-gray-400">微信收款码</p>
+              <div class="flex h-40 w-40 items-center justify-center rounded-md border border-gray-200 bg-gray-50 p-2">
+                {qrWechatUrl ? (
+                  <img src={qrWechatUrl} alt="微信收款码" class="max-h-full max-w-full object-contain" />
+                ) : (
+                  <span class="text-xs text-gray-400">未设置</span>
+                )}
+              </div>
+              <input type="hidden" name="qr_wechat_image_key" value={settings.qrWechatImageKey ?? ''} data-qr-wechat-key />
+              <div class="flex flex-wrap gap-2">
+                <MediaPicker id="qr-wechat" label={settings.qrWechatImageKey ? '更换微信码' : '从媒体库选择'} />
+                {settings.qrWechatImageKey && (
+                  <button
+                    type="submit"
+                    data-qr-remove="qr-wechat"
+                    class="rounded-md border border-gray-300 px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-700 hover:border-red-300 hover:text-red-600"
+                  >
+                    移除
+                  </button>
+                )}
+              </div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="text-xs uppercase tracking-widest text-gray-400">支付宝收款码</p>
+              <div class="flex h-40 w-40 items-center justify-center rounded-md border border-gray-200 bg-gray-50 p-2">
+                {qrAlipayUrl ? (
+                  <img src={qrAlipayUrl} alt="支付宝收款码" class="max-h-full max-w-full object-contain" />
+                ) : (
+                  <span class="text-xs text-gray-400">未设置</span>
+                )}
+              </div>
+              <input type="hidden" name="qr_alipay_image_key" value={settings.qrAlipayImageKey ?? ''} data-qr-alipay-key />
+              <div class="flex flex-wrap gap-2">
+                <MediaPicker id="qr-alipay" label={settings.qrAlipayImageKey ? '更换支付宝码' : '从媒体库选择'} />
+                {settings.qrAlipayImageKey && (
+                  <button
+                    type="submit"
+                    data-qr-remove="qr-alipay"
+                    class="rounded-md border border-gray-300 px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-700 hover:border-red-300 hover:text-red-600"
+                  >
+                    移除
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400">两者至少设置一个，「扫码支付」按钮即出现在结算页。选择图片后自动保存。</p>
+        </form>
+      </div>
+
       {/* 银行卡（Stripe） */}
       <div class="rounded-lg border border-gray-200 bg-white p-4">
         <div class="mb-3 flex items-center justify-between gap-3">
@@ -1624,9 +1712,20 @@ const sections = [
   // in one step. "移除 Logo" clears the field first, and setSetting treats an
   // empty value as a delete — restoring the text store name.
   document.addEventListener('media:selected', (event) => {
-    const field = document.querySelector<HTMLInputElement>('[data-logo-key]');
-    if (!field) return; // another picker on the page (none today) — ignore
-    field.value = (event as CustomEvent).detail.imageKey;
+    const detail = (event as CustomEvent).detail;
+    // 一个页面多个选择器：按 detail.id 分发，选谁写谁。
+    const attr =
+      detail.id === 'logo'
+        ? '[data-logo-key]'
+        : detail.id === 'qr-wechat'
+          ? '[data-qr-wechat-key]'
+          : detail.id === 'qr-alipay'
+            ? '[data-qr-alipay-key]'
+            : null;
+    if (!attr) return;
+    const field = document.querySelector<HTMLInputElement>(attr);
+    if (!field) return;
+    field.value = detail.imageKey;
     field.form?.submit();
   });
 
@@ -1635,4 +1734,14 @@ const sections = [
     const field = button.form?.querySelector<HTMLInputElement>('[data-logo-key]');
     if (field) field.value = '';
   });
+
+  // 收款码的「移除」按钮：清空对应隐藏字段再提交（空值 = 删除设置）。
+  for (const el of document.querySelectorAll<HTMLButtonElement>('[data-qr-remove]')) {
+    el.addEventListener('click', () => {
+      const which = el.getAttribute('data-qr-remove');
+      const field = el.form?.querySelector<HTMLInputElement>(`[data-${which}-key]`);
+      if (field) field.value = '';
+      // button type=submit 负责提交，这里只清值。
+    });
+  }
 </script>

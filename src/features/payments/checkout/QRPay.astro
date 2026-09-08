@@ -1,0 +1,112 @@
+---
+import { formatPrice } from '../../../config';
+import type { PendingPayment } from '../lightning/pending';
+
+/**
+ * 收款码支付视图：/pay/[publicId] 在 backend === 'qrcode' 时渲染。
+ * 买家扫码付款（备注订单号）→ 填邮箱登记 → 等商家在后台确认收款。
+ */
+interface Props {
+  pending: PendingPayment;
+  wechatUrl: string | null;
+  alipayUrl: string | null;
+  declined?: string | null;
+}
+
+const { pending, wechatUrl, alipayUrl, declined = null } = Astro.props;
+const total = formatPrice(pending.amount_total_cents, pending.currency);
+const refCode = pending.public_id.slice(-8).toUpperCase();
+let itemCount = 0;
+try {
+  itemCount = (JSON.parse(pending.items ?? '[]') as { q: number }[]).reduce(
+    (s, it) => s + it.q,
+    0,
+  );
+} catch {
+  itemCount = 0;
+}
+---
+
+<div class="mx-auto max-w-md">
+  {
+    declined && (
+      <p class="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        {declined}
+      </p>
+    )
+  }
+
+  <h1 class="mb-1 font-serif text-3xl tracking-tight sm:text-4xl">扫码支付</h1>
+  <p class="mb-6 text-sm text-muted">微信或支付宝扫下方收款码付款，付款后请填写邮箱登记。</p>
+
+  {/* 金额 + 备注码 */}
+  <div class="mb-6 rounded-lg border border-line bg-surface p-4">
+    <div class="flex items-center justify-between">
+      <span class="text-sm text-muted">应付金额</span>
+      <span class="text-2xl font-medium tabular-nums">{total}</span>
+    </div>
+    <div class="mt-2 flex items-center justify-between border-t border-line pt-2">
+      <span class="text-sm text-muted">付款备注（订单号后 8 位）</span>
+      <span class="rounded bg-surface px-2 py-1 font-mono text-lg font-bold tracking-widest text-ink">{refCode}</span>
+    </div>
+    <div class="mt-2 flex items-center justify-between border-t border-line pt-2 text-xs text-faint">
+      <span>{itemCount} 件商品</span>
+      <span>48 小时内有效</span>
+    </div>
+  </div>
+
+  {/* 收款码 */}
+  <div class={`mb-6 grid gap-4 ${wechatUrl && alipayUrl ? 'grid-cols-2' : 'grid-cols-1'}`}>
+    {
+      wechatUrl && (
+        <figure class="rounded-lg border border-line bg-surface p-3 text-center">
+          <img src={wechatUrl} alt="微信收款码" class="mx-auto w-full max-w-56 rounded" />
+          <figcaption class="mt-2 text-sm text-muted">微信支付</figcaption>
+        </figure>
+      )
+    }
+    {
+      alipayUrl && (
+        <figure class="rounded-lg border border-line bg-surface p-3 text-center">
+          <img src={alipayUrl} alt="支付宝收款码" class="mx-auto w-full max-w-56 rounded" />
+          <figcaption class="mt-2 text-sm text-muted">支付宝</figcaption>
+        </figure>
+      )
+    }
+  </div>
+
+  {/* 登记邮箱（收凭证与下载链接） */}
+  {
+    pending.email ? (
+      <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+        <p class="font-medium">已登记：{pending.email}</p>
+        <p class="mt-1 text-xs">商家确认收款后，订单凭证与商品下载链接会发送到这个邮箱。</p>
+      </div>
+    ) : (
+      <form method="POST" class="space-y-3">
+        <input type="hidden" name="_action" value="qr_claim" />
+        <label class="mb-1 block text-xs font-medium text-muted" for="email">
+          接收凭证与下载链接的邮箱
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          placeholder="you@example.com"
+          class="w-full rounded-md border border-line px-3 py-2 text-sm focus:border-brand focus:outline-none"
+        />
+        <button
+          type="submit"
+          class="w-full rounded-md bg-brand px-5 py-3 text-sm font-medium uppercase tracking-wider text-on-brand hover:bg-brand-hover"
+        >
+          我已扫码付款，提交登记
+        </button>
+      </form>
+    )
+  }
+
+  <p class="mt-6 text-center text-xs text-faint">
+    付款后请耐心等待商家确认（通常几分钟到几小时）。确认前请勿关闭此页面，可收藏本页链接随时回来查看状态。
+  </p>
+</div>

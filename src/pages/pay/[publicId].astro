@@ -9,11 +9,14 @@ import { isLegacyPublicId } from '../../features/ids/publicId.ts';
 import { isAccessToken } from '../../features/ids/token.ts';
 import { resolveAccessToken } from '../../features/orders/guestAccess.ts';
 import DemoCheckout from '../../features/payments/checkout/DemoCheckout.astro';
+import QRPay from '../../features/payments/checkout/QRPay.astro';
 import LightningPay from '../../features/payments/checkout/LightningPay.astro';
 import {
   settleDemoCheckout,
   settleLightningOnLoad,
 } from '../../features/payments/checkout/settle';
+import { updatePendingEmail } from '../../features/payments/lightning/pending';
+import { mediaUrl } from '../../features/media/url';
 
 // Single "complete your payment" entry point for the self-rendered rails. The
 // URL carries the guest access token for new checkouts (resolved through the
@@ -46,9 +49,10 @@ const pending = await getPendingByPublicId(env.DB, orderPublicId);
 if (!pending) return new Response('Not found', { status: 404 });
 
 const isDemo = pending.backend === 'demo';
+const isQr = pending.backend === 'qrcode';
 const isLightning = pending.backend === 'lnbits' || pending.backend === 'phoenixd';
 // An unexpected backend landing here → just show the order page.
-if (!isDemo && !isLightning) return Astro.redirect(`/order/${guestParam}`, 303);
+if (!isDemo && !isQr && !isLightning) return Astro.redirect(`/order/${guestParam}`, 303);
 
 // Every self-rendered pending payment now carries an expiry (Lightning: the
 // invoice's; Demo: 24h). Past it, the unpaid flow fails closed — no rendering
@@ -63,6 +67,19 @@ const ctx = Astro.locals.cfContext;
 const waitUntil = ctx ? ctx.waitUntil.bind(ctx) : undefined;
 
 let declined: string | null = null;
+// 收款码：买家提交邮箱登记（不结算——结算由商家在后台确认）。
+if (isQr && Astro.request.method === 'POST' && !payExpired) {
+  const form = await Astro.request.formData();
+  if (String(form.get('_action') ?? '') === 'qr_claim') {
+    const email = String(form.get('email') ?? '').trim();
+    if (!/.+@.+\..+/.test(email)) {
+      declined = '请输入有效的邮箱地址。';
+    } else {
+      await updatePendingEmail(env.DB, pending.public_id, email);
+      pending.email = email;
+    }
+  }
+}
 if (isDemo && Astro.request.method === 'POST' && !payExpired) {
   // Middleware already loaded the settings overlay for this document — hand it
   // down so settlement doesn't re-read it (and the three keys it derives).
@@ -92,10 +109,21 @@ if (
 const lightningExpired = isLightning && payExpired;
 
 const { storeName } = getConfig();
-const title = isDemo ? 'Demo checkout' : 'Pay with Lightning';
-const description = isDemo
-  ? `Simulated checkout for ${storeName}.`
-  : `Pay ${storeName} with Bitcoin Lightning.`;
+const title = isQr ? '扫码支付' : isDemo ? 'Demo checkout' : 'Pay with Lightning';
+const description = isQr
+  ? `微信或支付宝扫码付款。`
+  : isDemo
+    ? `Simulated checkout for ${storeName}.`
+    : `Pay ${storeName} with Bitcoin Lightning.`;
+// 收款码图片：设置里上传的微信/支付宝码（至少一张）。
+const qrWechatUrl =
+  isQr && Astro.locals.settings?.qrWechatImageKey
+    ? mediaUrl(Astro.locals.settings.qrWechatImageKey, getConfig().images.baseUrl)
+    : null;
+const qrAlipayUrl =
+  isQr && Astro.locals.settings?.qrAlipayImageKey
+    ? mediaUrl(Astro.locals.settings.qrAlipayImageKey, getConfig().images.baseUrl)
+    : null;
 ---
 
 <Layout title={title} description={description}>
@@ -105,6 +133,15 @@ const description = isDemo
       <p class="text-muted">此演示结算已过期，请重新发起。</p>
     </Fragment>
   )}
+  {isQr && payExpired && (
+    <Fragment>
+      <h1 class="mb-2 font-serif text-3xl tracking-tight sm:text-4xl">收款单已过期</h1>
+      <p class="text-muted">此收款单已超过 48 小时确认窗口，请重新下单。</p>
+    </Fragment>
+  )}
   {isDemo && !payExpired && <DemoCheckout pending={pending} declined={declined} />}
+  {isQr && !payExpired && (
+    <QRPay pending={pending} wechatUrl={qrWechatUrl} alipayUrl={qrAlipayUrl} declined={declined} />
+  )}
   {isLightning && <LightningPay pending={pending} expired={lightningExpired} />}
 </Layout>

@@ -39,6 +39,8 @@ export type SettingKey =
   | 'email_enabled' // '0' = order/login email off; absent = on
   | 'email_provider' // 'resend' | 'cloudflare'; absent = resend
   | 'logo_image_key' // media image_key shown instead of the text store name; absent = text
+  | 'qr_wechat_image_key' // 收款码：微信（media image_key）
+  | 'qr_alipay_image_key' // 收款码：支付宝（media image_key）
   | 'home_page' // what / renders: 'page:<id>' | 'product:<id>'; absent = the catalog list
   | 'announcement' // storefront announcement bar text; absent/empty = bar hidden
   | 'announcement_href' // optional link for the announcement bar
@@ -88,6 +90,9 @@ export interface StoreSettings {
    *  immutable key rather than a media id so the layout renders it without a
    *  second D1 lookup. */
   logoImageKey: string | null;
+  /** 扫码支付：微信/支付宝收款码（media image_key），两者至少配一个即可用。 */
+  qrWechatImageKey: string | null;
+  qrAlipayImageKey: string | null;
   /** What `/` renders: 'page:<id>', 'product:<id>', or null for the catalog
    *  list. Stored as an id so renaming the target cannot break it. */
   homePage: string | null;
@@ -197,6 +202,8 @@ export function parseStoreSettings(
     emailEnabled: map.get('email_enabled') !== '0',
     emailProvider: map.get('email_provider') === 'cloudflare' ? 'cloudflare' : 'resend',
     logoImageKey: map.get('logo_image_key') ?? null,
+    qrWechatImageKey: map.get('qr_wechat_image_key') ?? null,
+    qrAlipayImageKey: map.get('qr_alipay_image_key') ?? null,
     homePage: map.get('home_page') ?? null,
     announcement: map.get('announcement') ?? null,
     announcementHref: map.get('announcement_href') ?? null,

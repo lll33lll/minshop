@@ -14,6 +14,16 @@ interface Guide {
   steps: string[];
 }
 const GUIDES: Record<string, Guide> = {
+  qrcode: {
+    title: '设置扫码支付（收款码）',
+    intro: '买家扫码用微信或支付宝付款，你在后台核对到账后确认，订单自动完成。',
+    steps: [
+      '准备你的微信收款码或支付宝收款码图片（在对应 App 里保存收款码截图即可）。',
+      '上传图片到媒体库（管理后台 → 媒体库 → 上传）。',
+      '在 管理后台 → 设置 → 支付 → 「扫码支付」卡片里，用「从媒体库选择」把图片设为收款码。',
+      '保存后「扫码支付」按钮自动出现在结算页。买家付款备注订单号，你在订单页的「待确认收款」里核对金额后点确认即可。',
+    ],
+  },
   stripe: {
     title: 'Set up card payments (Stripe)',
     intro: 'Accept Visa, Mastercard, Apple Pay and more via Stripe Checkout.',

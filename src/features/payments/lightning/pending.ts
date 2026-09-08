@@ -116,6 +116,18 @@ export async function markPendingSettled(db: D1Database, paymentHash: string): P
  * Lives here (not in a provider) so it stays free of `cloudflare:workers` imports
  * and is unit-testable. Shared by the Lightning and OpenNode providers.
  */
+/** 收款码流程：买家在 /pay 页提交邮箱后回写（仅未结算的行）。 */
+export async function updatePendingEmail(
+  db: D1Database,
+  publicId: string,
+  email: string,
+): Promise<void> {
+  await db
+    .prepare("UPDATE pending_payments SET email = ? WHERE public_id = ? AND status = 'pending'")
+    .bind(email, publicId)
+    .run();
+}
+
 export function pendingToPaidOrder(p: PendingPayment): PaidOrderInput {
   let items: OrderItemInput[] = [];
   if (p.items) {

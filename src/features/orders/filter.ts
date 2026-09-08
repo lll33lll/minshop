@@ -44,6 +44,7 @@ export const ORDER_METHOD_OPTIONS: { value: string; label: string }[] = [
   { value: 'stripe', label: '银行卡（Stripe）' },
   { value: 'lightning', label: '闪电网络' },
   { value: 'opennode', label: '比特币（OpenNode）' },
+  { value: 'qrcode', label: '扫码支付' },
   { value: 'demo', label: '演示' },
 ];
 
