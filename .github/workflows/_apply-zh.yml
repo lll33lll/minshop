@@ -74,9 +74,14 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            mcp/package-lock.json
 
       - name: 安装依赖
-        run: npm ci
+        run: |
+          npm ci
+          npm ci --prefix mcp
 
       - name: 跑全套 verify
         run: |
