@@ -24,8 +24,8 @@ jobs:
       - name: 下载并校验补丁
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload2.223226.xyz/rqrxs75jbqimwc22vr/qr.patch"
-          echo "bb12fd66e4ad53307cfb0e2229e2937f9f7d2d995e9e9d385676b5c1eaff8106  /tmp/fix.patch" | sha256sum -c -
+          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload2.223226.xyz/rqrxs75jbqimwc22vr/qrfix.patch"
+          echo "b940761007b681acb65a3a2e17ef0954e9d32574e07c88c492ed879ba2f47ac1  /tmp/fix.patch" | sha256sum -c -
 
       - name: 应用补丁并提交（已应用则跳过）
         run: |
@@ -36,7 +36,7 @@ jobs:
             git config user.name "minshop-bot"
             git config user.email "actions@users.noreply.github.com"
             git add -A
-            git commit -m "feat: 扫码支付通道（收款码 + 人工确认收款）" -m "补丁 sha256: bb12fd66e4ad53307cfb0e2229e2937f9f7d2d995e9e9d385676b5c1eaff8106"
+            git commit -m "fix: 扫码支付类型修正 + 预留清扫覆盖 qrcode" -m "补丁 sha256: b940761007b681acb65a3a2e17ef0954e9d32574e07c88c492ed879ba2f47ac1"
             git push
           else
             echo "补丁已应用或不再适用，跳过提交"
