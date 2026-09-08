@@ -238,7 +238,7 @@ describe('validateShippingDocument', () => {
         { ...doc().zones[0]!, name: 'US', countries: ['US'] },
       ],
     });
-    expect(messages(notLast)).toContain('Rest of world must be the last zone.');
+    expect(messages(notLast)).toContain('「世界其他地区」必须是最后一个区域。');
   });
   it('rejects duplicate rate labels within a zone', () => {
     const dupe = doc({
@@ -355,7 +355,7 @@ describe('validateShippingDocument', () => {
 describe('legacy migration', () => {
   it('names zones deterministically', () => {
     expect(legacyZoneName(['US'], 0)).toBe('美国');
-    expect(legacyZoneName(['*'], 1)).toBe('Rest of world');
+    expect(legacyZoneName(['*'], 1)).toBe('世界其他地区');
     expect(legacyZoneName(['US', 'CA'], 2)).toBe('Zone 3');
   });
   it('builds an editable candidate from raw build-time values', () => {

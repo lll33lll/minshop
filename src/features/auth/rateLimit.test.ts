@@ -56,7 +56,7 @@ it('returns a non-cacheable 429 with retry guidance', async () => {
   expect(response.headers.get('retry-after')).toBe('60');
   expect(response.headers.get('cache-control')).toBe('no-store');
   expect(response.headers.get('access-control-allow-origin')).toBe('*');
-  await expect(response.json()).resolves.toEqual({ error: 'Too many requests. Try again shortly.' });
+  await expect(response.json()).resolves.toEqual({ error: '请求过于频繁，请稍后再试。' });
 });
 
 it('keeps catalog search 429s readable cross-origin', () => {

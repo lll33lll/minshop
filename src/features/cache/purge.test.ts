@@ -35,7 +35,7 @@ describe('Workers cache purge', () => {
   it('throws when both purge attempts fail', async () => {
     const purge = vi.fn(async () => result(false));
     await expect(purgeCacheTags(['catalog'], { purge })).rejects.toThrow(
-      'could not be invalidated',
+      '未能失效',
     );
     expect(purge).toHaveBeenCalledTimes(2);
   });
@@ -55,7 +55,7 @@ describe('Workers cache purge', () => {
 
   it('fails a deployment purge when Cloudflare rejects it', async () => {
     const purge = vi.fn(async () => result(false));
-    await expect(purgeEntireCache({ purge })).rejects.toThrow('could not be purged');
+    await expect(purgeEntireCache({ purge })).rejects.toThrow('缓存清除失败');
     expect(purge).toHaveBeenCalledOnce();
   });
 

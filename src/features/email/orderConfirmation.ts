@@ -154,9 +154,9 @@ export function orderNotificationEmail(
 
   const text = [
     `新订单 ${order.id}`,
-    `公开 ID: ${publicId}`,
+    `公开 ID：${publicId}`,
     ``,
-    `Customer: ${order.email ?? '-'}`,
+    `客户：${order.email ?? '-'}`,
     ``,
     `收货信息：`,
     shipText,
