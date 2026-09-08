@@ -1,7 +1,7 @@
 # verify 运行报告
 
-- 运行时间: 2026-09-08T06:02:07Z
-- 提交: bebc661
+- 运行时间: 2026-09-08T06:09:55Z
+- 提交: b9f8ff6
 
 ```
 
@@ -16,6 +16,7 @@ themes: default, market, studio — active for this process: default (from theme
 
 [1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/minshop/minshop[39m
 
+ [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 55[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2msends both kinds and marks them sent, keyed on the globally-unique public id
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -62,7 +63,6 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 71[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mis a no-op on a second pass (claim exclusivity)
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -487,7 +487,6 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 227[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mfences a stale claim: attempt 1 completing late cannot overwrite attempt 2's live claim
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -497,6 +496,8 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     at rememberStoreUrl [90m(/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.ts:59:16[90m)[39m
     at Module.deliverOrderNotifications [90m(/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.ts:83:9[90m)[39m
     at [90m/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.test.ts:258:15
+[90m    at runNextTicks (node:internal/process/task_queues:64:5)[39m
+[90m    at processTimers (node:internal/timers:518:9)[39m
     at [90mfile:///home/runner/work/minshop/minshop/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:1903:20 {
   codeFrame: [32m'vi.mock(import("../settings/db"), async (importOriginal) => {\n'[39m +
     [32m'  const actual = await importOriginal()\n'[39m +
@@ -507,6 +508,7 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
+ [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 218[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mdelivers a guest-link reissue whose generation matches the registry
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -599,46 +601,46 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 169[2mms[22m[39m
- [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 51[2mms[22m[39m
- [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 43[2mms[22m[39m
- [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 29[2mms[22m[39m
- [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 87[2mms[22m[39m
- [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 70[2mms[22m[39m
- [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 95[2mms[22m[39m
- [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 20[2mms[22m[39m
- [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 302[2mms[22m[39m
- [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 74[2mms[22m[39m
- [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 48[2mms[22m[39m
- [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 55[2mms[22m[39m
- [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 25[2mms[22m[39m
- [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 15[2mms[22m[39m
- [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 1041[2mms[22m[39m
- [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 163[2mms[22m[39m
+ [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 85[2mms[22m[39m
+ [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+ [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 85[2mms[22m[39m
+ [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 315[2mms[22m[39m
+ [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 877[2mms[22m[39m
+ [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 10[2mms[22m[39m
  [32m✓[39m src/features/catalog/serialize.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 641[2mms[22m[39m
- [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 44[2mms[22m[39m
- [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 15[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 46[2mms[22m[39m
- [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 875[2mms[22m[39m
+ [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
  [32m✓[39m src/features/cart/key.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 57[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 64[2mms[22m[39m
- [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 25[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 56[2mms[22m[39m
- [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 49[2mms[22m[39m
  [32m✓[39m src/features/media/usage.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 12[2mms[22m[39m
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mfalls back to purge-everything after a rejected tag purge
 [22m[39m{"event":"workers_cache_purge_failed","mode":"tags","errors":[{"code":429,"message":"rate limited"}]}
 
@@ -654,97 +656,275 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mdoes not turn a rate-limited stock transition into purge-everything
 [22m[39m{"event":"workers_cache_purge_failed","mode":"stock-tags","errors":[{"code":429,"message":"rate limited"}]}
 
- [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 68[2mms[22m[39m
- [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 45[2mms[22m[39m
- [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 21[2mms[22m[39m
- [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 17[2mms[22m[39m
- [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 75[2mms[22m[39m
- [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 30[2mms[22m[39m
- [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+ [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+ [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
  [32m✓[39m src/features/cart/cart.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 41[2mms[22m[39m
- [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 35[2mms[22m[39m
- [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 22[2mms[22m[39m
- [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 273[2mms[22m[39m
- [32m✓[39m src/pages/sitemap.xml.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/auth/accessGate.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m src/features/products/search.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 307[2mms[22m[39m
+ [32m✓[39m src/pages/sitemap.xml.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/auth/accessGate.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/products/search.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 8[2mms[22m[39m
  [32m✓[39m src/features/search/query.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/orders/reservations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/orders/reservations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
  [32m✓[39m src/features/products/slug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m81 passed[39m[22m[90m (81)[39m
 [2m      Tests [22m [1m[32m906 passed[39m[22m[90m (906)[39m
-[2m   Start at [22m 06:02:08
-[2m   Duration [22m 8.48s[2m (transform 3.36s, setup 0ms, import 7.11s, tests 4.62s, environment 13ms)[22m
+[2m   Start at [22m 06:09:56
+[2m   Duration [22m 8.12s[2m (transform 3.11s, setup 0ms, import 6.54s, tests 4.60s, environment 11ms)[22m
 
-[2m06:02:20[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
-[2m06:02:21[22m [34m[types][39m Generated [2m355ms[22m
-[2m06:02:21[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
+[2m06:10:08[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m06:10:08[22m [34m[types][39m Generated [2m308ms[22m
+[2m06:10:08[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
 [96mcreate-minshop/src/scaffold.js[0m:[93m1[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'readdirSync' is declared but its value is never read.
 
 [7m1[0m import { cpSync, existsSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 [7m [0m [93m                             ~~~~~~~~~~~[0m
 
-[96msrc/pages/checkout.astro[0m:[93m272[0m:[93m13[0m - [91merror[0m[90m ts(2345): [0mArgument of type '"lightning" | "opennode" | "demo" | "qrcode"' is not assignable to parameter of type '"lightning" | "stripe" | "opennode" | "demo"'.
-  Type '"qrcode"' is not assignable to type '"lightning" | "stripe" | "opennode" | "demo"'.
-
-[7m272[0m             rail,
-[7m   [0m [91m            ~~~~[0m
 [96msrc/pages/checkout.astro[0m:[93m297[0m:[93m23[0m - [93mwarning[0m[90m ts(6133): [0m'result' is declared but its value is never read.
 
 [7m297[0m                 const result = await provider.createCheckout({
 [7m   [0m [93m                      ~~~~~~[0m
 
-[96msrc/pages/admin/orders/index.astro[0m:[93m119[0m:[93m19[0m - [91merror[0m[90m ts(2352): [0mConversion of type 'Record<string, unknown>[]' to type 'QrPendingRow[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
-  Type 'Record<string, unknown>' is missing the following properties from type 'QrPendingRow': public_id, amount_total_cents, currency, email, and 2 more.
-
-[7m119[0m const qrRowsRaw = (
-[7m   [0m [91m                  ~[0m
-[7m120[0m   (await env.DB.prepare(
-[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
-[7m...[0m 
-[7m124[0m   ).all()) ?? { results: [] as unknown[] }
-[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
-[7m125[0m ).results as QrPendingRow[];
-[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
-
-[96msrc/pages/api/checkout.ts[0m:[93m870[0m:[93m5[0m - [91merror[0m[90m ts(2345): [0mArgument of type 'PaymentMethod' is not assignable to parameter of type '"lightning" | "stripe" | "opennode" | "demo"'.
-  Type '"qrcode"' is not assignable to type '"lightning" | "stripe" | "opennode" | "demo"'.
-
-[7m870[0m     method,
-[7m   [0m [91m    ~~~~~~[0m
-[96msrc/pages/api/checkout.ts[0m:[93m372[0m:[93m5[0m - [91merror[0m[90m ts(2345): [0mArgument of type 'PaymentMethod' is not assignable to parameter of type '"lightning" | "stripe" | "opennode" | "demo"'.
-  Type '"qrcode"' is not assignable to type '"lightning" | "stripe" | "opennode" | "demo"'.
-
-[7m372[0m     selected,
-[7m   [0m [91m    ~~~~~~~~[0m
-
 Result (369 files): 
-- 4 errors
+- 0 errors
 - 0 warnings
 - 2 hints
 
+
+> minshop@0.1.0 theme:check
+> node scripts/check-themes.mjs
+
+storefront boundary: ok
+[2m06:10:27[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m06:10:27[22m [34m[types][39m Generated [2m73ms[22m
+[2m06:10:27[22m [34m[build][39m output: [34m"server"[39m
+[2m06:10:27[22m [34m[build][39m mode: [34m"server"[39m
+[2m06:10:27[22m [34m[build][39m directory: [34m/home/runner/work/minshop/minshop/dist/[39m
+[2m06:10:27[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
+[2m06:10:27[22m [34m[build][39m Collecting build info...
+[2m06:10:27[22m [34m[build][39m [32m✓ Completed in 137ms.[39m
+[2m06:10:27[22m [34m[build][39m Building server entrypoints...
+[2m06:10:28[22m [34m[vite][39m [32m✓ built in 189ms[39m
+[2m06:10:29[22m [34m[vite][39m [32m✓ built in 881ms[39m
+[2m06:10:29[22m [34m[vite][39m [32m✓ built in 28ms[39m
+[2m06:10:29[22m [34m[build][39m Rearranging server assets...
+[2m06:10:29[22m [34m[build][39m [32m✓ Completed in 1.17s.[39m
+[2m06:10:29[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
+[2m06:10:29[22m [34m[build][39m Server built in [1m1.31s[22m
+[2m06:10:29[22m [34m[build][39m [1mComplete![22m
+check-built-css: ok — active "default" present (11 sentinels), 2 inactive themes excluded, Admin isolated, across 2 stylesheets.
+
+> minshop@0.1.0 test:integration
+> node --experimental-strip-types test/integration/reservations.mjs && node --experimental-strip-types test/integration/refunds.mjs && node --experimental-strip-types test/integration/media.mjs && node --experimental-strip-types test/integration/menus.mjs && node --experimental-strip-types test/integration/guest-access.mjs && node --experimental-strip-types test/integration/shipping.mjs && bash test/integration/d1-integration.sh
+
+Reservation integration passed: concurrency + pending + terminal settlement + inventory exception + legacy + cross-release rollback + stock purge offset
+manual external refunds
+  ✓ partial refund applies and leaves status paid
+  ✓ refund to the full total flips status to refunded
+  ✓ replayed idempotency key applies nothing and reports duplicate
+  ✓ over-balance is rejected as insufficient_balance, not duplicate
+  ✓ zero and negative amounts are rejected
+  ✓ an order that was never paid cannot be refunded
+  ✓ concurrent refunds cannot exceed the order total
+  ✓ concurrent refunds that both fit both apply
+provider synchronisation
+  ✓ cumulative total is absolute, not additive
+  ✓ duplicate provider event is a no-op
+  ✓ out-of-order (lower) cumulative total is ignored
+  ✓ full provider refund flips status to refunded
+  ✓ provider sync and manual refund stay independent
+  ✓ aggregate clamps at the order total and never goes negative
+corrections
+  ✓ voiding a manual refund decrements and restores status
+  ✓ the same refund cannot be voided twice
+  ✓ provider-authoritative refunds cannot be voided
+review state
+  ✓ a new conflict reopens an acknowledged review
+provider webhook events
+  ✓ a refund event applies to the order it names
+  ✓ a redelivered event changes nothing
+  ✓ two partial refunds on the SAME charge both apply
+  ✓ an event for an unknown payment is kept, not lost
+  ✓ an unmatched event can be retried after the id is backfilled
+  ✓ a legacy order is correlated via the provider session lookup
+Refund correlation lookup failed: Error: provider unavailable
+    at Object.findSessionIdForPayment (file:///home/runner/work/minshop/minshop/test/integration/refunds.mjs:535:15)
+    at applyRefundEvent (file:///home/runner/work/minshop/minshop/src/features/refunds/sync.ts:119:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///home/runner/work/minshop/minshop/test/integration/refunds.mjs:533:17
+    at async check (file:///home/runner/work/minshop/minshop/test/integration/refunds.mjs:31:5)
+    at async file:///home/runner/work/minshop/minshop/test/integration/refunds.mjs:526:3
+  ✓ a failing lookup keeps the event queued instead of throwing
+  ✓ correlation never steals a session already claimed
+  ✓ a currency mismatch opens a review and moves no money
+  ✓ provider plus manual exceeding the total opens a review
+conflict review across every path
+  ✓ a manual provider sync over the total opens a review
+  ✓ a total that fits opens no review
+reconciliation queue
+  ✓ a conflicting event can be dismissed and leaves the queue
+  ✓ dismissing twice reports nothing left to do
+  ✓ dismissal preserves the original conflict reason
+  ✓ an UNMATCHED event cannot be dismissed
+  ✓ an uncorrelated event reports no order, so it offers Retry
+invariants
+  ✓ no order ever drifted from its components
+  ✓ net revenue never went negative
+  ✓ every succeeded manual refund sums to the external component
+
+refund accounting: all checks passed
+
+existing-image backfill (migration 0026)
+  ✓ adopts gallery AND primary keys, collapsing duplicates
+  ✓ a backfilled image is protected by the delete guard
+
+upload lifecycle
+  ✓ upload records pixel dimensions from the image header
+  ✓ an unreadable header leaves dimensions NULL without failing
+  ✓ successful upload writes the object and creates the row
+  ✓ a failing D1 insert deletes the object it just wrote
+  ✓ a failing storage write creates no media row
+
+guarded deletion
+  ✓ unreferenced media deletes and returns its key
+  ✓ media used by a product gallery cannot be deleted
+  ✓ media used only as a product PRIMARY cannot be deleted
+  ✓ media used by a page cannot be deleted
+  ✓ media used as the logo cannot be deleted
+
+guarded association writes
+  ✓ a stale selection cannot attach media that was already deleted
+  ✓ the same media cannot be attached to one product twice
+  ✓ attaching appends at the next gallery position
+  ✓ page media sync replaces the previous set
+  ✓ page media sync skips media deleted concurrently
+
+concurrency guards
+  ✓ logo is stored only while its media row exists
+  ✓ product image replacement is guarded on the media row
+  ✓ publishing a draft with resolvable media succeeds
+  ✓ page save refuses to publish when a claim loses to a delete
+  ✓ an already-published page stays live when a claim fails
+  ✓ an explicit unpublish is still honoured
+  ✓ an image-heavy save stays inside D1’s free-plan query budget
+  ✓ claims beyond one chunk are still all written
+  ✓ media lookup chunks past D1’s 100-parameter limit
+
+home page target
+  ✓ resolves a published page and an active product
+  ✓ falls back to the catalog when the target is a draft
+  ✓ falls back when the target product is inactive
+  ✓ falls back when the target was deleted
+  ✓ falls back for an unset or malformed setting
+  ✓ a renamed page keeps resolving, because the id is stored
+  ✓ validation refuses what the storefront would not resolve
+
+bulk usage
+  ✓ reports a media referenced ONLY through products.image_key as used
+  ✓ duplicate gallery rows produce ONE product usage entry
+  ✓ resolves a full 48-item page in a bounded number of statements
+  ✓ listMedia paginates newest-first and deterministically
+
+media lifecycle: all checks passed
+
+navigation menus
+  ✓ seed reproduces the existing footer links, in the footer order
+  ✓ seed adds the header Catalog item only when the home page is overridden
+  ✓ seed is lossless up to the footer cap and deterministic beyond it
+  ✓ CHECK rejects a singleton with a target, and an object without one
+  ✓ partial unique index allows duplicates only where it should
+  ✓ the query caps each location even when the table is overfilled
+  ✓ add refuses a draft page, an inactive product, and a missing target
+  ✓ add accepts available targets and assigns dense positions
+  ✓ add reports a full menu without writing
+  ✓ a duplicate singleton comes back as a reason, not an exception
+  ✓ concurrent adds get distinct positions
+  ✓ unavailable targets vanish from the storefront but stay listed for admin
+  ✓ catalog href follows the home page setting
+  ✓ label override wins, clearing it restores the target name
+  ✓ move swaps with the neighbour and is a no-op at the ends
+  ✓ a menu never crosses into the other when reordering
+  ✓ picker offers only available targets, bounded and searchable
+  ✓ picker reports how many matches it did not show
+  ✓ catalogIsOrphaned fires only when the shop is actually unreachable
+  ✓ a deleted target with a custom label is reported as deleted, not draft
+  ✓ a draft target keeps its draft reason (not confused with deletion)
+  ✓ a stale home-page setting does not raise a false catalog warning
+  ✓ menu references are reported per target for the delete warning
+  ✓ reorder sets the whole order from an id list
+  ✓ reorder rejects incomplete, padded, and duplicate id lists
+  ✓ reorder is scoped to one menu
+  ✓ reorder handles a list larger than one chunk
+
+menus: all checks passed
+
+guest-access integration: all assertions passed
+shipping (D1)
+  ✓ first save creates revision 1
+  ✓ an edit at the current revision succeeds and increments it
+  ✓ two writes from the same revision: exactly one wins
+  ✓ a stale write returns conflict and changes nothing
+  ✓ invalid existing JSON cannot be overwritten by the ordinary save path
+  ✓ replace succeeds when the guarded raw value is unchanged
+  ✓ replace returns conflict when another tab repaired it first
+  ✓ a failed save leaves the complete previous document intact
+  ✓ missing-weight count honours variant inheritance
+
+shipping labels (D1)
+  ✓ quoting requires a paid, unfulfilled delivery order
+  ✓ unknown and legacy-null delivery modes cannot quote
+  ✓ a foreign shipment id can never be bought from
+  ✓ exactly one concurrent purchase claim wins
+  ✓ a submitted claim can never be discarded or replaced — at any age
+  ✓ manual fulfillment loses to an in-flight purchase, and vice versa
+  ✓ a forced fulfillment mid-purchase surfaces as a reconciliation state
+  ✓ a late completion of a stale submitted claim records durably
+  ✓ reconciliation settles an uncertain attempt either way
+  ✓ a refund during the provider call blocks fulfillment and the email
+  ✓ an uncertain outcome blocks everything except reconciliation
+  ✓ a refunded-at-Shippo attempt reopens only after recording the audit trail
+  ✓ force-discard is the only local exit for a submitted attempt
+  ✓ recordPurchased lands label, fulfillment, and the shipped email in one batch
+
+shipping D1 checks passed
+D1 integration passed: migrations + seed + bound reads + paid-order write/read + cron handler
+  ✓ catch-all expansion matches the pinned SDK (234 countries)
+stripe country check passed
+
+> minshop@0.1.0 mcp:check
+> bash scripts/check-mcp.sh
+
+error TS2688: Cannot find type definition file for 'node'.
+  The file is in the program because:
+    Entry point of type library 'node' specified in compilerOptions
 ```
 - 结果: ❌ 有失败项（见上方日志）
