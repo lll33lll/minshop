@@ -1,0 +1,106 @@
+name: 应用中文化补丁
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/_apply-zh.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-zh
+  cancel-in-progress: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 下载并校验补丁
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix4.patch"
+          echo "ec66ca1f88d137a55249a9d53f829a973b9a2e88ba757c6f15e362ef17dc9325  /tmp/fix.patch" | sha256sum -c -
+
+      - name: 应用补丁并提交（已应用则跳过）
+        run: |
+          set -euo pipefail
+          if git apply --check /tmp/fix.patch 2>/dev/null; then
+            git apply --stat /tmp/fix.patch
+            git apply /tmp/fix.patch
+            git config user.name "minshop-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "fix: MediaPicker 闭合标签修复" -m "补丁 sha256: ec66ca1f88d137a55249a9d53f829a973b9a2e88ba757c6f15e362ef17dc9325"
+            git push
+          else
+            echo "补丁已应用或不再适用，跳过提交"
+          fi
+
+      - name: 失败时记录日志
+        if: failure()
+        run: |
+          {
+            echo "# apply 失败诊断"
+            echo "- 运行时间: $(date -u +%FT%TZ)"
+            echo "- HEAD: $(git rev-parse HEAD)"
+            echo
+            echo '```'
+            git apply --check --verbose /tmp/fix.patch 2>&1 || true
+            echo '```'
+          } > APPLY_ERROR.md || true
+          git config user.name "minshop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add APPLY_ERROR.md || true
+          git commit -m "chore: apply 失败诊断日志" || echo "nothing to commit"
+          git push || echo "push failed too"
+
+  verify:
+    needs: apply
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 跑全套 verify
+        run: |
+          set -o pipefail
+          {
+            echo "# verify 运行报告"
+            echo
+            echo "- 运行时间: $(date -u +%FT%TZ)"
+            echo "- 提交: $(git rev-parse --short HEAD)"
+            echo
+            echo '```'
+          } > VERIFY_REPORT.md
+          if npm run verify 2>&1 | tee -a VERIFY_REPORT.md; then
+            echo '```' >> VERIFY_REPORT.md
+            echo "- 结果: ✅ 全部通过" >> VERIFY_REPORT.md
+          else
+            echo '```' >> VERIFY_REPORT.md
+            echo "- 结果: ❌ 有失败项（见上方日志）" >> VERIFY_REPORT.md
+          fi
+
+      - name: 提交报告
+        run: |
+          git config user.name "minshop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add VERIFY_REPORT.md
+          git commit -m "chore: verify 运行报告" || echo "no changes"
+          git push
