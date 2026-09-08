@@ -24,8 +24,8 @@ jobs:
       - name: 下载并校验补丁
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix4.patch"
-          echo "ec66ca1f88d137a55249a9d53f829a973b9a2e88ba757c6f15e362ef17dc9325  /tmp/fix.patch" | sha256sum -c -
+          curl -fsSL --retry 3 -o /tmp/fix.patch "https://upload.223226.xyz/rl59zfa6qx3r6kcku0/minshop-fix5.patch"
+          echo "11599cc2c7491876d55e5a3857019ab90b8df3a6ec97cf7d596885e02ebb073d  /tmp/fix.patch" | sha256sum -c -
 
       - name: 应用补丁并提交（已应用则跳过）
         run: |
@@ -36,7 +36,7 @@ jobs:
             git config user.name "minshop-bot"
             git config user.email "actions@users.noreply.github.com"
             git add -A
-            git commit -m "fix: MediaPicker 闭合标签修复" -m "补丁 sha256: ec66ca1f88d137a55249a9d53f829a973b9a2e88ba757c6f15e362ef17dc9325"
+            git commit -m "chore: fork 标记（触发 verify 报告）" -m "补丁 sha256: 11599cc2c7491876d55e5a3857019ab90b8df3a6ec97cf7d596885e02ebb073d"
             git push
           else
             echo "补丁已应用或不再适用，跳过提交"
