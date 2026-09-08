@@ -15,7 +15,7 @@ import type { DeepPartial, SiteConfig } from './config';
  *
  * Operational switches and integrations belong in Admin → Settings.
  */
-// 本店设置：人民币计价（2026-09-08）。扫码支付通道已上线（2026-09-08）。
+// 本店设置：人民币计价（2026-09-08）。扫码支付通道已上线（2026-09-08，选择器热修复 2b49b9d 后部署）。
 export const storeOverrides: DeepPartial<SiteConfig> = {
   currency: 'cny',
 };
