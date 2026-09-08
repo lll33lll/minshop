@@ -122,7 +122,7 @@ const qrRowsRaw = (
       FROM pending_payments WHERE backend = 'qrcode' AND status = 'pending'
       ORDER BY created_at DESC LIMIT 50`,
   ).all()) ?? { results: [] as unknown[] }
-).results as QrPendingRow[];
+).results as unknown as QrPendingRow[];
 const qrPending = qrRowsRaw
   .filter((r) => !r.created_at || Date.now() - Date.parse(r.created_at.replace(' ', 'T') + 'Z') < 48 * 3600 * 1000)
   .map((r) => {

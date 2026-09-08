@@ -233,7 +233,7 @@ export async function releaseExpiredReservations(
 ): Promise<void> {
   const { results } = await db
     .prepare(
-      "SELECT public_id FROM checkout_reservations WHERE payment_method IN ('lightning', 'demo') AND status = 'active' AND expires_at <= datetime('now') ORDER BY expires_at LIMIT ?",
+      "SELECT public_id FROM checkout_reservations WHERE payment_method IN ('lightning', 'demo', 'qrcode') AND status = 'active' AND expires_at <= datetime('now') ORDER BY expires_at LIMIT ?",
     )
     .bind(limit)
     .all<{ public_id: string }>();
@@ -258,7 +258,7 @@ export async function expireSelfRenderedReservation(
   const eligible = await db
     .prepare(
       `SELECT public_id FROM checkout_reservations
-       WHERE public_id = ? AND payment_method IN ('lightning', 'demo')
+       WHERE public_id = ? AND payment_method IN ('lightning', 'demo', 'qrcode')
          AND status = 'active' AND expires_at <= datetime('now')`,
     )
     .bind(publicId)
@@ -283,7 +283,7 @@ export async function reserveInventory(
   publicId: string,
   items: ReservationItem[],
   ttlSeconds: number,
-  paymentMethod: 'stripe' | 'opennode' | 'lightning' | 'demo',
+  paymentMethod: 'stripe' | 'opennode' | 'lightning' | 'qrcode' | 'demo',
   purger?: StockTransitionPurger,
   release: DigitalDeliveryRelease = DIGITAL_DELIVERY_RELEASE,
 ): Promise<boolean> {
