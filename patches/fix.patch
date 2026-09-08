@@ -1,0 +1,25 @@
+diff --git a/src/pages/admin/settings.astro b/src/pages/admin/settings.astro
+index 3aa051f..f2813d1 100644
+--- a/src/pages/admin/settings.astro
++++ b/src/pages/admin/settings.astro
+@@ -1713,13 +1713,16 @@ const sections = [
+   // empty value as a delete — restoring the text store name.
+   document.addEventListener('media:selected', (event) => {
+     const detail = (event as CustomEvent).detail;
+-    // 一个页面多个选择器：按 detail.id 分发，选谁写谁。
++    // 注意：detail 是媒体条目（detail.id 是媒体行 id），识别"哪个选择器"
++    // 必须看事件的来源元素——冒泡链上的 [data-media-picker] 才是选择器 id。
++    const picker = (event.target as HTMLElement | null)?.closest?.('[data-media-picker]');
++    const pickerId = picker?.getAttribute('data-media-picker');
+     const attr =
+-      detail.id === 'logo'
++      pickerId === 'logo'
+         ? '[data-logo-key]'
+-        : detail.id === 'qr-wechat'
++        : pickerId === 'qr-wechat'
+           ? '[data-qr-wechat-key]'
+-          : detail.id === 'qr-alipay'
++          : pickerId === 'qr-alipay'
+             ? '[data-qr-alipay-key]'
+             : null;
+     if (!attr) return;
