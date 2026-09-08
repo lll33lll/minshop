@@ -1,7 +1,7 @@
 # verify 运行报告
 
-- 运行时间: 2026-09-08T06:09:55Z
-- 提交: b9f8ff6
+- 运行时间: 2026-09-08T06:16:26Z
+- 提交: 6af8d3e
 
 ```
 
@@ -16,7 +16,7 @@ themes: default, market, studio — active for this process: default (from theme
 
 [1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/minshop/minshop[39m
 
- [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m src/features/shipping/settings.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 57[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2msends both kinds and marks them sent, keyed on the globally-unique public id
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -496,8 +496,6 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     at rememberStoreUrl [90m(/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.ts:59:16[90m)[39m
     at Module.deliverOrderNotifications [90m(/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.ts:83:9[90m)[39m
     at [90m/home/runner/work/minshop/minshop/[39msrc/features/email/outbox.test.ts:258:15
-[90m    at runNextTicks (node:internal/process/task_queues:64:5)[39m
-[90m    at processTimers (node:internal/timers:518:9)[39m
     at [90mfile:///home/runner/work/minshop/minshop/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-artifact.js:1903:20 {
   codeFrame: [32m'vi.mock(import("../settings/db"), async (importOriginal) => {\n'[39m +
     [32m'  const actual = await importOriginal()\n'[39m +
@@ -508,7 +506,6 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 218[2mms[22m[39m
 [90mstderr[2m | src/features/email/outbox.test.ts[2m > [22m[2mdeliverOrderNotifications[2m > [22m[2mdelivers a guest-link reissue whose generation matches the registry
 [22m[39mRecording store_url failed: Error: [vitest] No "getSetting" export is defined on the "../settings/db" mock. Did you forget to return it from "vi.mock"?
 If you need to partially mock a module, you can use "importOriginal" helper inside:
@@ -601,46 +598,47 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
     [32m'})'[39m
 }
 
- [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 163[2mms[22m[39m
- [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 55[2mms[22m[39m
- [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 58[2mms[22m[39m
- [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 23[2mms[22m[39m
- [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 15[2mms[22m[39m
- [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 85[2mms[22m[39m
- [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 71[2mms[22m[39m
- [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 85[2mms[22m[39m
- [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 315[2mms[22m[39m
- [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 64[2mms[22m[39m
- [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 39[2mms[22m[39m
- [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 56[2mms[22m[39m
- [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 21[2mms[22m[39m
- [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 877[2mms[22m[39m
- [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/catalog/serialize.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 50[2mms[22m[39m
- [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 875[2mms[22m[39m
- [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 17[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 35[2mms[22m[39m
- [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/cart/key.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 53[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 55[2mms[22m[39m
- [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 31[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 50[2mms[22m[39m
- [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m src/features/email/outbox.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+ [32m✓[39m src/features/shipping/calculator.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 265[2mms[22m[39m
+ [32m✓[39m src/features/shipping/labels.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+ [32m✓[39m src/features/pages/markdown.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32m✓[39m test/scripts/deploy-plan.test.mjs [2m([22m[2m26 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m test/storefront/prose-source.test.mjs [2m([22m[2m37 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m test/storefront/shell.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 74[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetail.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 99[2mms[22m[39m
+ [32m✓[39m test/scripts/rollout-gates.test.mjs [2m([22m[2m21 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m test/storefront/catalog.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+ [32m✓[39m src/features/shipping/weight.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 265[2mms[22m[39m
+ [32m✓[39m src/features/products/image.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/features/navigation/db.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m test/storefront/productCard.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32m✓[39m test/storefront/productDetailLoader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/features/products/form.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+ [32m✓[39m test/storefront/theme-resolver.test.mjs [2m([22m[2m29 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m src/features/cache/public.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/payments/stripeCountries.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m test/storefront/boundary.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[33m 974[2mms[22m[39m
+ [32m✓[39m src/features/media/dimensions.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/ids/leakGate.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m test/storefront/admin-isolation.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/features/catalog/serialize.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m src/features/payments/opennode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m src/features/auth/access.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 653[2mms[22m[39m
+ [32m✓[39m src/features/settings/availability.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/pages/layouts.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m src/features/orders/filter.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/search/vector.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m test/storefront/shell-source.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/cart/key.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m src/features/pages/form.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m src/features/products/filter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/rate.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m src/features/media/upload.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/phoenixd.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m src/features/auth/rateLimit.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 55[2mms[22m[39m
  [32m✓[39m src/features/media/usage.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m test/scripts/migrations-remote-safe.test.mjs [2m([22m[2m41 tests[22m[2m)[22m[32m 15[2mms[22m[39m
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mfalls back to purge-everything after a rejected tag purge
 [22m[39m{"event":"workers_cache_purge_failed","mode":"tags","errors":[{"code":429,"message":"rate limited"}]}
 
@@ -650,60 +648,60 @@ If you need to partially mock a module, you can use "importOriginal" helper insi
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mthrows when both purge attempts fail
 [22m[39m{"event":"workers_cache_purge_failed","mode":"everything","errors":[{"code":429,"message":"rate limited"}]}
 
+ [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 60[2mms[22m[39m
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mfails a deployment purge when Cloudflare rejects it
 [22m[39m{"event":"workers_cache_purge_failed","mode":"everything","errors":[{"code":429,"message":"rate limited"}]}
 
 [90mstderr[2m | src/features/cache/purge.test.ts[2m > [22m[2mWorkers cache purge[2m > [22m[2mdoes not turn a rate-limited stock transition into purge-everything
 [22m[39m{"event":"workers_cache_purge_failed","mode":"stock-tags","errors":[{"code":429,"message":"rate limited"}]}
 
- [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m test/storefront/contentPage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 49[2mms[22m[39m
- [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 40[2mms[22m[39m
- [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 32[2mms[22m[39m
- [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 60[2mms[22m[39m
- [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
- [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
- [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 28[2mms[22m[39m
- [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 37[2mms[22m[39m
- [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
- [32m✓[39m src/features/cart/cart.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
- [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
- [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 307[2mms[22m[39m
+ [32m✓[39m src/features/cache/purge.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/features/auth/turnstile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m src/features/products/sort.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/email/orderRefunded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m src/features/settings/home.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/ids/token.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 77[2mms[22m[39m
+ [32m✓[39m src/features/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/pagination.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/email/orderNotification.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/money.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m src/features/auth/formOrigin.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m src/features/orders/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/features/cart/cart.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/features/payments/lightning/lnbits.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m src/features/cache/deployPurgeAuth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m src/features/settings/db.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/cache/tags.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m src/features/secrets/crypto.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m src/features/auth/password.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 263[2mms[22m[39m
  [32m✓[39m src/pages/sitemap.xml.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
- [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
- [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/features/customers/sort.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/ids/publicId.truncate.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/auth/token.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/features/products/digitalFile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/features/products/stock.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
  [32m✓[39m src/features/auth/accessGate.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/features/orders/number.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 20[2mms[22m[39m
  [32m✓[39m src/features/products/search.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 59[2mms[22m[39m
- [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/email/orderPolicy.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/products/related.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/storage/r2.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m test/storefront/smoke.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m src/features/catalog/query.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/features/http/origin.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 9[2mms[22m[39m
  [32m✓[39m src/features/search/query.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/features/products/slug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
  [32m✓[39m src/features/orders/reservations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m src/features/products/slug.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/features/settings/timeZone.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 17[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m81 passed[39m[22m[90m (81)[39m
 [2m      Tests [22m [1m[32m906 passed[39m[22m[90m (906)[39m
-[2m   Start at [22m 06:09:56
-[2m   Duration [22m 8.12s[2m (transform 3.11s, setup 0ms, import 6.54s, tests 4.60s, environment 11ms)[22m
+[2m   Start at [22m 06:16:27
+[2m   Duration [22m 8.80s[2m (transform 3.41s, setup 0ms, import 7.32s, tests 4.63s, environment 16ms)[22m
 
-[2m06:10:08[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
-[2m06:10:08[22m [34m[types][39m Generated [2m308ms[22m
-[2m06:10:08[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
+[2m06:16:40[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m06:16:40[22m [34m[types][39m Generated [2m361ms[22m
+[2m06:16:40[22m [34m[check][39m Getting diagnostics for Astro files in /home/runner/work/minshop/minshop...
 [96mcreate-minshop/src/scaffold.js[0m:[93m1[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'readdirSync' is declared but its value is never read.
 
 [7m1[0m import { cpSync, existsSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -724,23 +722,23 @@ Result (369 files):
 > node scripts/check-themes.mjs
 
 storefront boundary: ok
-[2m06:10:27[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
-[2m06:10:27[22m [34m[types][39m Generated [2m73ms[22m
-[2m06:10:27[22m [34m[build][39m output: [34m"server"[39m
-[2m06:10:27[22m [34m[build][39m mode: [34m"server"[39m
-[2m06:10:27[22m [34m[build][39m directory: [34m/home/runner/work/minshop/minshop/dist/[39m
-[2m06:10:27[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
-[2m06:10:27[22m [34m[build][39m Collecting build info...
-[2m06:10:27[22m [34m[build][39m [32m✓ Completed in 137ms.[39m
-[2m06:10:27[22m [34m[build][39m Building server entrypoints...
-[2m06:10:28[22m [34m[vite][39m [32m✓ built in 189ms[39m
-[2m06:10:29[22m [34m[vite][39m [32m✓ built in 881ms[39m
-[2m06:10:29[22m [34m[vite][39m [32m✓ built in 28ms[39m
-[2m06:10:29[22m [34m[build][39m Rearranging server assets...
-[2m06:10:29[22m [34m[build][39m [32m✓ Completed in 1.17s.[39m
-[2m06:10:29[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
-[2m06:10:29[22m [34m[build][39m Server built in [1m1.31s[22m
-[2m06:10:29[22m [34m[build][39m [1mComplete![22m
+[2m06:17:00[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m06:17:00[22m [34m[types][39m Generated [2m84ms[22m
+[2m06:17:00[22m [34m[build][39m output: [34m"server"[39m
+[2m06:17:00[22m [34m[build][39m mode: [34m"server"[39m
+[2m06:17:00[22m [34m[build][39m directory: [34m/home/runner/work/minshop/minshop/dist/[39m
+[2m06:17:00[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
+[2m06:17:00[22m [34m[build][39m Collecting build info...
+[2m06:17:00[22m [34m[build][39m [32m✓ Completed in 156ms.[39m
+[2m06:17:00[22m [34m[build][39m Building server entrypoints...
+[2m06:17:01[22m [34m[vite][39m [32m✓ built in 195ms[39m
+[2m06:17:02[22m [34m[vite][39m [32m✓ built in 927ms[39m
+[2m06:17:02[22m [34m[vite][39m [32m✓ built in 32ms[39m
+[2m06:17:02[22m [34m[build][39m Rearranging server assets...
+[2m06:17:02[22m [34m[build][39m [32m✓ Completed in 1.22s.[39m
+[2m06:17:02[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
+[2m06:17:02[22m [34m[build][39m Server built in [1m1.38s[22m
+[2m06:17:02[22m [34m[build][39m [1mComplete![22m
 check-built-css: ok — active "default" present (11 sentinels), 2 inactive themes excluded, Admin isolated, across 2 stylesheets.
 
 > minshop@0.1.0 test:integration
@@ -923,8 +921,143 @@ stripe country check passed
 > minshop@0.1.0 mcp:check
 > bash scripts/check-mcp.sh
 
-error TS2688: Cannot find type definition file for 'node'.
-  The file is in the program because:
-    Entry point of type library 'node' specified in compilerOptions
+
+ ⛅️ wrangler 4.118.0 (update available 4.129.1)
+───────────────────────────────────────────────
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProcessing mcp/.wrangler-check.YmqRLG.jsonc configuration:[0m
+
+    - "unsafe" fields are experimental and may change or break at any time.
+
+
+Total Upload: 2747.89 KiB / gzip: 511.72 KiB
+Your Worker has access to the following bindings:
+Binding                                                         Resource                  
+env.STORE_MCP (StoreMcp)                                        Durable Object            
+env.DB (minshop-check-db)                                       D1 Database               
+env.MCP_RATE_LIMITER (ratelimit)                                Unsafe Metadata           
+env.STOREFRONT_URL ("https://minshop-check.workers.dev")        Environment Variable      
+
+--dry-run: exiting now.
+
+> minshop@0.1.0 scaffold:check
+> npm test --prefix create-minshop && npm pack ./create-minshop --dry-run
+
+
+> create-minshop@0.2.0 test
+> node --test
+
+TAP version 13
+# Subtest: parses the npm create options
+ok 1 - parses the npm create options
+  ---
+  duration_ms: 1.652122
+  type: 'test'
+  ...
+# Subtest: accepts supported Node release lines
+ok 2 - accepts supported Node release lines
+  ---
+  duration_ms: 0.329214
+  type: 'test'
+  ...
+# Subtest: rejects unsupported Node release lines
+ok 3 - rejects unsupported Node release lines
+  ---
+  duration_ms: 0.508649
+  type: 'test'
+  ...
+# Subtest: scaffolds a clean storefront repository
+ok 4 - scaffolds a clean storefront repository
+  ---
+  duration_ms: 49.424267
+  type: 'test'
+  ...
+# Subtest: refuses to overwrite an existing target
+ok 5 - refuses to overwrite an existing target
+  ---
+  duration_ms: 0.455249
+  type: 'test'
+  ...
+# Subtest: derives a theme id from the target directory
+ok 6 - derives a theme id from the target directory
+  ---
+  duration_ms: 0.23045
+  type: 'test'
+  ...
+# Subtest: suffixes rather than fails when the directory name is reserved
+ok 7 - suffixes rather than fails when the directory name is reserved
+  ---
+  duration_ms: 0.205764
+  type: 'test'
+  ...
+# Subtest: rejects reserved and malformed theme ids
+ok 8 - rejects reserved and malformed theme ids
+  ---
+  duration_ms: 0.372115
+  type: 'test'
+  ...
+# Subtest: enforces the application resolver 40-character limit on explicit ids
+ok 9 - enforces the application resolver 40-character limit on explicit ids
+  ---
+  duration_ms: 0.371874
+  type: 'test'
+  ...
+# Subtest: normalizeThemeId returns null when nothing usable survives
+ok 10 - normalizeThemeId returns null when nothing usable survives
+  ---
+  duration_ms: 0.418761
+  type: 'test'
+  ...
+# Subtest: gives the generated store its own theme, selected
+ok 11 - gives the generated store its own theme, selected
+  ---
+  duration_ms: 37.476851
+  type: 'test'
+  ...
+# Subtest: the generated repository CI matrix discovers every theme it carries
+ok 12 - the generated repository CI matrix discovers every theme it carries
+  ---
+  duration_ms: 66.348917
+  type: 'test'
+  ...
+# Subtest: honours an explicit --theme id
+ok 13 - honours an explicit --theme id
+  ---
+  duration_ms: 35.64039
+  type: 'test'
+  ...
+# Subtest: parses --theme
+ok 14 - parses --theme
+  ---
+  duration_ms: 0.245088
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 273.320034
+npm notice
+npm notice 📦  create-minshop@0.2.0
+npm notice Tarball Contents
+npm notice 1.1kB LICENSE
+npm notice 1.3kB README.md
+npm notice 1.2kB bin/create-minshop.js
+npm notice 852B package.json
+npm notice 7.3kB src/scaffold.js
+npm notice Tarball Details
+npm notice name: create-minshop
+npm notice version: 0.2.0
+npm notice filename: create-minshop-0.2.0.tgz
+npm notice package size: 4.8 kB
+npm notice unpacked size: 11.7 kB
+npm notice shasum: 21be5d4911f691c72b83ffadfece51e8836d3a38
+npm notice integrity: sha512-T3uieIUQR4gQE[...]GWYr3jMO8CCTA==
+npm notice total files: 5
+npm notice
+create-minshop-0.2.0.tgz
 ```
-- 结果: ❌ 有失败项（见上方日志）
+- 结果: ✅ 全部通过
